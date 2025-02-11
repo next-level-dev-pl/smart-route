@@ -205,7 +205,7 @@
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "body": "{\n  \"result\": [\n    {\n      \"busstopId\": \"7009\",\n      \"busstopNr\": \"01\",\n      \"line\": \"523\",\n      \"times\": [{\"hour\": \"12\", \"minute\": \"30\"}]\n    }\n  ]\n}"
+              "body": "\"result\": [\n        [\n            {\n                \"key\": \"symbol_2\",\n                \"value\": null\n            },\n            {\n                \"key\": \"symbol_1\",\n                \"value\": null\n            },\n            {\n                \"key\": \"brygada\",\n                \"value\": \"1\"\n            },\n            {\n                \"key\": \"kierunek\",\n                \"value\": \"Dw. Centralny\"\n            },\n            {\n                \"key\": \"trasa\",\n                \"value\": \"TP-DWC\"\n            },\n            {\n                \"key\": \"czas\",\n                \"value\": \"08:17:00\"\n            }\n        ],\n        [\n            {\n                \"key\": \"symbol_2\",\n                \"value\": null\n            },\n            {\n                \"key\": \"symbol_1\",\n                \"value\": null\n            },\n            {\n                \"key\": \"brygada\",\n                \"value\": \"2\"\n            },\n            {\n                \"key\": \"kierunek\",\n                \"value\": \"Dw. Centralny\"\n            },\n            {\n                \"key\": \"trasa\",\n                \"value\": \"TP-DWC\"\n            },\n            {\n                \"key\": \"czas\",\n                \"value\": \"12:34:00\"\n            }\n        ]"
             }
           ]
         }
