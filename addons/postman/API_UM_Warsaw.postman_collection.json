@@ -1,0 +1,215 @@
+{
+  "info": {
+    "_postman_id": "WPT-env-id",
+    "name": "Warsaw Public Transport API",
+    "description": "Collection to interact with Warsaw public transport API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "GET methods template",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.um.warszawa.pl/api/action/dbtimetable_get/?id={{RESOURCE_ID}}&busstopId={{BUSSTOP_ID}}&busstopNr={{BUSSTOP_NR}}&line={{LINE}}&apikey={{API_KEY}}",
+          "protocol": "https",
+          "host": [
+            "api",
+            "um",
+            "warszawa",
+            "pl"
+          ],
+          "path": [
+            "api",
+            "action",
+            "dbtimetable_get"
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": "{{RESOURCE_ID}}",
+              "description": "Unique ID for the current resource (static)"
+            },
+            {
+              "key": "busstopId",
+              "value": "{{BUSSTOP_ID}}",
+              "description": "Bus stop ID"
+            },
+            {
+              "key": "busstopNr",
+              "value": "{{BUSSTOP_NR}}",
+              "description": "Bus stop number"
+            },
+            {
+              "key": "line",
+              "value": "{{LINE}}",
+              "description": "Bus line number"
+            },
+            {
+              "key": "apikey",
+              "value": "{{API_KEY}}",
+              "description": "API Key for authentication"
+            }
+          ]
+        },
+        "description": "Fetches the resources for a specific values. The 'id' parameter refers to the unique identifier of the resource dataset."
+      }
+    },
+    {
+      "name": "Timetable",
+      "item": [
+        {
+          "name": "Get Bus Timetable template",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.um.warszawa.pl/api/action/dbtimetable_get/?id=e923fa0e-d96c-43f9-ae6e-60518c9f3238&busstopId={{BUSSTOP_ID}}&busstopNr={{BUSSTOP_NR}}&line={{LINE}}&apikey={{API_KEY}}",
+              "protocol": "https",
+              "host": [
+                "api",
+                "um",
+                "warszawa",
+                "pl"
+              ],
+              "path": [
+                "api",
+                "action",
+                "dbtimetable_get"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "e923fa0e-d96c-43f9-ae6e-60518c9f3238",
+                  "description": "Unique ID for the timetable (static)"
+                },
+                {
+                  "key": "busstopId",
+                  "value": "{{BUSSTOP_ID}}",
+                  "description": "Bus stop ID"
+                },
+                {
+                  "key": "busstopNr",
+                  "value": "{{BUSSTOP_NR}}",
+                  "description": "Bus stop number"
+                },
+                {
+                  "key": "line",
+                  "value": "{{LINE}}",
+                  "description": "Bus line number"
+                },
+                {
+                  "key": "apikey",
+                  "value": "{{API_KEY}}",
+                  "description": "API Key for authentication"
+                }
+              ]
+            },
+            "description": "Fetches the timetable for a specific bus stop and line. The 'id' parameter refers to the unique identifier of the timetable dataset."
+          }
+        },
+        {
+          "name": "Get Bus Timetable example",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.um.warszawa.pl/api/action/dbtimetable_get/?id=e923fa0e-d96c-43f9-ae6e-60518c9f3238&busstopId={{BUSSTOP_ID}}&busstopNr={{BUSSTOP_NR}}&line={{LINE}}&apikey={{API_KEY}}",
+              "protocol": "https",
+              "host": [
+                "api",
+                "um",
+                "warszawa",
+                "pl"
+              ],
+              "path": [
+                "api",
+                "action",
+                "dbtimetable_get"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "e923fa0e-d96c-43f9-ae6e-60518c9f3238",
+                  "description": "Unique ID for the timetable (static)"
+                },
+                {
+                  "key": "busstopId",
+                  "value": "7009",
+                  "description": "Bus stop ID"
+                },
+                {
+                  "key": "busstopNr",
+                  "value": "02",
+                  "description": "Bus stop number"
+                },
+                {
+                  "key": "line",
+                  "value": "520",
+                  "description": "Bus line number"
+                },
+                {
+                  "key": "apikey",
+                  "value": "{{API_KEY}}",
+                  "description": "API Key for authentication"
+                }
+              ]
+            },
+            "description": "Fetches the timetable for a specific bus stop and line. The 'id' parameter refers to the unique identifier of the timetable dataset."
+          },
+          "response": [
+            {
+              "name": "Example Request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.um.warszawa.pl/api/action/dbtimetable_get/?id=e923fa0e-d96c-43f9-ae6e-60518c9f3238&busstopId=7009&busstopNr=01&line=523&apikey=your_api_key",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "um",
+                    "warszawa",
+                    "pl"
+                  ],
+                  "path": [
+                    "api",
+                    "action",
+                    "dbtimetable_get"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "e923fa0e-d96c-43f9-ae6e-60518c9f3238"
+                    },
+                    {
+                      "key": "busstopId",
+                      "value": "7009"
+                    },
+                    {
+                      "key": "busstopNr",
+                      "value": "01"
+                    },
+                    {
+                      "key": "line",
+                      "value": "523"
+                    },
+                    {
+                      "key": "apikey",
+                      "value": "your_api_key"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "body": "{\n  \"result\": [\n    {\n      \"busstopId\": \"7009\",\n      \"busstopNr\": \"01\",\n      \"line\": \"523\",\n      \"times\": [{\"hour\": \"12\", \"minute\": \"30\"}]\n    }\n  ]\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
