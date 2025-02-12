@@ -38,6 +38,14 @@ We decided to use Warsaw public transport API: https://api.um.warszawa.pl/. So W
 - [ ] Reversing the route (from A → B to B → A)
 - [ ] Estimated travel time (based on communication data)
 
+### New Route Search Functionality
+
+We have added a new route search functionality to the project. This allows users to search for a route from point A to point B using the following endpoint:
+
+- `GET /route/search?from=?&to=?`
+
+This endpoint takes two parameters, `from` and `to`, which represent the starting point and destination point of the route, respectively. The search results will provide the route details between these points.
+
 Draft of "nice to haves":
 - [ ] Planning group trips (e.g. friends meet in one place, and the system plans optimal routes for everyone).
 - [ ] Trip planning - AI generates ready-made trip plans, taking into account the user's preferences (e.g. visiting museums, dining at restaurants etc.).
