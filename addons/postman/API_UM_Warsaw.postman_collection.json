@@ -12,18 +12,12 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "https://api.um.warszawa.pl/api/action/dbtimetable_get/?id={{RESOURCE_ID}}&busstopId={{BUSSTOP_ID}}&busstopNr={{BUSSTOP_NR}}&line={{LINE}}&apikey={{API_KEY}}",
-          "protocol": "https",
+          "raw": "{{BASE_URL}}/{{RESOURCE_URL}}",
           "host": [
-            "api",
-            "um",
-            "warszawa",
-            "pl"
+            "{{BASE_URL}}"
           ],
           "path": [
-            "api",
-            "action",
-            "dbtimetable_get"
+            "{{RESOURCE_URL}}"
           ],
           "query": [
             {
@@ -39,7 +33,7 @@
             {
               "key": "busstopNr",
               "value": "{{BUSSTOP_NR}}",
-              "description": "Bus stop number"
+          "description": "Bus stop number"
             },
             {
               "key": "line",
@@ -65,24 +59,18 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "https://api.um.warszawa.pl/api/action/dbtimetable_get/?id=e923fa0e-d96c-43f9-ae6e-60518c9f3238&busstopId={{BUSSTOP_ID}}&busstopNr={{BUSSTOP_NR}}&line={{LINE}}&apikey={{API_KEY}}",
-              "protocol": "https",
+              "raw": "{{BASE_URL}}/{{TIMETABLE_RESOURCE_URL}}",
               "host": [
-                "api",
-                "um",
-                "warszawa",
-                "pl"
+                "{{BASE_URL}}"
               ],
               "path": [
-                "api",
-                "action",
-                "dbtimetable_get"
+                "{{TIMETABLE_RESOURCE_URL}}"
               ],
               "query": [
                 {
                   "key": "id",
                   "value": "e923fa0e-d96c-43f9-ae6e-60518c9f3238",
-                  "description": "Unique ID for the timetable (static)"
+                  "description": "Unique ID for the bus timetable (static)"
                 },
                 {
                   "key": "busstopId",
@@ -106,7 +94,7 @@
                 }
               ]
             },
-            "description": "Fetches the timetable for a specific bus stop and line. The 'id' parameter refers to the unique identifier of the timetable dataset."
+            "description": "Fetches the timetable for a specific bus stop and line. The 'id' parameter refers to the unique identifier of the bus timetable dataset."
           }
         },
         {
@@ -115,24 +103,18 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "https://api.um.warszawa.pl/api/action/dbtimetable_get/?id=e923fa0e-d96c-43f9-ae6e-60518c9f3238&busstopId={{BUSSTOP_ID}}&busstopNr={{BUSSTOP_NR}}&line={{LINE}}&apikey={{API_KEY}}",
-              "protocol": "https",
+              "raw": "{{BASE_URL}}/{{TIMETABLE_RESOURCE_URL}}",
               "host": [
-                "api",
-                "um",
-                "warszawa",
-                "pl"
+                "{{BASE_URL}}"
               ],
               "path": [
-                "api",
-                "action",
-                "dbtimetable_get"
+                "{{TIMETABLE_RESOURCE_URL}}"
               ],
               "query": [
                 {
                   "key": "id",
                   "value": "e923fa0e-d96c-43f9-ae6e-60518c9f3238",
-                  "description": "Unique ID for the timetable (static)"
+                  "description": "Unique ID for the bus timetable (static)"
                 },
                 {
                   "key": "busstopId",
@@ -156,7 +138,7 @@
                 }
               ]
             },
-            "description": "Fetches the timetable for a specific bus stop and line. The 'id' parameter refers to the unique identifier of the timetable dataset."
+            "description": "Fetches the timetable for a specific bus stop and line. The 'id' parameter refers to the unique identifier of the bus timetable dataset."
           },
           "response": [
             {
@@ -165,39 +147,38 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "https://api.um.warszawa.pl/api/action/dbtimetable_get/?id=e923fa0e-d96c-43f9-ae6e-60518c9f3238&busstopId=7009&busstopNr=01&line=523&apikey=your_api_key",
-                  "protocol": "https",
+                  "raw": "{{BASE_URL}}/{{TIMETABLE_RESOURCE_URL}}",
                   "host": [
-                    "api",
-                    "um",
-                    "warszawa",
-                    "pl"
+                    "{{BASE_URL}}"
                   ],
                   "path": [
-                    "api",
-                    "action",
-                    "dbtimetable_get"
+                    "{{TIMETABLE_RESOURCE_URL}}"
                   ],
                   "query": [
                     {
                       "key": "id",
-                      "value": "e923fa0e-d96c-43f9-ae6e-60518c9f3238"
+                      "value": "e923fa0e-d96c-43f9-ae6e-60518c9f3238",
+                      "description": "Unique ID for the bus timetable (static)"
                     },
                     {
                       "key": "busstopId",
-                      "value": "7009"
+                      "value": "7009",
+                      "description": "Bus stop ID"
                     },
                     {
                       "key": "busstopNr",
-                      "value": "01"
+                      "value": "02",
+                      "description": "Bus stop number"
                     },
                     {
                       "key": "line",
-                      "value": "523"
+                      "value": "520",
+                      "description": "Bus line number"
                     },
                     {
                       "key": "apikey",
-                      "value": "your_api_key"
+                      "value": "{{API_KEY}}",
+                      "description": "API Key for authentication"
                     }
                   ]
                 }
@@ -205,7 +186,7 @@
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "body": "\"result\": [\n        [\n            {\n                \"key\": \"symbol_2\",\n                \"value\": null\n            },\n            {\n                \"key\": \"symbol_1\",\n                \"value\": null\n            },\n            {\n                \"key\": \"brygada\",\n                \"value\": \"1\"\n            },\n            {\n                \"key\": \"kierunek\",\n                \"value\": \"Dw. Centralny\"\n            },\n            {\n                \"key\": \"trasa\",\n                \"value\": \"TP-DWC\"\n            },\n            {\n                \"key\": \"czas\",\n                \"value\": \"08:17:00\"\n            }\n        ],\n        [\n            {\n                \"key\": \"symbol_2\",\n                \"value\": null\n            },\n            {\n                \"key\": \"symbol_1\",\n                \"value\": null\n            },\n            {\n                \"key\": \"brygada\",\n                \"value\": \"2\"\n            },\n            {\n                \"key\": \"kierunek\",\n                \"value\": \"Dw. Centralny\"\n            },\n            {\n                \"key\": \"trasa\",\n                \"value\": \"TP-DWC\"\n            },\n            {\n                \"key\": \"czas\",\n                \"value\": \"12:34:00\"\n            }\n        ]"
+              "body": " {\n    \"result\": [\n        [\n            {\n                \"key\": \"symbol_2\",\n                \"value\": null\n            },\n            {\n                \"key\": \"symbol_1\",\n                \"value\": null\n            },\n            {\n                \"key\": \"brygada\",\n                \"value\": \"1\"\n            },\n            {\n                \"key\": \"kierunek\",\n                \"value\": \"Dw. Centralny\"\n            },\n            {\n                \"key\": \"trasa\",\n                \"value\": \"TP-DWC\"\n            },\n            {\n                \"key\": \"czas\",\n                \"value\": \"08:17:00\"\n            }\n        ],\n        [\n            {\n                \"key\": \"symbol_2\",\n                \"value\": null\n            },\n            {\n                \"key\": \"symbol_1\",\n                \"value\": null\n            },\n            {\n                \"key\": \"brygada\",\n                \"value\": \"2\"\n            },\n            {\n                \"key\": \"kierunek\",\n                \"value\": \"Dw. Centralny\"\n            },\n            {\n                \"key\": \"trasa\",\n                \"value\": \"TP-DWC\"\n            },\n            {\n                \"key\": \"czas\",\n                \"value\": \"12:34:00\"\n            }\n        ]\n    ]\n}"
             }
           ]
         }
