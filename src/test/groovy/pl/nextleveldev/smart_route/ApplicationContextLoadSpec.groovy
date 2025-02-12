@@ -7,7 +7,7 @@ import org.springframework.context.ApplicationContext
 import spock.lang.Specification
 
 @SpringBootTest
-class ApplicationContextLoadTest extends Specification {
+class ApplicationContextLoadSpec extends Specification {
 
     @Autowired
     ApplicationContext context
