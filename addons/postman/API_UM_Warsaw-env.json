@@ -18,6 +18,11 @@
       "enabled": true
     },
     {
+      "key": "BUS_LINE_AVAILABLE_ON_CURRENT_BUS_STOP_RESOURCE_ID",
+      "value": "88cd555f-6f31-43ca-9de4-66c479ad5942",
+      "enabled": true
+    },
+    {
       "key": "API_KEY",
       "value": "",
       "enabled": true

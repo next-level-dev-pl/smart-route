@@ -54,7 +54,7 @@
       "name": "Timetable",
       "item": [
         {
-          "name": "Get Bus Timetable template",
+          "name": "Bus Timetable TEMPLATE",
           "request": {
             "method": "GET",
             "header": [],
@@ -98,7 +98,46 @@
           }
         },
         {
-          "name": "Get Bus Timetable example",
+          "name": "Bus line available on current bus stop TEMPLATE",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/{{TIMETABLE_RESOURCE_URL}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "{{TIMETABLE_RESOURCE_URL}}"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "88cd555f-6f31-43ca-9de4-66c479ad5942",
+                  "description": "Unique ID for the bus lines available on current bus stop (static)"
+                },
+                {
+                  "key": "busstopId",
+                  "value": "{{BUSSTOP_ID}}",
+                  "description": "Bus stop ID"
+                },
+                {
+                  "key": "busstopNr",
+                  "value": "{{BUSSTOP_NR}}",
+                  "description": "Bus stop number"
+                },
+                {
+                  "key": "apikey",
+                  "value": "{{API_KEY}}",
+                  "description": "API Key for authentication"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Bus Timetable example",
           "request": {
             "method": "GET",
             "header": [],
@@ -187,6 +226,88 @@
               "code": 200,
               "_postman_previewlanguage": "json",
               "body": " {\n    \"result\": [\n        [\n            {\n                \"key\": \"symbol_2\",\n                \"value\": null\n            },\n            {\n                \"key\": \"symbol_1\",\n                \"value\": null\n            },\n            {\n                \"key\": \"brygada\",\n                \"value\": \"1\"\n            },\n            {\n                \"key\": \"kierunek\",\n                \"value\": \"Dw. Centralny\"\n            },\n            {\n                \"key\": \"trasa\",\n                \"value\": \"TP-DWC\"\n            },\n            {\n                \"key\": \"czas\",\n                \"value\": \"08:17:00\"\n            }\n        ],\n        [\n            {\n                \"key\": \"symbol_2\",\n                \"value\": null\n            },\n            {\n                \"key\": \"symbol_1\",\n                \"value\": null\n            },\n            {\n                \"key\": \"brygada\",\n                \"value\": \"2\"\n            },\n            {\n                \"key\": \"kierunek\",\n                \"value\": \"Dw. Centralny\"\n            },\n            {\n                \"key\": \"trasa\",\n                \"value\": \"TP-DWC\"\n            },\n            {\n                \"key\": \"czas\",\n                \"value\": \"12:34:00\"\n            }\n        ]\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Bus line available on current bus stop example",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/{{TIMETABLE_RESOURCE_URL}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "{{TIMETABLE_RESOURCE_URL}}"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "88cd555f-6f31-43ca-9de4-66c479ad5942",
+                  "description": "Unique ID for the bus lines available on current bus stop (static)"
+                },
+                {
+                  "key": "busstopId",
+                  "value": "7009",
+                  "description": "Bus stop ID"
+                },
+                {
+                  "key": "busstopNr",
+                  "value": "02",
+                  "description": "Bus stop number"
+                },
+                {
+                  "key": "apikey",
+                  "value": "{{API_KEY}}",
+                  "description": "API Key for authentication"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BASE_URL}}/{{TIMETABLE_RESOURCE_URL}}",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "{{TIMETABLE_RESOURCE_URL}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "88cd555f-6f31-43ca-9de4-66c479ad5942",
+                      "description": "Unique ID for the bus lines available on current bus stop (static)"
+                    },
+                    {
+                      "key": "busstopId",
+                      "value": "7009",
+                      "description": "Bus stop ID"
+                    },
+                    {
+                      "key": "busstopNr",
+                      "value": "02",
+                      "description": "Bus stop number"
+                    },
+                    {
+                      "key": "apikey",
+                      "value": "{{API_KEY}}",
+                      "description": "API Key for authentication"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "body": "{\n    \"result\": [\n        {\n            \"values\": [\n                {\n                    \"key\": \"linia\",\n                    \"value\": \"151\"\n                }\n            ]\n        },\n        {\n            \"values\": [\n                {\n                    \"key\": \"linia\",\n                    \"value\": \"143\"\n                }\n            ]\n        },\n        {\n            \"values\": [\n                {\n                    \"key\": \"linia\",\n                    \"value\": \"182\"\n                }\n            ]\n        }}"
             }
           ]
         }
