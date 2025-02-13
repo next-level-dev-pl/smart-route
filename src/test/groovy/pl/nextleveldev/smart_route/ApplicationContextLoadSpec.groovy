@@ -12,12 +12,12 @@ class ApplicationContextLoadSpec extends Specification {
     @Autowired
     ApplicationContext context
 
-    @Value('${spring.application.name}')
+    @Value("\${spring.application.name}")
     private String appName
 
     def "should load spring context"() {
         expect:
         context != null
-        context.id.contains(appName)
+        context.getEnvironment().getProperty("spring.application.name") == appName
     }
 }
