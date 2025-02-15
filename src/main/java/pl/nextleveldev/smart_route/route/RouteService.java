@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-class RouteService {
-    List<?> searchRoute(final String startLocation, final String destination) {
+public class RouteService {
+    public List<?> searchRoute(final String startLocation, final String destination) {
         return null;
     }
 }
