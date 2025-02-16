@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.4.2'
 	id 'io.spring.dependency-management' version '1.1.7'
+	id 'groovy'
 }
 
 group = 'pl.nextleveldev'
@@ -30,6 +31,11 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// Spock
+	testImplementation 'org.spockframework:spock-core:2.4-M1-groovy-4.0'
+	testImplementation 'org.spockframework:spock-spring:2.4-M1-groovy-4.0'
+
 }
 
 tasks.named('test') {

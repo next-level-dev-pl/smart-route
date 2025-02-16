@@ -1,0 +1,34 @@
+{
+  "id": "WPT-env-id",
+  "name": "Warsaw Public Transport",
+  "values": [
+    {
+      "key": "BASE_URL",
+      "value": "https://api.um.warszawa.pl",
+      "enabled": true
+    },
+    {
+      "key": "TIMETABLE_RESOURCE_URL",
+      "value": "api/action/dbtimetable_get",
+      "enabled": true
+    },
+    {
+      "key": "TIMETABLE_RESOURCE_ID",
+      "value": "e923fa0e-d96c-43f9-ae6e-60518c9f3238",
+      "enabled": true
+    },
+    {
+      "key": "BUS_LINE_AVAILABLE_ON_CURRENT_BUS_STOP_RESOURCE_ID",
+      "value": "88cd555f-6f31-43ca-9de4-66c479ad5942",
+      "enabled": true
+    },
+    {
+      "key": "API_KEY",
+      "value": "",
+      "enabled": true
+    }
+  ],
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2025-02-12T12:00:00.000Z",
+  "_postman_exported_using": "Postman v10.19.1"
+}
