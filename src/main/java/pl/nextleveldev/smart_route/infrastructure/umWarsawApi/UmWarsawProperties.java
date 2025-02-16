@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Getter
-public class UmWarsawProperties {
+class UmWarsawProperties {
 
     @Value("${um.warsaw.api-key}")
     private String apiKey;
