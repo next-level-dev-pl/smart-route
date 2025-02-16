@@ -18,7 +18,7 @@ class UmWarsawClient implements UmWarsawAPI {
         return umWarsawWebClient.get()
                 .uri(urlBuilder -> urlBuilder.scheme("https")
                         .path(properties.getTimetableResourceUrl())
-                        .queryParam("id", properties.getBusLineOnStop())
+                        .queryParam("id", properties.getBusLineOnStopResourceId())
                         .queryParam("busstopId", stopId)
                         .queryParam("busstopNr", stopNr)
                         .queryParam("apikey", properties.getApiKey())
