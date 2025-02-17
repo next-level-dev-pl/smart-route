@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: smart-route
+
+um:
+  warsaw:
+    api-key: ${UM_WARSAW_API_KEY}
+    base-url: https://api.um.warszawa.pl
+    timetable:
+      resource-path: api/action/dbtimetable_get
+      resource-id: e923fa0e-d96c-43f9-ae6e-60518c9f3238
