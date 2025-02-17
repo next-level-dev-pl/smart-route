@@ -11,12 +11,12 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 @RestController
-@RequestMapping("/route")
+@RequestMapping("/routes")
 @RequiredArgsConstructor
-public class RouteController {
+class RouteController {
 
-    @GetMapping("/search")
-    public ResponseEntity<Void> searchRoute(
+    @GetMapping
+    public ResponseEntity<?> searchRoute(
             @RequestParam("start") String start,
             @RequestParam("destination") String destination
     ) {

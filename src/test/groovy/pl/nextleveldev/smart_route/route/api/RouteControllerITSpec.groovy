@@ -18,7 +18,7 @@ class RouteControllerITSpec extends Specification {
 
     def "should load spring context"() {
         when:
-        def result = mockMvc.perform(get("/route/search")
+        def result = mockMvc.perform(get("/routes")
                 .param("start", "Centrum 02")
                 .param("destination", "Prosta 01")
         )
