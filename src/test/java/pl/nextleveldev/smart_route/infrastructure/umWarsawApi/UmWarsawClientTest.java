@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+import pl.nextleveldev.smart_route.infrastructure.umWarsawApi.dto.StopDto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchException;
@@ -28,11 +29,10 @@ class UmWarsawClientTest {
     @Test
     void shouldNotThrowException_whenParamsAreValid() {
         //given
-        var busstopId = "7009";
-        var busstopNr = "01";
+        var stopDto = new StopDto("7009", "01");
 
         //when
-        Exception result = catchException(() -> umWarsawAPI.getSupportedBusLinesAtStop(busstopId, busstopNr));
+        Exception result = catchException(() -> umWarsawAPI.getSupportedBusLinesAtStop(stopDto));
 
         //then
         assertThat(result).isNull();
@@ -41,11 +41,10 @@ class UmWarsawClientTest {
     @Test
     void shouldReturnJsonValue_whenParamsAreValid() {
         //given
-        var busstopId = "7009";
-        var busstopNr = "01";
+        var stopDto = new StopDto("7009", "01");
 
         //when
-        String result = umWarsawAPI.getSupportedBusLinesAtStop(busstopId, busstopNr);
+        String result = umWarsawAPI.getSupportedBusLinesAtStop(stopDto);
 
         //then
         assertTrue(isValidJson(result));
