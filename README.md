@@ -6,14 +6,14 @@
 
 ## About
 
-This is a project of a users' public transport routes. As a [Next Level Dev](https://discord.com/invite/gTCCHagd9a) community (🇵🇱) we want to improve our programming skills by conducting such project.
+This is a project of public transport routes for users. As a [Next Level Dev](https://discord.com/invite/gTCCHagd9a) community (🇵🇱) we want to improve our programming skills by running such a project.
 
 ## General assumptions
 
 Currently we decided to use such technologies:
 
-- Java/Kotlin
-- Spring
+- Java/Kotlin,
+- Spring.
 
 If you want to contribute you are welcome to do so! Of course we are not limited to use only above mentioned technologies. It is welcomed to add there CI/CD tools, frontend, Docker and so on!
 
@@ -34,9 +34,9 @@ We decided to use Warsaw public transport API: https://api.um.warszawa.pl/. So W
 - [ ] Planning trips to parks, museums, or other places. I would like the application to show me how to move between them.
 - [ ] Planning a route between n points, taking into account the fact that I want to walk between m of them.
 - [ ] Basic route search (start, destination, time optimization).
-- [ ] Search history + ability to re-search routes
-- [ ] Reversing the route (from A → B to B → A)
-- [ ] Estimated travel time (based on communication data)
+- [ ] Search history + ability to re-search routes.
+- [ ] Reversing the route (from A → B to B → A).
+- [ ] Estimated travel time (based on communication data).
 
 Draft of "nice to haves":
 - [ ] Planning group trips (e.g. friends meet in one place, and the system plans optimal routes for everyone).
