@@ -1,22 +1,21 @@
-# Branches
+### **Branches**  
 
-Przy tworzeniu branchy warto wstawić odpowiedni przedrostek:
+When creating branches, it is recommended to use the appropriate prefix:  
 
-| **Przedrostek**   | Zastosowanie                                                    |
-|-------------------|-----------------------------------------------------------------|
-| **`feature/`**    | Nowa funkcjonalność                                             |
-| **`bugfix/`**     | Poprawka błędu                                                  |
-| **`hotfix/`**     | Pilna poprawka w produkcji                                      |
-| **`refactor/`**   | Refaktoryzacja kodu                                             |
-| **`docs/`**       | Zmiany w dokumentacji                                           |
-| **`test/`**       | Testy i poprawki testów                                         |
-| **`chore/`**      | Drobne zmiany, np. konfiguracja, aktualizacje zależności        |
-| **`release/`**    | Przygotowanie wersji do wydania                                 |
-| **`experiment/`** | Eksperymentalne zmiany, które mogą nie trafić do głównej gałęzi |
-| **`ci/`**         | Zmiany w konfiguracji CI/CD                                     |
+| **Prefix**        | Usage                                                            |
+|-------------------|------------------------------------------------------------------|
+| **`feature/`**    | New functionality                                               |
+| **`bugfix/`**     | Bug fix                                                         |
+| **`hotfix/`**     | Urgent fix in production                                        |
+| **`refactor/`**   | Code refactoring                                                |
+| **`docs/`**       | Documentation changes                                          |
+| **`test/`**       | Tests and test fixes                                            |
+| **`chore/`**      | Minor changes, e.g., configuration, dependency updates          |
+| **`release/`**    | Preparing a version for release                                |
+| **`experiment/`** | Experimental changes that may not be merged into the main branch |
+| **`ci/`**         | Changes in CI/CD configuration                                 |  
 
-
-Jest to pomocne przy
-- kategoryzacji branchy
-- korzystaniu z dodatkowych narzędzi operacująćych bezpośrednio na kodzie w systemie kontroli wersji
-- narzędzie typu CI/CD
+This approach helps with:  
+- categorizing branches,  
+- using additional tools that operate directly on the code in the version control system,  
+- CI/CD tools.
