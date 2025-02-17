@@ -1,4 +1,4 @@
-# UW Warszawa API Informacje NR 3
+### UW Warszawa API Informacje NR 3
 
 Aby uzyskać poprawną nazwę przystanku celem użycia nazwy w API. Aby to zrobić, możesz skorzystać z poniższego zapytania, które zwróci listę dostępnych przystanków:
 
