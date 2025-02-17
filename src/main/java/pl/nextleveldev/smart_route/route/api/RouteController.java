@@ -16,7 +16,7 @@ import java.util.List;
 public class RouteController {
 
     @GetMapping("/search")
-    public ResponseEntity<?> searchRoute(
+    public ResponseEntity<Void> searchRoute(
             @RequestParam("start") String start,
             @RequestParam("destination") String destination
     ) {
