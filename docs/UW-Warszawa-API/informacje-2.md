@@ -1,4 +1,4 @@
-# UW Warszawa API Informacje NR 2
+### UW Warszawa API Informacje NR 2
 
 Wynik (`"result": null`) podczas próby pobrania rozkładu jazdy dla przystanku o nazwie "CENTRUM". Może to wynikać z niepoprawnej nazwy przystanku lub jej formatu. Aby znaleźć poprawne nazwy przystanków, możesz skorzystać z następujących źródeł:
 
