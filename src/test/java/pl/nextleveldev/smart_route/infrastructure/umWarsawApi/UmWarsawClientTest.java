@@ -1,17 +1,20 @@
 package pl.nextleveldev.smart_route.infrastructure.umWarsawApi;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.validation.ConstraintViolationException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 import pl.nextleveldev.smart_route.infrastructure.umWarsawApi.dto.StopDto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchException;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@SpringJUnitConfig(classes = {UmWarsawConfig.class})
+@SpringJUnitConfig(classes = {UmWarsawConfig.class, MethodValidationPostProcessor.class})
 @TestPropertySource(properties = {
         "um.warsaw.api-key=${UM_WARSAW_API_KEY}",
         "um.warsaw.base-url=https://api.um.warszawa.pl",
@@ -25,6 +28,18 @@ class UmWarsawClientTest {
     UmWarsawAPI umWarsawAPI;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
+
+    @Test
+    void shouldThrowException_whenStopDtoIsNotValid() {
+        //given
+        var stopDto = new StopDto(null, null);
+
+        //when
+        Exception result = catchException(() -> umWarsawAPI.getSupportedBusLinesAtStop(stopDto));
+
+        //then
+        assertInstanceOf(ConstraintViolationException.class, result);
+    }
 
     @Test
     void shouldNotThrowException_whenParamsAreValid() {
