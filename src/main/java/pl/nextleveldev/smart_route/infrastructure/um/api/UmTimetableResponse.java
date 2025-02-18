@@ -9,6 +9,7 @@ public record UmTimetableResponse(
     public record KeyValue(
             String key,
             String value
-    ){}
+    ) {
+    }
 
 }

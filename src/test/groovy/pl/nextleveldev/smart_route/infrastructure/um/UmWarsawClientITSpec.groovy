@@ -5,9 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import spock.lang.Specification
 
-@SpringBootTest(
-        properties = "spring.profiles.active=integration"
-)
+@SpringBootTest(properties = "spring.profiles.active=integration")
 class UmWarsawClientITSpec extends Specification {
 
     @Autowired
@@ -23,7 +21,7 @@ class UmWarsawClientITSpec extends Specification {
         def result = umWarsawAPI.getTimetableFor(busstopId, busstopNr, line)
 
         then:
-        !result.result().isEmpty()
+        !result.result().empty
     }
 
     def "for invalid input result is empty"() {
@@ -36,7 +34,7 @@ class UmWarsawClientITSpec extends Specification {
         def result = umWarsawAPI.getTimetableFor(busstopId, busstopNr, line)
 
         then:
-        !result.result()
+        result.result().empty
     }
 
 }
