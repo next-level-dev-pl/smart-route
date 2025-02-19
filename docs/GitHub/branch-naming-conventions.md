@@ -19,3 +19,6 @@ This approach helps with:
 - categorizing branches,  
 - using additional tools that operate directly on the code in the version control system,  
 - CI/CD tools.
+
+### Links
+- [How to Naming Conventions for Git Branches?](<https://www.geeksforgeeks.org/how-to-naming-conventions-for-git-branches/>) 
