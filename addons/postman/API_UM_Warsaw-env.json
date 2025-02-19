@@ -8,6 +8,16 @@
       "enabled": true
     },
     {
+      "key": "STORE_URL",
+      "value": "api/action/dbstore_get",
+      "enabled": true
+    },
+    {
+      "key": "STOP_INFO_URL",
+      "value": "ab75c33d-3a26-4342-b36a-6e5fef0a3ac3",
+      "enabled": true
+    },
+    {
       "key": "TIMETABLE_RESOURCE_URL",
       "value": "api/action/dbtimetable_get",
       "enabled": true
