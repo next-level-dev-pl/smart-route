@@ -9,3 +9,5 @@ um:
     timetable:
       resource-path: api/action/dbtimetable_get
       resource-id: e923fa0e-d96c-43f9-ae6e-60518c9f3238
+    busLine:
+      resource-id: 88cd555f-6f31-43ca-9de4-66c479ad5942
