@@ -7,16 +7,17 @@ record UmWarsawProperties(
         String apiKey,
         String baseUrl,
         TimetableResource timetable,
-        BusLineResource busLine
+        StoreResource store
 ) {
 
     record TimetableResource(
             String resourcePath,
-            String resourceId
-    ) {
-    }
-    record BusLineResource(
-            String resourceId
-    ) {
-    }
+            String timetableId,
+            String busLineId
+    ) {}
+
+    record StoreResource(
+            String resourcePath,
+            String stopInfoId
+    ){}
 }
