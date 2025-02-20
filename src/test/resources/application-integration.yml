@@ -1,0 +1,7 @@
+um:
+  warsaw:
+    api-key: ${UM_WARSAW_API_KEY}
+
+logging:
+  level:
+    pl.nextleveldev.smart_route: debug
