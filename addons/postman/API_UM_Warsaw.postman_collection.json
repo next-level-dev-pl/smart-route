@@ -455,6 +455,78 @@
               "body": "{\n    \"result\": [\n        {\n            \"Lines\": \"18\",\n            \"Lon\": 20.931255,\n            \"VehicleNumber\": \"1276\",\n            \"Time\": \"2025-02-20 09:40:59\",\n            \"Lat\": 52.299557,\n            \"Brigade\": \"015\"\n        }\n   ]\n}"
             }
           ]
+        },
+        {
+          "name": "Trams live info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/{{LIVE_INFO_RESOURCE_URL}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "{{LIVE_INFO_RESOURCE_URL}}"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "f2e5503e-927d-4ad3-9500-4ab9e55deb59",
+                  "description": "Unique ID for the buses live info (static)"
+                },
+                {
+                  "key": "type",
+                  "value": "2",
+                  "description": "Vehicle type identifier. Bus type: 1; Trams type: 2"
+                },
+                {
+                  "key": "apikey",
+                  "value": "{{API_KEY}}",
+                  "description": "API Key for authentication"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Example Request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BASE_URL}}/{{LIVE_INFO_RESOURCE_URL}}",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "{{LIVE_INFO_RESOURCE_URL}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "f2e5503e-927d-4ad3-9500-4ab9e55deb59",
+                      "description": "Unique ID for the buses live info (static)"
+                    },
+                    {
+                      "key": "type",
+                      "value": "2",
+                      "description": "Vehicle type identifier. Bus type: 1; Trams type: 2"
+                    },
+                    {
+                      "key": "apikey",
+                      "value": "{{API_KEY}}",
+                      "description": "API Key for authentication"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "body": "{\n    \"result\": [\n        {\n            \"Lines\": \"18\",\n            \"Lon\": 20.931255,\n            \"VehicleNumber\": \"1276\",\n            \"Time\": \"2025-02-20 09:40:59\",\n            \"Lat\": 52.299557,\n            \"Brigade\": \"015\"\n        }\n   ]\n}"
+            }
+          ]
         }
       ]
     }
