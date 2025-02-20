@@ -8,6 +8,11 @@
       "enabled": true
     },
     {
+      "key": "LIVE_INFO_RESOURCE_URL",
+      "value": "api/action/busestrams_get",
+      "enabled": true
+    },
+    {
       "key": "STORE_URL",
       "value": "api/action/dbstore_get",
       "enabled": true

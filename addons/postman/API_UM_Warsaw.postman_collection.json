@@ -399,7 +399,7 @@
               ],
               "query": [
                 {
-                  "key": "id",
+                  "key": "resource_id",
                   "value": "f2e5503e-927d-4ad3-9500-4ab9e55deb59",
                   "description": "Unique ID for the buses live info (static)"
                 },
@@ -432,7 +432,7 @@
                   ],
                   "query": [
                     {
-                      "key": "id",
+                      "key": "resource_id",
                       "value": "f2e5503e-927d-4ad3-9500-4ab9e55deb59",
                       "description": "Unique ID for the buses live info (static)"
                     },
@@ -471,7 +471,7 @@
               ],
               "query": [
                 {
-                  "key": "id",
+                  "key": "resource_id",
                   "value": "f2e5503e-927d-4ad3-9500-4ab9e55deb59",
                   "description": "Unique ID for the buses live info (static)"
                 },
@@ -504,7 +504,7 @@
                   ],
                   "query": [
                     {
-                      "key": "id",
+                      "key": "resource_id",
                       "value": "f2e5503e-927d-4ad3-9500-4ab9e55deb59",
                       "description": "Unique ID for the buses live info (static)"
                     },
