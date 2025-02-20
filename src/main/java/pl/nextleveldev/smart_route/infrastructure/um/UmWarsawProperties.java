@@ -6,7 +6,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 record UmWarsawProperties(
         String apiKey,
         String baseUrl,
-        TimetableResource timetable
+        TimetableResource timetable,
+        BusLineResource busLine
 ) {
 
     record TimetableResource(
@@ -14,5 +15,8 @@ record UmWarsawProperties(
             String resourceId
     ) {
     }
-
+    record BusLineResource(
+            String resourceId
+    ) {
+    }
 }
