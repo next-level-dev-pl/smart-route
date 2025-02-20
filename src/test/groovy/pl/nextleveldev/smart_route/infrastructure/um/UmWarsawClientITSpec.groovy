@@ -34,7 +34,7 @@ class UmWarsawClientITSpec extends Specification {
         def result = umWarsawAPI.getTimetableFor(busstopId, busstopNr, line)
 
         then:
-        result.result().empty
+        !result.result()
     }
 
 }
