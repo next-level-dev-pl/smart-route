@@ -51,7 +51,7 @@
       }
     },
     {
-      "name": "Timetable",
+      "name": "Timetable info",
       "item": [
         {
           "name": "Bus line timetable for current stop TEMPLATE",
@@ -135,69 +135,6 @@
             }
           },
           "response": []
-        },
-        {
-          "name": "All stops information",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{BASE_URL}}/{{STORE_URL}}",
-              "host": [
-                "{{BASE_URL}}"
-              ],
-              "path": [
-                "{{STORE_URL}}"
-              ],
-              "query": [
-                {
-                  "key": "id",
-                  "value": "ab75c33d-3a26-4342-b36a-6e5fef0a3ac3",
-                  "description": "Unique ID for stops information (static)"
-                },
-                {
-                  "key": "apikey",
-                  "value": "{{API_KEY}}",
-                  "description": "API Key for authentication"
-                }
-              ]
-            },
-            "description": "Fetches the all available stop information including. The 'id' parameter refers to the unique identifier of the bus timetable dataset."
-          },
-          "response": [
-            {
-              "name": "Example Request",
-              "originalRequest": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{BASE_URL}}/{{STORE_URL}}",
-                  "host": [
-                    "{{STORE_URL}}"
-                  ],
-                  "path": [
-                    "{{STOP_INFO_URL}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "id",
-                      "value": "ab75c33d-3a26-4342-b36a-6e5fef0a3ac3",
-                      "description": "Unique ID for stops information (static)"
-                    },
-                    {
-                      "key": "apikey",
-                      "value": "{{API_KEY}}",
-                      "description": "API Key for authentication"
-                    }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": "json",
-              "body": "{\n    \"result\": [\n        {\n            \"values\": [\n                {\n                    \"value\": \"1001\",\n                    \"key\": \"zespol\"\n                },\n                {\n                    \"value\": \"01\",\n                    \"key\": \"slupek\"\n                },\n                {\n                    \"value\": \"Kijowska\",\n                    \"key\": \"nazwa_zespolu\"\n                },\n                {\n                    \"value\": \"2201\",\n                    \"key\": \"id_ulicy\"\n                },\n                {\n                    \"value\": \"52.248455\",\n                    \"key\": \"szer_geo\"\n                },\n                {\n                    \"value\": \"21.044827\",\n                    \"key\": \"dlug_geo\"\n                },\n                {\n                    \"value\": \"al.Zieleniecka\",\n                    \"key\": \"kierunek\"\n                },\n                {\n                    \"value\": \"2024-12-14 00:00:00.0\",\n                    \"key\": \"obowiazuje_od\"\n                }\n            ]\n        }  \n    ]\n}"
-            }
-          ]
         },
         {
           "name": "Bus line timetable for current stop example",
@@ -371,6 +308,74 @@
               "code": 200,
               "_postman_previewlanguage": "json",
               "body": "{\n    \"result\": [\n        {\n            \"values\": [\n                {\n                    \"key\": \"linia\",\n                    \"value\": \"151\"\n                }\n            ]\n        },\n        {\n            \"values\": [\n                {\n                    \"key\": \"linia\",\n                    \"value\": \"143\"\n                }\n            ]\n        },\n        {\n            \"values\": [\n                {\n                    \"key\": \"linia\",\n                    \"value\": \"182\"\n                }\n            ]\n        }}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Stops info",
+      "item": [
+        {
+          "name": "All stops information",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/{{STORE_URL}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "{{STORE_URL}}"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "ab75c33d-3a26-4342-b36a-6e5fef0a3ac3",
+                  "description": "Unique ID for stops information (static)"
+                },
+                {
+                  "key": "apikey",
+                  "value": "{{API_KEY}}",
+                  "description": "API Key for authentication"
+                }
+              ]
+            },
+            "description": "Fetches the all available stop information including. The 'id' parameter refers to the unique identifier of the bus timetable dataset."
+          },
+          "response": [
+            {
+              "name": "Example Request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BASE_URL}}/{{STORE_URL}}",
+                  "host": [
+                    "{{STORE_URL}}"
+                  ],
+                  "path": [
+                    "{{STOP_INFO_URL}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "ab75c33d-3a26-4342-b36a-6e5fef0a3ac3",
+                      "description": "Unique ID for stops information (static)"
+                    },
+                    {
+                      "key": "apikey",
+                      "value": "{{API_KEY}}",
+                      "description": "API Key for authentication"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "body": "{\n    \"result\": [\n        {\n            \"values\": [\n                {\n                    \"value\": \"1001\",\n                    \"key\": \"zespol\"\n                },\n                {\n                    \"value\": \"01\",\n                    \"key\": \"slupek\"\n                },\n                {\n                    \"value\": \"Kijowska\",\n                    \"key\": \"nazwa_zespolu\"\n                },\n                {\n                    \"value\": \"2201\",\n                    \"key\": \"id_ulicy\"\n                },\n                {\n                    \"value\": \"52.248455\",\n                    \"key\": \"szer_geo\"\n                },\n                {\n                    \"value\": \"21.044827\",\n                    \"key\": \"dlug_geo\"\n                },\n                {\n                    \"value\": \"al.Zieleniecka\",\n                    \"key\": \"kierunek\"\n                },\n                {\n                    \"value\": \"2024-12-14 00:00:00.0\",\n                    \"key\": \"obowiazuje_od\"\n                }\n            ]\n        }  \n    ]\n}"
             }
           ]
         }
