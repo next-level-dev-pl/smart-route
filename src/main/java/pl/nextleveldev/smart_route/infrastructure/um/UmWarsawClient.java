@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
+import pl.nextleveldev.smart_route.infrastructure.um.api.UmBusLineResponse;
 import pl.nextleveldev.smart_route.infrastructure.um.api.UmTimetableResponse;
 
 @Slf4j
@@ -34,6 +35,31 @@ public class UmWarsawClient {
                     log.debug("response: {}", json);
                     try {
                         return objectMapper.readValue(json, UmTimetableResponse.class);
+                    } catch (JsonProcessingException e) {
+                        // TODO: prepare proper exceptions
+                        throw new RuntimeException(e);
+                    }
+                })
+                .block();
+    }
+
+    public UmBusLineResponse getBusLineFor(String stopId, String stopNr) {
+        return umWarsawWebClient.get()
+                .uri(urlBuilder -> urlBuilder.scheme("https")
+                        .path(properties.timetable().resourcePath())
+                        .queryParam("id", properties.busLine().resourceId())
+                        .queryParam("busstopId", stopId)
+                        .queryParam("busstopNr", stopNr)
+                        .queryParam("apikey", properties.apiKey())
+                        .build())
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToMono(String.class)
+                .map(json -> {
+                    // TODO: add specific response mapping
+                    log.debug("response: {}", json);
+                    try {
+                        return objectMapper.readValue(json, UmBusLineResponse.class);
                     } catch (JsonProcessingException e) {
                         // TODO: prepare proper exceptions
                         throw new RuntimeException(e);
