@@ -1,43 +1,43 @@
-# Formatter – Jak Korzystać z Narzędzia Automatycznego Formatowania Kodów
-W naszym projekcie używamy Spotless do automatycznego formatowania kodu.
-Poniżej znajdziesz instrukcje, jak korzystać z tego narzędzia zarówno lokalnie, jak i w ramach CI/CD.
+# Formatter – How to Use the Automatic Code Formatting Tool
+In our project, we use Spotless to automatically format the code.
+Below you will find instructions on how to use this tool both locally and within CI/CD.
 
-## Lokalnie
+## Locally
 
-**Sprawdzanie formatu kodu:**
+**Checking Code Format:**
 
-Aby sprawdzić, czy kod jest sformatowany zgodnie z ustalonymi zasadami, uruchom poniższe polecenie:
+To verify that your code is formatted according to the established guidelines, run the following command:
 
 ./gradlew spotlessCheck
 
-* **Efekt**:
+* **Result**:
 
-  Jeśli zadanie zakończy się niepowodzeniem, oznacza to, że niektóre pliki nie spełniają standardów formatowania.
+  If the task fails, it indicates that some files do not meet the formatting standards.
 
-    W takim przypadku należy uruchomić automatyczne formatowanie lub poprawić kod ręcznie.
+  In such cases, you should either run the automatic formatting or manually adjust the code.
 
 
-**Automatyczne formatowanie:**
+**Automatic Formatting:**
 
-Aby automatycznie sformatować kod, uruchom polecenie:
+To automatically format the code, execute the following command:
 
 ./gradlew spotlessApply
 
-* **Efekt:**
+* **Result:**
 
-  To polecenie przekształci wszystkie pliki zgodnie z naszą konfiguracją:
+  This command will transform all files according to our configuration by:
 
-  - Usunie zbędne białe znaki (np. na końcu linii)
+  - Removing extraneous whitespace (e.g., at the end of lines)
  
-  - Dopasuje wcięcia (zgodnie z trybem AOSP Google Java Format, czyli 4-spacowy indent)
+  - Adjusting indentations (following the AOSP Google Java Format, i.e., 4-space indents)
 
-  - Uporządkuje importy, usuwając te nieużywane.
+  - Organizing imports by removing unused ones
 
 
-## W CI/CD
+## In CI/CD
 
-* **Integracja z pipeline:**
+* **Pipeline Integration:**
 
-W naszej konfiguracji GitHub Actions zadanie spotlessCheck jest uruchamiane jako część pipeline.
+In our GitHub Actions configuration, the spotlessCheck task is executed as part of the pipeline.
 
-W przypadku niezgodności kodu ze standardami, build zostanie przerwany, co wymusza poprawne sformatowanie przed scaleniem PR.
+If the code does not conform to the standards, the build will be halted, ensuring that proper formatting is applied before merging a PR.
