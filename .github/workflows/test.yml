@@ -8,8 +8,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    env:
-      UM_WARSAW_API_KEY: ${{secrets.UM_WARSAW_API_KEY}}
 
     steps:
       # Checkout repo
