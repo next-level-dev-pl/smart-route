@@ -17,28 +17,33 @@ public class UmWarsawClient {
     private final ObjectMapper objectMapper;
 
     public UmTimetableResponse getTimetableFor(String stopId, String stopNr, String line) {
-        return umWarsawWebClient.get()
-                .uri(urlBuilder -> urlBuilder.scheme("https")
-                        .path(properties.timetable().resourcePath())
-                        .queryParam("id", properties.timetable().resourceId())
-                        .queryParam("busstopId", stopId)
-                        .queryParam("busstopNr", stopNr)
-                        .queryParam("line", line)
-                        .queryParam("apikey", properties.apiKey())
-                        .build())
+        return umWarsawWebClient
+                .get()
+                .uri(
+                        urlBuilder ->
+                                urlBuilder
+                                        .scheme("https")
+                                        .path(properties.timetable().resourcePath())
+                                        .queryParam("id", properties.timetable().resourceId())
+                                        .queryParam("busstopId", stopId)
+                                        .queryParam("busstopNr", stopNr)
+                                        .queryParam("line", line)
+                                        .queryParam("apikey", properties.apiKey())
+                                        .build())
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(String.class)
-                .map(json -> {
-                    // TODO: add specific response mapping
-                    log.debug("response: {}", json);
-                    try {
-                        return objectMapper.readValue(json, UmTimetableResponse.class);
-                    } catch (JsonProcessingException e) {
-                        // TODO: prepare proper exceptions
-                        throw new RuntimeException(e);
-                    }
-                })
+                .map(
+                        json -> {
+                            // TODO: add specific response mapping
+                            log.debug("response: {}", json);
+                            try {
+                                return objectMapper.readValue(json, UmTimetableResponse.class);
+                            } catch (JsonProcessingException e) {
+                                // TODO: prepare proper exceptions
+                                throw new RuntimeException(e);
+                            }
+                        })
                 .block();
     }
 }

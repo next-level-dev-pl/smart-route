@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class SmartRouteApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SmartRouteApplication.class, args);
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(SmartRouteApplication.class, args);
+    }
 }

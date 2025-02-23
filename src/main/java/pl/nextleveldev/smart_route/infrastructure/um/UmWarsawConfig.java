@@ -14,20 +14,14 @@ class UmWarsawConfig {
 
     @Bean
     public UmWarsawClient umWarsawClient(
-            UmWarsawProperties umWarsawProperties,
-            ObjectMapper objectMapper
-    ) {
-        WebClient webClient = WebClient.builder()
-                .baseUrl(umWarsawProperties.baseUrl())
-                .clientConnector(new ReactorClientHttpConnector(
-                        HttpClient.create().followRedirect(true)
-                ))
-                .build();
-        return new UmWarsawClient(
-                webClient,
-                umWarsawProperties,
-                objectMapper
-        );
+            UmWarsawProperties umWarsawProperties, ObjectMapper objectMapper) {
+        WebClient webClient =
+                WebClient.builder()
+                        .baseUrl(umWarsawProperties.baseUrl())
+                        .clientConnector(
+                                new ReactorClientHttpConnector(
+                                        HttpClient.create().followRedirect(true)))
+                        .build();
+        return new UmWarsawClient(webClient, umWarsawProperties, objectMapper);
     }
-
 }
