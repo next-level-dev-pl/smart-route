@@ -19,6 +19,8 @@ class UmWarsawConfig {
     ) {
         WebClient webClient = WebClient.builder()
                 .baseUrl(umWarsawProperties.baseUrl())
+                .codecs(configurer -> configurer.defaultCodecs()
+                        .maxInMemorySize(10 * 1024 * 1024))
                 .clientConnector(new ReactorClientHttpConnector(
                         HttpClient.create().followRedirect(true)
                 ))
