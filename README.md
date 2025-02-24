@@ -30,7 +30,7 @@ Of course, we are not limited to use only above-mentioned technologies. It is we
 
 ## MVP
 
-We aim to provide application for Warsaw, in 1st phase.
+We aim to provide an application for Warsaw in the first phase.
 
 1st milestone:
 - [ ] Integration with the Warsaw Public Transport API (https://api.um.warszawa.pl/) - real-time location of buses and trams.
