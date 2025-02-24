@@ -8,7 +8,7 @@ Below you will find instructions on how to use this tool both locally and within
 
 To verify that your code is formatted according to the established guidelines, run the following command:
 
-./gradlew spotlessCheck
+`./gradlew spotlessCheck`
 
 * **Result**:
 
@@ -21,7 +21,7 @@ To verify that your code is formatted according to the established guidelines, r
 
 To automatically format the code, execute the following command:
 
-./gradlew spotlessApply
+`./gradlew spotlessApply`
 
 * **Result:**
 
@@ -41,3 +41,30 @@ To automatically format the code, execute the following command:
 In our GitHub Actions configuration, the spotlessCheck task is executed as part of the pipeline.
 
 If the code does not conform to the standards, the build will be halted, ensuring that proper formatting is applied before merging a PR.
+
+
+## Integration with IntelliJ IDEA Environment:
+
+**1. Create an External Tool configuration:**
+* open **Settings/Preferences** (Ctrl+Alt+S)
+* navigate to **Tools → External Tools** 
+* click the **"+"** button to add a new tool
+
+  Fill in the fields:
+
+  **Name**: e.g., Spotless Apply
+
+  **Program**: enter `./gradlew` (or the full path to the script, if necessary)
+
+  **Arguments**: spotlessApply
+
+  **Working directory**: set to `$ProjectFileDir$`
+
+
+**2. Assign a keyboard shortcut to the new tool:**
+
+* in Settings, go to **Keymap**
+* search for the name of the tool you created (e.g., Spotless Apply) under **External Tools**
+* right-click the entry and select **Add Keyboard Shortcut**
+* set your preferred key combination
+(e.g., Ctrl+Alt+L – but note that by default this combination is assigned to IntelliJ’s built-in formatter, so you may need to modify it or choose another shortcut)

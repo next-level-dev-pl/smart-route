@@ -8,7 +8,7 @@ Poniżej znajdziesz instrukcje, jak korzystać z tego narzędzia zarówno lokaln
 
 Aby sprawdzić, czy kod jest sformatowany zgodnie z ustalonymi zasadami, uruchom poniższe polecenie:
 
-./gradlew spotlessCheck
+`./gradlew spotlessCheck`
 
 * **Efekt**:
 
@@ -21,7 +21,7 @@ Aby sprawdzić, czy kod jest sformatowany zgodnie z ustalonymi zasadami, uruchom
 
 Aby automatycznie sformatować kod, uruchom polecenie:
 
-./gradlew spotlessApply
+`./gradlew spotlessApply`
 
 * **Efekt:**
 
@@ -41,3 +41,30 @@ Aby automatycznie sformatować kod, uruchom polecenie:
 W naszej konfiguracji GitHub Actions zadanie spotlessCheck jest uruchamiane jako część pipeline.
 
 W przypadku niezgodności kodu ze standardami, build zostanie przerwany, co wymusza poprawne sformatowanie przed scaleniem PR.
+
+
+## Integracja ze środowiskiem IntelliJ Idea:
+
+**1. Utwórz konfigurację External Tool:**
+* otwórz **Settings/Preferences** (Ctrl+Alt+S)
+* przejdź do sekcji **Tools → External Tools**
+* kliknij **"+"** aby dodać nowe narzędzie
+
+  Wypełnij pola:
+
+  **Name**: np. Spotless Apply
+
+  **Program**: wpisz `./gradlew` (lub pełną ścieżkę do skryptu, jeśli potrzebne).
+  
+  **Arguments**: spotlessApply
+
+  **Working directory**: ustaw na `$ProjectFileDir$`
+
+
+**2. Przypisz skrót klawiszowy do nowego narzędzia:**
+
+* w ustawieniach przejdź do **Keymap** 
+* wyszukaj nazwę utworzonego narzędzia (np. Spotless Apply) w sekcji **External Tools** 
+* kliknij prawym przyciskiem myszy na wpis i wybierz **Add Keyboard Shortcut** 
+* ustaw preferowaną kombinację 
+(np. Ctrl+Alt+L – ale pamiętaj, że domyślnie ta kombinacja jest przypisana do wbudowanego formatera IntelliJ, więc możesz ją zmodyfikować lub wybrać inny skrót)
