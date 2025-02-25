@@ -69,8 +69,7 @@ public class UmWarsawClient {
 
                         return new UmBusLineResponse(stopId, stopNr, lines);
                     } catch (JsonProcessingException e) {
-                        // TODO: prepare proper exceptions
-                        throw new RuntimeException(e);
+                        throw new BusLineInfoParsingException(e.getMessage());
                     }
                 })
                 .block();
