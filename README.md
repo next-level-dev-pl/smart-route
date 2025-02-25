@@ -3,15 +3,13 @@
 ![GitHub contributors](https://img.shields.io/github/contributors/next-level-dev-pl/smart-route?color=blue&label=Contributors)
 ![Discord](https://img.shields.io/discord/1313147544926289961?color=green&label=Online%20on%20Discord)
 
-<img src="./docs/public/next-level-dev-logo.png" width="256" alt="Next Level Dev"/>
+# Smart Route (🇵🇱)
 
-# Next Level Dev - Smart Route (🇵🇱)
-
-**[Next Level Dev](https://discord.com/invite/gTCCHagd9a)** is a community aimed at enhancing the skills of programmers. We mainly focus on people who are new to the industry or have little experience. Within the community, we exchange knowledge and run a joint project - **Smart Route**.
+<img src="./docs/public/smart-route-logo.png" width="256" alt="Next Level Dev"/>
 
 ## What is the Smart Route project?
 
-The aim of the project is to create a place where programmers interested in the project will be able to practice their skills. It's mainly about developing oneself as a programmer in terms of programming, infrastructure (DevOps etc.), or project management itself.
+Smart Route is a project that we are developing within the [Next Level Dev](./docs/next-level-dev/README.md) community. The aim of the project is to create a place where programmers interested in the project will be able to practice their skills. It's mainly about developing oneself as a programmer in terms of programming, infrastructure (DevOps etc.), or project management itself.
 
 The Smart Route project itself is a copy of the idea from [jakdojade.pl](https://jakdojade.pl/onboarding). Our goal is to create a simple app that allows the user to check the timetable of a selected means of urban transportation, verify how long the journey from one stop to another will take, or plan the entire journey from point A to point B. For this purpose, we rely on the API provided by the [Warsaw City Hall](https://api.um.warszawa.pl/#). The current scope of work is outlined in the [MVP section](#mvp).
 
