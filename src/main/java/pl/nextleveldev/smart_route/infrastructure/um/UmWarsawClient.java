@@ -10,6 +10,9 @@ import pl.nextleveldev.smart_route.infrastructure.um.api.UmBusLineResponse;
 import pl.nextleveldev.smart_route.infrastructure.um.api.UmStopInfoResponse;
 import pl.nextleveldev.smart_route.infrastructure.um.api.UmTimetableResponse;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Slf4j
 @RequiredArgsConstructor
 public class UmWarsawClient {
@@ -57,10 +60,14 @@ public class UmWarsawClient {
                 .retrieve()
                 .bodyToMono(String.class)
                 .map(json -> {
-                    // TODO: add specific response mapping
-                    log.debug("response: {}", json);
                     try {
-                        return objectMapper.readValue(json, UmBusLineResponse.class);
+                        List<String> lines = new ArrayList<>();
+                        BeforeParseUmBusLineResponse umBusLineResponse = objectMapper.readValue(json, BeforeParseUmBusLineResponse.class);
+                        umBusLineResponse.result().stream()
+                                .map(BeforeParseUmBusLineResponse.ResultValues::values)
+                                .forEach(value -> lines.add(value.getFirst().value()));
+
+                        return new UmBusLineResponse(stopId, stopNr, lines);
                     } catch (JsonProcessingException e) {
                         // TODO: prepare proper exceptions
                         throw new RuntimeException(e);
@@ -90,5 +97,19 @@ public class UmWarsawClient {
                     }
                 })
                 .block();
+    }
+
+    record BeforeParseUmBusLineResponse(
+            List<ResultValues> result
+    ) {
+        record ResultValues(
+                List<Value> values
+        ) {
+        }
+        record Value(
+                String key,
+                String value
+        ) {
+        }
     }
 }
