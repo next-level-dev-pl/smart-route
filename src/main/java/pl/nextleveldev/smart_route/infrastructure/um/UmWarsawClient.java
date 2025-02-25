@@ -10,7 +10,6 @@ import pl.nextleveldev.smart_route.infrastructure.um.api.UmBusLineResponse;
 import pl.nextleveldev.smart_route.infrastructure.um.api.UmStopInfoResponse;
 import pl.nextleveldev.smart_route.infrastructure.um.api.UmTimetableResponse;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -20,6 +19,7 @@ public class UmWarsawClient {
     private final WebClient umWarsawWebClient;
     private final UmWarsawProperties properties;
     private final ObjectMapper objectMapper;
+    private final UmWarsawResponseMapper responseMapper;
 
     public UmTimetableResponse getTimetableFor(String stopId, String stopNr, String line) {
         return umWarsawWebClient.get()
@@ -61,13 +61,7 @@ public class UmWarsawClient {
                 .bodyToMono(String.class)
                 .map(json -> {
                     try {
-                        List<String> lines = new ArrayList<>();
-                        BeforeParseUmBusLineResponse umBusLineResponse = objectMapper.readValue(json, BeforeParseUmBusLineResponse.class);
-                        umBusLineResponse.result().stream()
-                                .map(BeforeParseUmBusLineResponse.ResultValues::values)
-                                .forEach(value -> lines.add(value.getFirst().value()));
-
-                        return new UmBusLineResponse(stopId, stopNr, lines);
+                        return responseMapper.mapBusLine(stopId, stopNr, objectMapper.readValue(json, BeforeParseUmBusLineResponse.class));
                     } catch (JsonProcessingException e) {
                         throw new BusLineParsingException(e.getMessage());
                     }
@@ -105,6 +99,7 @@ public class UmWarsawClient {
                 List<Value> values
         ) {
         }
+
         record Value(
                 String key,
                 String value

@@ -15,7 +15,8 @@ class UmWarsawConfig {
     @Bean
     public UmWarsawClient umWarsawClient(
             UmWarsawProperties umWarsawProperties,
-            ObjectMapper objectMapper
+            ObjectMapper objectMapper,
+            UmWarsawResponseMapper responseMapper
     ) {
         WebClient webClient = WebClient.builder()
                 .baseUrl(umWarsawProperties.baseUrl())
@@ -28,7 +29,8 @@ class UmWarsawConfig {
         return new UmWarsawClient(
                 webClient,
                 umWarsawProperties,
-                objectMapper
+                objectMapper,
+                responseMapper
         );
     }
 
