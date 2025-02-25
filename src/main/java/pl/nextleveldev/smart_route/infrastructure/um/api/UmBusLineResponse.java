@@ -7,4 +7,13 @@ public record UmBusLineResponse(
         String stopNr,
         List<String> lines
 ) {
+
+    @Override
+    public String toString() {
+        return "UmBusLineResponse{\n" +
+                "stopId=" + stopId + '\n' +
+                "stopNr=" + stopNr + '\n' +
+                "lines=" + lines + '\n' +
+                '}';
+    }
 }
