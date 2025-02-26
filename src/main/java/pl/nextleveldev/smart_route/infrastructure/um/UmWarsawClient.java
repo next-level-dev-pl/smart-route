@@ -19,7 +19,6 @@ public class UmWarsawClient {
     private final WebClient umWarsawWebClient;
     private final UmWarsawProperties properties;
     private final ObjectMapper objectMapper;
-    private final UmWarsawResponseMapper responseMapper;
 
     public UmTimetableResponse getTimetableFor(String stopId, String stopNr, String line) {
         return umWarsawWebClient.get()
@@ -61,7 +60,8 @@ public class UmWarsawClient {
                 .bodyToMono(String.class)
                 .map(json -> {
                     try {
-                        return responseMapper.mapBusLine(stopId, stopNr, objectMapper.readValue(json, BeforeParseUmBusLineResponse.class));
+                        UmWarsawGenericResponse response = objectMapper.readValue(json, UmWarsawGenericResponse.class);
+                        return UmWarsawResponseMapper.mapBusLine(stopId, stopNr, response);
                     } catch (JsonProcessingException e) {
                         throw new BusLineParsingException(e.getMessage());
                     }
@@ -92,7 +92,7 @@ public class UmWarsawClient {
                 .block();
     }
 
-    record BeforeParseUmBusLineResponse(
+    record UmWarsawGenericResponse(
             List<ResultValues> result
     ) {
         record ResultValues(
