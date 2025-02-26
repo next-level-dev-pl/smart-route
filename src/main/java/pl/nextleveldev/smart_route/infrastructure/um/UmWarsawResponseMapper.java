@@ -7,7 +7,7 @@ import java.util.List;
 
 class UmWarsawResponseMapper {
 
-    static UmBusLineResponse mapBusLine(String stopId, String stopNr, UmWarsawGenericResponse response) {
+    static UmBusLineResponse mapBusLineResponse(String stopId, String stopNr, UmWarsawGenericResponse response) {
         List<String> lines = response.result().stream()
                 .flatMap(resultValues -> resultValues.values().stream())
                 .filter(value -> value.key().equals("linia"))

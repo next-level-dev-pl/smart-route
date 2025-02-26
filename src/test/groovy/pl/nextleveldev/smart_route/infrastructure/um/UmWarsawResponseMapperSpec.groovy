@@ -27,7 +27,7 @@ class UmWarsawResponseMapperSpec extends Specification {
         )
 
         when:
-        def result = UmWarsawResponseMapper.mapBusLine("123", "02", response)
+        def result = UmWarsawResponseMapper.mapBusLineResponse("123", "02", response)
 
         then:
         result.stopId() == "123"

@@ -10,7 +10,7 @@ import pl.nextleveldev.smart_route.infrastructure.um.api.UmTimetableResponse;
 
 import java.util.List;
 
-import static pl.nextleveldev.smart_route.infrastructure.um.UmWarsawResponseMapper.mapBusLine;
+import static pl.nextleveldev.smart_route.infrastructure.um.UmWarsawResponseMapper.mapBusLineResponse;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -48,7 +48,7 @@ public class UmWarsawClient {
                 .body(UmWarsawGenericResponse.class);
 
         if (genericResponse != null) {
-            return mapBusLine(stopId, stopNr, genericResponse);
+            return mapBusLineResponse(stopId, stopNr, genericResponse);
         } else
             throw new BusLineResponseException("Failed to retrieve bus line for stop ID: " + stopId + " and stop number: " + stopNr);
     }
