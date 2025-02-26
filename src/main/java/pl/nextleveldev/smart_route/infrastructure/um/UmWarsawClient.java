@@ -1,7 +1,5 @@
 package pl.nextleveldev.smart_route.infrastructure.um;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -11,6 +9,8 @@ import pl.nextleveldev.smart_route.infrastructure.um.api.UmStopInfoResponse;
 import pl.nextleveldev.smart_route.infrastructure.um.api.UmTimetableResponse;
 
 import java.util.List;
+
+import static pl.nextleveldev.smart_route.infrastructure.um.UmWarsawResponseMapper.mapBusLine;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -35,7 +35,7 @@ public class UmWarsawClient {
     }
 
     public UmBusLineResponse getBusLineFor(String stopId, String stopNr) {
-        return umWarsawClient.get()
+        UmWarsawGenericResponse genericResponse = umWarsawClient.get()
                 .uri(urlBuilder -> urlBuilder.scheme("https")
                         .path(properties.timetable().resourcePath())
                         .queryParam("id", properties.timetable().busLineId())
@@ -45,7 +45,12 @@ public class UmWarsawClient {
                         .build())
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .body(UmBusLineResponse.class);
+                .body(UmWarsawGenericResponse.class);
+
+        if (genericResponse != null) {
+            return mapBusLine(stopId, stopNr, genericResponse);
+        } else
+            throw new BusLineResponseException("Failed to retrieve bus line for stop ID: " + stopId + " and stop number: " + stopNr);
     }
 
     public UmStopInfoResponse getStopInfo() {
