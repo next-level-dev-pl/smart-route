@@ -14,22 +14,19 @@ class UmWarsawConfig {
 
     @Bean
     public UmWarsawClient umWarsawClient(
-            UmWarsawProperties umWarsawProperties,
-            ObjectMapper objectMapper
-    ) {
-        WebClient webClient = WebClient.builder()
-                .baseUrl(umWarsawProperties.baseUrl())
-                .codecs(configurer -> configurer.defaultCodecs()
-                        .maxInMemorySize(10 * 1024 * 1024))
-                .clientConnector(new ReactorClientHttpConnector(
-                        HttpClient.create().followRedirect(true)
-                ))
-                .build();
-        return new UmWarsawClient(
-                webClient,
-                umWarsawProperties,
-                objectMapper
-        );
+            UmWarsawProperties umWarsawProperties, ObjectMapper objectMapper) {
+        WebClient webClient =
+                WebClient.builder()
+                        .baseUrl(umWarsawProperties.baseUrl())
+                        .codecs(
+                                configurer ->
+                                        configurer
+                                                .defaultCodecs()
+                                                .maxInMemorySize(10 * 1024 * 1024))
+                        .clientConnector(
+                                new ReactorClientHttpConnector(
+                                        HttpClient.create().followRedirect(true)))
+                        .build();
+        return new UmWarsawClient(webClient, umWarsawProperties, objectMapper);
     }
-
 }
