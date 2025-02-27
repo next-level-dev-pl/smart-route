@@ -1,6 +1,16 @@
 spring:
   application:
     name: smart-route
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/${POSTGRES_DB}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASS}
+
+  docker:
+    compose:
+      enabled: true
+      file: docker-compose.yml
 
 um:
   warsaw:
