@@ -1,0 +1,8 @@
+spotless {
+    java {
+        googleJavaFormat().aosp()
+        trimTrailingWhitespace()
+        endWithNewline()
+        removeUnusedImports()
+    }
+}
