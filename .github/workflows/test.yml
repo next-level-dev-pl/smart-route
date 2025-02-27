@@ -29,3 +29,7 @@ jobs:
       # Build and run tests
       - name: Build and test with Gradle
         run: ./gradlew test
+
+      # Build and check formatting
+      - name: Build and check formatting
+        run: ./gradlew spotlessCheck build

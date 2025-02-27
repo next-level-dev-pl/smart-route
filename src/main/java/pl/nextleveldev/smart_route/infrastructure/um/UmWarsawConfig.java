@@ -14,20 +14,14 @@ import org.springframework.web.client.RestClient;
 class UmWarsawConfig {
 
     @Bean
-    public UmWarsawClient umWarsawClient(
-            UmWarsawProperties umWarsawProperties
-    ) {
-        CloseableHttpClient httpClient = HttpClients.custom()
-                .setRedirectStrategy(new DefaultRedirectStrategy())
-                .build();
-        RestClient restClient = RestClient.builder()
-                .baseUrl(umWarsawProperties.baseUrl())
-                .requestFactory(new HttpComponentsClientHttpRequestFactory(httpClient))
-                .build();
-        return new UmWarsawClient(
-                restClient,
-                umWarsawProperties
-        );
+    public UmWarsawClient umWarsawClient(UmWarsawProperties umWarsawProperties) {
+        CloseableHttpClient httpClient =
+                HttpClients.custom().setRedirectStrategy(new DefaultRedirectStrategy()).build();
+        RestClient restClient =
+                RestClient.builder()
+                        .baseUrl(umWarsawProperties.baseUrl())
+                        .requestFactory(new HttpComponentsClientHttpRequestFactory(httpClient))
+                        .build();
+        return new UmWarsawClient(restClient, umWarsawProperties);
     }
-
 }
