@@ -2,8 +2,20 @@ package pl.nextleveldev.smart_route.infrastructure.um.api;
 
 import java.util.List;
 
-public record UmBusLineResponse(List<ResultValues> result) {
-    public record ResultValues(List<Value> values) {}
+public record UmBusLineResponse(String stopId, String stopNr, List<String> lines) {
 
-    public record Value(String key, String value) {}
+    @Override
+    public String toString() {
+        return "UmBusLineResponse{\n"
+                + "stopId="
+                + stopId
+                + '\n'
+                + "stopNr="
+                + stopNr
+                + '\n'
+                + "lines="
+                + lines
+                + '\n'
+                + '}';
+    }
 }
