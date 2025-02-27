@@ -1,25 +1,34 @@
-# Table of contents
+[![Build](https://github.com/next-level-dev-pl/smart-route/actions/workflows/test.yml/badge.svg)](https://github.com/next-level-dev-pl/smart-route/actions/workflows/test.yml)
+![GitHub last commit](https://img.shields.io/github/last-commit/next-level-dev-pl/smart-route?color=yellow)
+![GitHub contributors](https://img.shields.io/github/contributors/next-level-dev-pl/smart-route?color=blue&label=Contributors)
+![Discord](https://img.shields.io/discord/1313147544926289961?color=green&label=Online%20on%20Discord)
 
-1. [About](#about)
-2. [General assumptions](#general-assumptions)
-3. [MVP](#mvp)
+# Smart Route (🇵🇱)
 
-## About
+<img src="./docs/public/smart-route-logo.png" width="256" alt="Next Level Dev"/>
 
-This is a project of public transport routes for users. As a [Next Level Dev](https://discord.com/invite/gTCCHagd9a) community (🇵🇱) we want to improve our programming skills by running such a project.
+## What is the Smart Route project?
 
-## General assumptions
+Smart Route is a project that we are developing within the [Next Level Dev](./docs/next-level-dev/README.md) community. The aim of the project is to create a place where programmers interested in the project will be able to practice their skills. It's mainly about developing oneself as a programmer in terms of programming, infrastructure (DevOps etc.), or project management itself.
+
+The Smart Route project itself is a copy of the idea from [jakdojade.pl](https://jakdojade.pl/onboarding). Our goal is to create a simple app that allows the user to check the timetable of a selected means of urban transportation, verify how long the journey from one stop to another will take, or plan the entire journey from point A to point B. For this purpose, we rely on the API provided by the [Warsaw City Hall](https://api.um.warszawa.pl/#). The current scope of work is outlined in the [MVP section](#mvp).
+
+## How to join/contribute?
+
+The most important step is to join the dedicated [Discord channel](https://discord.com/invite/gTCCHagd9a). Afterward, you must provide your GitHub username to be added to the organization. Only then will you be able to actively participate in the project.
+
+## Technical assumptions
 
 Currently we decided to use such technologies:
 
 - Java/Kotlin,
 - Spring.
 
-If you want to contribute you are welcome to do so! Of course we are not limited to use only above mentioned technologies. It is welcomed to add there CI/CD tools, frontend, Docker and so on!
+Of course, we are not limited to use only above-mentioned technologies. It is welcomed to add there CI/CD tools, frontend, Docker and so on. Sky is the limit!
 
 ## MVP
 
-We decided to use Warsaw public transport API: https://api.um.warszawa.pl/. So Warsaw is out first goal.
+We aim to provide an application for Warsaw in the first phase.
 
 1st milestone:
 - [ ] Integration with the Warsaw Public Transport API (https://api.um.warszawa.pl/) - real-time location of buses and trams.

@@ -1,12 +1,13 @@
 package pl.nextleveldev.smart_route.infrastructure.um;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.hc.client5.http.impl.DefaultRedirectStrategy;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.client.reactive.ReactorClientHttpConnector;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.netty.http.client.HttpClient;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.web.client.RestClient;
 
 @Configuration
 @EnableConfigurationProperties(UmWarsawProperties.class)
@@ -14,19 +15,19 @@ class UmWarsawConfig {
 
     @Bean
     public UmWarsawClient umWarsawClient(
-            UmWarsawProperties umWarsawProperties, ObjectMapper objectMapper) {
-        WebClient webClient =
-                WebClient.builder()
-                        .baseUrl(umWarsawProperties.baseUrl())
-                        .codecs(
-                                configurer ->
-                                        configurer
-                                                .defaultCodecs()
-                                                .maxInMemorySize(10 * 1024 * 1024))
-                        .clientConnector(
-                                new ReactorClientHttpConnector(
-                                        HttpClient.create().followRedirect(true)))
-                        .build();
-        return new UmWarsawClient(webClient, umWarsawProperties, objectMapper);
+            UmWarsawProperties umWarsawProperties
+    ) {
+        CloseableHttpClient httpClient = HttpClients.custom()
+                .setRedirectStrategy(new DefaultRedirectStrategy())
+                .build();
+        RestClient restClient = RestClient.builder()
+                .baseUrl(umWarsawProperties.baseUrl())
+                .requestFactory(new HttpComponentsClientHttpRequestFactory(httpClient))
+                .build();
+        return new UmWarsawClient(
+                restClient,
+                umWarsawProperties
+        );
     }
+
 }
