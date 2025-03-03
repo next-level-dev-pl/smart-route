@@ -1,8 +1,9 @@
 package pl.nextleveldev.smart_route.infrastructure.um;
 
 import java.util.List;
-import pl.nextleveldev.smart_route.infrastructure.um.UmWarsawClient.UmWarsawGenericResponse;
+import pl.nextleveldev.smart_route.infrastructure.um.api.KeyValue;
 import pl.nextleveldev.smart_route.infrastructure.um.api.UmBusLineResponse;
+import pl.nextleveldev.smart_route.infrastructure.um.api.UmWarsawGenericResponse;
 
 class UmWarsawResponseMapper {
 
@@ -12,7 +13,7 @@ class UmWarsawResponseMapper {
                 response.result().stream()
                         .flatMap(resultValues -> resultValues.values().stream())
                         .filter(value -> value.key().equals("linia"))
-                        .map(UmWarsawGenericResponse.Value::value)
+                        .map(KeyValue::value)
                         .toList();
 
         return new UmBusLineResponse(stopId, stopNr, lines);

@@ -1,10 +1,10 @@
 package pl.nextleveldev.smart_route.infrastructure.um
 
+import pl.nextleveldev.smart_route.infrastructure.um.api.KeyValue
+import pl.nextleveldev.smart_route.infrastructure.um.api.ResultValues
+import pl.nextleveldev.smart_route.infrastructure.um.api.UmWarsawGenericResponse
 import spock.lang.Specification
 
-import static pl.nextleveldev.smart_route.infrastructure.um.UmWarsawClient.UmWarsawGenericResponse
-import static pl.nextleveldev.smart_route.infrastructure.um.UmWarsawClient.UmWarsawGenericResponse.ResultValues
-import static pl.nextleveldev.smart_route.infrastructure.um.UmWarsawClient.UmWarsawGenericResponse.Value
 
 class UmWarsawResponseMapperSpec extends Specification {
 
@@ -14,13 +14,13 @@ class UmWarsawResponseMapperSpec extends Specification {
                 [
                         new ResultValues(
                                 [
-                                        new Value("linia", "250"),
-                                        new Value("unknown", "250"),
+                                        new KeyValue("linia", "250"),
+                                        new KeyValue("unknown", "250"),
                                 ]
                         ),
                         new ResultValues(
                                 [
-                                        new Value("linia", "520"),
+                                        new KeyValue("linia", "520"),
                                 ]
                         )
                 ]
