@@ -1,4 +1,6 @@
-# ADR 2025-03-01 – JPA vs Native Query
+# Usage of JPA
+
+Date: **2025-03-01**
 
 ## Context
 

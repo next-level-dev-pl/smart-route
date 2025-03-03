@@ -1,4 +1,6 @@
-# ADR 2025-03-01 – Database
+# Database choice: NoSql vs RDBMS
+
+Date: **2025-03-01**
 
 ## Context
 
