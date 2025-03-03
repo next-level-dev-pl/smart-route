@@ -3,6 +3,9 @@ spring:
     url: jdbc:postgresql://notUsed:notUsed/notUsed
     username: notUsed
     password: notUsed
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
 
 um:
   warsaw:
