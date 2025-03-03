@@ -1,7 +1,8 @@
 spring:
-  jpa:
-    properties:
-      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    url: jdbc:postgresql://notUsed:notUsed/notUsed
+    username: notUsed
+    password: notUsed
 
 um:
   warsaw:
