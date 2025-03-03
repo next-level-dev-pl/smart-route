@@ -1,4 +1,4 @@
-## DOCKER COMPOSE DEPENDENCY
+Docker Compose Integration in Local Development
 
 ### Requirement
 Basic knowledge about [Docker technolog](https://docs.docker.com/get-started/introduction/).
