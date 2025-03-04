@@ -7,6 +7,10 @@ spring:
     hibernate:
       ddl-auto: create-drop
 
+  docker:
+    compose:
+      enabled: false
+
 um:
   warsaw:
     api-key: ${UM_WARSAW_API_KEY}

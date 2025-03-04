@@ -13,6 +13,11 @@ spring:
     hibernate:
       ddl-auto: validate
 
+  docker:
+    compose:
+      enabled: true
+      file: docker-compose.yml
+
 um:
   warsaw:
     api-key: ${UM_WARSAW_API_KEY}
