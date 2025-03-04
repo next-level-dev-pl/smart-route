@@ -1,3 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://notUsed:notUsed/notUsed
+    username: notUsed
+    password: notUsed
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+  docker:
+    compose:
+      enabled: false
+
 um:
   warsaw:
     api-key: ${UM_WARSAW_API_KEY}

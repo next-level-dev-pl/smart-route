@@ -2,6 +2,22 @@ spring:
   application:
     name: smart-route
 
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://db_postgres:5432/${POSTGRES_DB}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+  jpa:
+    properties:
+      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+
+  docker:
+    compose:
+      enabled: true
+      file: docker-compose.yml
+
 um:
   warsaw:
     api-key: ${UM_WARSAW_API_KEY}
