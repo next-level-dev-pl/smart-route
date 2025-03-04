@@ -2,9 +2,9 @@ package pl.nextleveldev.smart_route.infrastructure.um
 
 import spock.lang.Specification
 
-import static pl.nextleveldev.smart_route.infrastructure.um.UmWarsawClient.*
-import static pl.nextleveldev.smart_route.infrastructure.um.UmWarsawClient.UmWarsawGenericResponse.*
-
+import static pl.nextleveldev.smart_route.infrastructure.um.UmWarsawClient.UmWarsawGenericResponse
+import static pl.nextleveldev.smart_route.infrastructure.um.UmWarsawClient.UmWarsawGenericResponse.ResultValues
+import static pl.nextleveldev.smart_route.infrastructure.um.UmWarsawClient.UmWarsawGenericResponse.Value
 
 class UmWarsawResponseMapperSpec extends Specification {
 

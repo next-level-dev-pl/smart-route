@@ -1,11 +1,8 @@
 package pl.nextleveldev.smart_route.infrastructure.um;
 
 import java.util.List;
-
+import pl.nextleveldev.smart_route.infrastructure.um.UmWarsawClient.UmWarsawGenericResponse;
 import pl.nextleveldev.smart_route.infrastructure.um.api.UmBusLineResponse;
-
-import static pl.nextleveldev.smart_route.infrastructure.um.UmWarsawClient.*;
-
 
 class UmWarsawResponseMapper {
 
