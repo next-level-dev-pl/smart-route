@@ -37,9 +37,8 @@ public class UmWarsawClient {
                 .body(UmTimetableResponse.class);
     }
 
-    public UmBusLineResponse getBusLineFor(String stopId, String stopNr) {
-        UmWarsawGenericResponse genericResponse =
-                umWarsawClient
+    public UmWarsawGenericResponse getBusLineFor(String stopId, String stopNr) {
+        return umWarsawClient
                         .get()
                         .uri(
                                 urlBuilder ->
@@ -55,15 +54,6 @@ public class UmWarsawClient {
                         .accept(MediaType.APPLICATION_JSON)
                         .retrieve()
                         .body(UmWarsawGenericResponse.class);
-
-        if (genericResponse != null) {
-            return mapBusLineResponse(stopId, stopNr, genericResponse);
-        } else
-            throw new BusLineResponseException(
-                    "Failed to retrieve bus line for stop ID: "
-                            + stopId
-                            + " and stop number: "
-                            + stopNr);
     }
 
     public UmStopInfoResponse getStopInfo() {
