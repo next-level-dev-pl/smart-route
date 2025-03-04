@@ -1,7 +1,9 @@
 spring:
+  datasource:
+    url: jdbc:postgresql://notUsed:notUsed/notUsed
+    username: notUsed
+    password: notUsed
   jpa:
-    properties:
-      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: create-drop
 
