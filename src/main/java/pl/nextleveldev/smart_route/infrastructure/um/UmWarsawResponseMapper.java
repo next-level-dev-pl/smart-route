@@ -12,7 +12,7 @@ class UmWarsawResponseMapper {
         List<String> lines =
                 response.result().stream()
                         .flatMap(resultValues -> resultValues.values().stream())
-                        .filter(value -> value.key().equals("linia"))
+                        .filter(value -> "linia".equalsIgnoreCase(value.key()))
                         .map(KeyValue::value)
                         .toList();
 
