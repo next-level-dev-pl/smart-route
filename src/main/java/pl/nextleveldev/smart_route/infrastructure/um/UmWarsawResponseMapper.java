@@ -9,13 +9,23 @@ class UmWarsawResponseMapper {
 
     static UmBusLineResponse mapBusLineResponse(
             String stopId, String stopNr, UmWarsawGenericResponse response) {
-        List<String> lines =
-                response.result().stream()
-                        .flatMap(resultValues -> resultValues.values().stream())
-                        .filter(value -> "linia".equalsIgnoreCase(value.key()))
-                        .map(KeyValue::value)
-                        .toList();
+        try {
+            List<String> lines =
+                    response.result().stream()
+                            .flatMap(resultValues -> resultValues.values().stream())
+                            .filter(value -> "linia".equalsIgnoreCase(value.key()))
+                            .map(KeyValue::value)
+                            .toList();
 
-        return new UmBusLineResponse(stopId, stopNr, lines);
+            return new UmBusLineResponse(stopId, stopNr, lines);
+        } catch (Exception e) {
+            throw new BusLineResponseException(
+                    "Failed to map response for stop Id:"
+                            + stopId
+                            + "and stop number:"
+                            + stopNr
+                            + ". Error: "
+                            + e.getMessage());
+        }
     }
 }
