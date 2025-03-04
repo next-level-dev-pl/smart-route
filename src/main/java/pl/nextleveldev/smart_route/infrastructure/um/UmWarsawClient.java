@@ -1,12 +1,9 @@
 package pl.nextleveldev.smart_route.infrastructure.um;
 
-import static pl.nextleveldev.smart_route.infrastructure.um.UmWarsawResponseMapper.mapBusLineResponse;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestClient;
-import pl.nextleveldev.smart_route.infrastructure.um.api.UmBusLineResponse;
 import pl.nextleveldev.smart_route.infrastructure.um.api.UmStopInfoResponse;
 import pl.nextleveldev.smart_route.infrastructure.um.api.UmTimetableResponse;
 import pl.nextleveldev.smart_route.infrastructure.um.api.UmWarsawGenericResponse;
@@ -39,21 +36,20 @@ public class UmWarsawClient {
 
     public UmWarsawGenericResponse getBusLineFor(String stopId, String stopNr) {
         return umWarsawClient
-                        .get()
-                        .uri(
-                                urlBuilder ->
-                                        urlBuilder
-                                                .scheme("https")
-                                                .path(properties.timetable().resourcePath())
-                                                .queryParam(
-                                                        "id", properties.timetable().busLineId())
-                                                .queryParam("busstopId", stopId)
-                                                .queryParam("busstopNr", stopNr)
-                                                .queryParam("apikey", properties.apiKey())
-                                                .build())
-                        .accept(MediaType.APPLICATION_JSON)
-                        .retrieve()
-                        .body(UmWarsawGenericResponse.class);
+                .get()
+                .uri(
+                        urlBuilder ->
+                                urlBuilder
+                                        .scheme("https")
+                                        .path(properties.timetable().resourcePath())
+                                        .queryParam("id", properties.timetable().busLineId())
+                                        .queryParam("busstopId", stopId)
+                                        .queryParam("busstopNr", stopNr)
+                                        .queryParam("apikey", properties.apiKey())
+                                        .build())
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(UmWarsawGenericResponse.class);
     }
 
     public UmStopInfoResponse getStopInfo() {
