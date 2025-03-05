@@ -1,55 +1,11 @@
 databaseChangeLog:
   - changeSet:
-      id: 1-create-table-bus-stops
+      id: 1-initial-config
       author: jkuznik
       changes:
         - sql:
             dbms: postgresql
             sql: CREATE EXTENSION IF NOT EXISTS postgis;
 
-        - createTable:
-            tableName: bus_stops
-            columns:
-              - column:
-                  name: id
-                  type: uuid
-                  constraints:
-                    primaryKey: true
-                    nullable: false
-                  defaultValueComputed: gen_random_uuid()
-                                        # Above original values name receive from api.um.warszawa
-              - column:
-                  name: stop_id         # zespol
-                  type: integer
-                  constraints:
-                    nullable: false
-              - column:
-                  name: stop_nr         # slupek
-                  type: varchar(255)
-                  constraints:
-                    nullable: false
-              - column:
-                  name: stop_id_name    # nazwa_zespolu
-                  type: text
-                  constraints:
-                    nullable: false
-              - column:
-                  name: street_id       # id_ulicy
-                  type: integer
-                  constraints:
-                    nullable: false
-              - column:
-                  name: location        # szer_geo; dlug_geo as Postgis type for lat/lon
-                  type: geography(POINT, 4326)
-                  constraints:
-                    nullable: false
-              - column:
-                  name: direction       # kierunek
-                  type: text
-                  constraints:
-                    nullable: false
-              - column:
-                  name: valid_from      # obowiazuje_od
-                  type: timestamp
-                  constraints:
-                    nullable: false
+  - include:
+      file: db/changelog/001-create-table-bus-stops.yaml
