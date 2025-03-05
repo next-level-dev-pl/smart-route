@@ -13,7 +13,7 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
                   defaultValueComputed: gen_random_uuid()
-                                        # Above original values name receive from api.um.warszawa
+                                        # Below original name values received from api.um.warszawa
               - column:
                   name: stop_id         # zespol
                   type: integer
