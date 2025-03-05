@@ -9,6 +9,7 @@ import org.springframework.test.web.servlet.MockMvc
 import org.testcontainers.containers.PostgreSQLContainer
 import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
+import org.testcontainers.utility.DockerImageName
 import spock.lang.Specification
 
 @AutoConfigureMockMvc
@@ -21,7 +22,8 @@ abstract class BaseIntegrationSpec extends Specification {
     public static final String TESTCONTAINER_DB_PASSWORD = "testPassword";
 
     @Container
-    public static final PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>("postgres:16.3")
+    public static final PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>(DockerImageName.parse("postgis/postgis:16-3.4")
+            .asCompatibleSubstituteFor("postgres"))
             .withDatabaseName(TESTCONTAINER_DB_NAME)
             .withUsername(TESTCONTAINER_DB_USERNAME)
             .withPassword(TESTCONTAINER_DB_PASSWORD)
