@@ -18,6 +18,9 @@ spring:
       enabled: true
       file: docker-compose.yml
 
+  liquibase:
+    change-log: db/changelog/changeLog-master.yaml
+
 um:
   warsaw:
     api-key: ${UM_WARSAW_API_KEY}
