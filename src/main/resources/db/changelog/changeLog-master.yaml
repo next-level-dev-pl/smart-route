@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1-initial-config
+      author: jkuznik
+      changes:
+        - sql:
+            dbms: postgresql
+            sql: CREATE EXTENSION IF NOT EXISTS postgis;
+
+  - include:
+      file: db/changelog/001-create-table-bus-stops.yaml

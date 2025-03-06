@@ -1,6 +1,6 @@
 services:
   db_postgres:
-    image: postgres:16.3
+    image: postgis/postgis:16-3.4
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
