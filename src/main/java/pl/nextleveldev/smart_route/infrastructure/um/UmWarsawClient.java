@@ -36,7 +36,7 @@ public class UmWarsawClient {
     }
 
     public UmWarsawGenericResponse getBusLineFor(String stopId, String stopNr) {
-        try{
+        try {
             return umWarsawClient
                     .get()
                     .uri(
