@@ -1,10 +1,10 @@
 package pl.nextleveldev.smart_route.infrastructure.um;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestClient;
-import pl.nextleveldev.smart_route.infrastructure.um.api.UmBusLineResponse;
 import pl.nextleveldev.smart_route.infrastructure.um.api.UmStopInfoResponse;
 import pl.nextleveldev.smart_route.infrastructure.um.api.UmTimetableResponse;
 
@@ -34,7 +34,7 @@ public class UmWarsawClient {
                 .body(UmTimetableResponse.class);
     }
 
-    public UmBusLineResponse getBusLineFor(String stopId, String stopNr) {
+    public UmWarsawGenericResponse getBusLineFor(String stopId, String stopNr) {
         return umWarsawClient
                 .get()
                 .uri(
@@ -49,7 +49,7 @@ public class UmWarsawClient {
                                         .build())
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .body(UmBusLineResponse.class);
+                .body(UmWarsawGenericResponse.class);
     }
 
     public UmStopInfoResponse getStopInfo() {
@@ -66,5 +66,11 @@ public class UmWarsawClient {
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .body(UmStopInfoResponse.class);
+    }
+
+    public record UmWarsawGenericResponse(List<ResultValues> result) {
+        record ResultValues(List<Value> values) {}
+
+        record Value(String key, String value) {}
     }
 }
