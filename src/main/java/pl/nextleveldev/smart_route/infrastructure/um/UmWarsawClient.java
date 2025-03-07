@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.client.RestClientException;
 import pl.nextleveldev.smart_route.infrastructure.um.api.UmStopInfoResponse;
 import pl.nextleveldev.smart_route.infrastructure.um.api.UmTimetableResponse;
 
@@ -35,21 +36,32 @@ public class UmWarsawClient {
     }
 
     public UmWarsawGenericResponse getBusLineFor(String stopId, String stopNr) {
-        return umWarsawClient
-                .get()
-                .uri(
-                        urlBuilder ->
-                                urlBuilder
-                                        .scheme("https")
-                                        .path(properties.timetable().resourcePath())
-                                        .queryParam("id", properties.timetable().busLineId())
-                                        .queryParam("busstopId", stopId)
-                                        .queryParam("busstopNr", stopNr)
-                                        .queryParam("apikey", properties.apiKey())
-                                        .build())
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .body(UmWarsawGenericResponse.class);
+        try {
+            return umWarsawClient
+                    .get()
+                    .uri(
+                            urlBuilder ->
+                                    urlBuilder
+                                            .scheme("https")
+                                            .path(properties.timetable().resourcePath())
+                                            .queryParam("id", properties.timetable().busLineId())
+                                            .queryParam("busstopId", stopId)
+                                            .queryParam("busstopNr", stopNr)
+                                            .queryParam("apikey", properties.apiKey())
+                                            .build())
+                    .accept(MediaType.APPLICATION_JSON)
+                    .retrieve()
+                    .body(UmWarsawGenericResponse.class);
+
+        } catch (RestClientException e) {
+            throw new BusLineResponseException(
+                    "Failed to receive response for stop Id:"
+                            + stopId
+                            + "and stop number:"
+                            + stopNr
+                            + ". Error: "
+                            + e.getMessage());
+        }
     }
 
     public UmStopInfoResponse getStopInfo() {
