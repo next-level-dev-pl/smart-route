@@ -36,6 +36,9 @@ dependencies {
     implementation group: 'org.liquibase', name: 'liquibase-core', version: '4.31.1'
 
 
+    // JTS Core (najnowsza stabilna wersja)
+    implementation 'org.locationtech.jts:jts-core:1.19.0'
+
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
