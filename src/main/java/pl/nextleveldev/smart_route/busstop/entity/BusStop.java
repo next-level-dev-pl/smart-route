@@ -39,7 +39,7 @@ public class BusStop {
     private String stopIdName;
 
     @Column(name = "street_id")
-    private String streetId;
+    private Integer streetId;
 
     @Column(name = "location", nullable = false, columnDefinition = "geography(Point,4326)")
     @JdbcTypeCode(SqlTypes.GEOGRAPHY)
