@@ -41,8 +41,8 @@ public class BusStop {
     @Column(name = "street_id", nullable = false)
     private String streetId;
 
-    @Column(name = "location", nullable = false)
-    @JdbcTypeCode(SqlTypes.GEOMETRY)
+    @Column(name = "location", nullable = false, columnDefinition = "geography(Point,4326)")
+    @JdbcTypeCode(SqlTypes.GEOGRAPHY)
     private Point location;
 
     @Column(name = "direction", nullable = false)
