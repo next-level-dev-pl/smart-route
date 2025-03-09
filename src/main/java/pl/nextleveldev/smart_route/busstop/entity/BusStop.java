@@ -45,8 +45,8 @@ public class BusStop {
     @Column(name = "stop_id_name", nullable = false) // field 'nazwa_zespolu' in UM API response
     private String stopIdName;
 
-    @Column(name = "street_id", nullable = false) // field 'id_ulicy' in UM API response
-    private Integer streetId;
+    @Column(name = "street_id") // field 'id_ulicy' in UM API response
+    private String streetId;
 
     @Column(name = "location", nullable = false) // fields 'szer_geo' and 'dlug_geo' in UM API response
     @JdbcTypeCode(SqlTypes.GEOMETRY)
