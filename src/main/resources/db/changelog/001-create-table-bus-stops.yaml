@@ -57,7 +57,7 @@ databaseChangeLog:
             tableName: bus_stops
             columnName: stop_id
             newDataType: varchar(255)
-        - modifyDataType:
+        - dropNotNullConstraint:
             tableName: bus_stops
             columnName: street_id
-            newDataType: varchar(255)
+            columnDataType: integer
