@@ -30,7 +30,7 @@ public class BusStop {
     private UUID id;
 
     @Column(name = "stop_id", nullable = false) // field 'zespol' in database table
-    private Integer stopId;
+    private String stopId;
 
     @Column(name = "stop_nr", nullable = false)
     private String stopNr;
@@ -39,7 +39,7 @@ public class BusStop {
     private String stopIdName;
 
     @Column(name = "street_id", nullable = false)
-    private Integer streetId;
+    private String streetId;
 
     @Column(name = "location", nullable = false)
     @JdbcTypeCode(SqlTypes.GEOMETRY)

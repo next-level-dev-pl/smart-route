@@ -49,3 +49,15 @@ databaseChangeLog:
                   type: timestamp
                   constraints:
                     nullable: false
+  - changeSet:
+      id: 2-modify-stop-id-and-street-id
+      author: jkuznik
+      changes:
+        - modifyDataType:
+            tableName: bus_stops
+            columnName: stop_id
+            newDataType: varchar(255)
+        - modifyDataType:
+            tableName: bus_stops
+            columnName: street_id
+            newDataType: varchar(255)
