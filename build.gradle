@@ -33,11 +33,9 @@ dependencies {
 	implementation 'org.apache.httpcomponents.client5:httpclient5:5.4.2'
 
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.7.5'
-    implementation group: 'org.liquibase', name: 'liquibase-core', version: '4.31.1'
-
-
-    // JTS Core (najnowsza stabilna wersja)
+    implementation 'org.hibernate:hibernate-spatial:6.4.0.Final'
     implementation 'org.locationtech.jts:jts-core:1.19.0'
+    implementation group: 'org.liquibase', name: 'liquibase-core', version: '4.31.1'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
