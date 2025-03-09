@@ -37,24 +37,24 @@ public class BusStop {
     private UUID id;
 
     @Column(name = "stop_id", nullable = false) // field 'zespol' in UM API response
-    private Integer stopId;
+    private String stopId;
 
-    @Column(name = "stop_nr", nullable = false)
+    @Column(name = "stop_nr", nullable = false) // field slupek in UM API response
     private String stopNr;
 
     @Column(name = "stop_id_name", nullable = false) // field 'nazwa_zespolu' in UM API response
     private String stopIdName;
 
-    @Column(name = "street_id", nullable = false)
+    @Column(name = "street_id", nullable = false) // field 'id_ulicy' in UM API response
     private Integer streetId;
 
-    @Column(name = "location", nullable = false)
+    @Column(name = "location", nullable = false) // fields 'szer_geo' and 'dlug_geo' in UM API response
     @JdbcTypeCode(SqlTypes.GEOMETRY)
     private Point location;
 
-    @Column(name = "direction", nullable = false)
+    @Column(name = "direction", nullable = false) // field kierunek in UM API response
     private String direction;
 
-    @Column(name = "valid_from", nullable = false)
+    @Column(name = "valid_from", nullable = false) // field obowiazuje_od in UM API response
     private LocalDateTime validFrom;
 }
