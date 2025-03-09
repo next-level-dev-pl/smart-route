@@ -38,7 +38,7 @@ public class BusStop {
     @Column(name = "stop_id_name", nullable = false) // field 'nazwa_zespolu' in database table
     private String stopIdName;
 
-    @Column(name = "street_id", nullable = false)
+    @Column(name = "street_id")
     private String streetId;
 
     @Column(name = "location", nullable = false, columnDefinition = "geography(Point,4326)")
