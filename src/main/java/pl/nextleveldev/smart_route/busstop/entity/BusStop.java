@@ -48,8 +48,8 @@ public class BusStop {
     @Column(name = "street_id") // field 'id_ulicy' in UM API response
     private String streetId;
 
-    @Column(name = "location", nullable = false) // fields 'szer_geo' and 'dlug_geo' in UM API response
-    @JdbcTypeCode(SqlTypes.GEOMETRY)
+    @Column(name = "location", nullable = false, columnDefinition = "geography(Point,4326)") // fields 'szer_geo' and 'dlug_geo' in UM API response
+    @JdbcTypeCode(SqlTypes.GEOGRAPHY)
     private Point location;
 
     @Column(name = "direction", nullable = false) // field kierunek in UM API response
