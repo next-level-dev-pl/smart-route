@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
 import pl.nextleveldev.smart_route.infrastructure.um.UmWarsawClient.UmWarsawBusStopGenericResponse;
@@ -55,44 +56,38 @@ class UmWarsawResponseMapper {
                 });
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+        GeometryFactory geometryFactory = new GeometryFactory();
         parsedJson
                 .forEach(parsedJsonElement -> {
 
+                    String  stopId = parsedJsonElement.get("zespol");
 
-                    String  stopId = parsedJsonElement.get("zespol") != null
-                            ? parsedJsonElement.get("zespol")
-                            : "0000";
+                    String stopNr = parsedJsonElement.get("slupek");
 
-                    String stopNr = parsedJsonElement.get("slupek") != null
-                            ? parsedJsonElement.get("slupek")
-                            : "01";
-
-                    String stopIdName = parsedJsonElement.get("nazwa_zespolu") != null
+                    String stopIdName = parsedJsonElement.get("nazwa_zespolu").equals("null")
                             ? parsedJsonElement.get("nazwa_zespolu")
-                            : "Unknown";
+                            : null;
 
-                    Integer streetId = parsedJsonElement.get("id_ulicy") != null
+                    Integer streetId = parsedJsonElement.get("id_ulicy").equals("null")
                             ? Integer.parseInt(parsedJsonElement.get("id_ulicy"))
                             : null;
 
-                    Double longitude = parsedJsonElement.get("dlug_geo") != null
-                            ? Double.parseDouble(parsedJsonElement.get("dlug_geo"))
-                            : 0;
+                    double longitude = Double.parseDouble(parsedJsonElement.get("dlug_geo"));
 
-                    Double latitude = parsedJsonElement.get("szer_geo") != null
-                            ? Double.parseDouble(parsedJsonElement.get("szer_geo"))
-                            : 0;
+                    double latitude = Double.parseDouble(parsedJsonElement.get("szer_geo"));
 
-                    String direction = parsedJsonElement.get("kierunek") != null
+                    String direction = parsedJsonElement.get("kierunek").equals("null")
                             ? parsedJsonElement.get("kierunek")
-                            : "Unknown";
+                            : null;
 
-                    LocalDateTime validFrom = parsedJsonElement.get("obowiazuje_od") != null
+                    LocalDateTime validFrom = parsedJsonElement.get("obowiazuje_od").equals("null")
                             ? LocalDateTime.parse(parsedJsonElement.get("obowiazuje_od"), formatter)
-                            : LocalDateTime.now();
+                            : null;
 
-                    GeometryFactory geometryFactory = new GeometryFactory();
-                    var currentStop = new UmStopInfoResponse(stopId, stopNr, stopIdName, streetId, new Point(), direction, validFrom);
+                    Point location = geometryFactory.createPoint(new Coordinate(longitude, latitude));
+                    location.setSRID(4326);
+
+                    var currentStop = new UmStopInfoResponse(stopId, stopNr, stopIdName, streetId, location, direction, validFrom);
 
                     mappedResponse.add(currentStop);
                 });
