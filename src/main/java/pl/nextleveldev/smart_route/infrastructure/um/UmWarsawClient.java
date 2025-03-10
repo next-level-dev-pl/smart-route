@@ -34,7 +34,7 @@ public class UmWarsawClient {
                 .body(UmTimetableResponse.class);
     }
 
-    public UmWarsawGenericResponse getBusLineFor(String stopId, String stopNr) {
+    public UmWarsawBusStopGenericResponse getBusLineFor(String stopId, String stopNr) {
         return umWarsawClient
                 .get()
                 .uri(
@@ -49,10 +49,10 @@ public class UmWarsawClient {
                                         .build())
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .body(UmWarsawGenericResponse.class);
+                .body(UmWarsawBusStopGenericResponse.class);
     }
 
-    public UmStopInfoResponse getStopInfo() {
+    public UmWarsawStopInfoGenericResponse getStopInfo() {
         return umWarsawClient
                 .get()
                 .uri(
@@ -65,12 +65,16 @@ public class UmWarsawClient {
                                         .build())
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .body(UmStopInfoResponse.class);
+                .body(UmWarsawStopInfoGenericResponse.class);
     }
 
-    public record UmWarsawGenericResponse(List<ResultValues> result) {
-        record ResultValues(List<Value> values) {}
-
-        record Value(String key, String value) {}
+    public record UmWarsawBusStopGenericResponse(List<ResultValues> result) {
     }
+
+    public record UmWarsawStopInfoGenericResponse(List<ResultValues> result) {
+    }
+
+    record ResultValues(List<Value> values) {}
+
+    record Value(String key, String value) {}
 }
