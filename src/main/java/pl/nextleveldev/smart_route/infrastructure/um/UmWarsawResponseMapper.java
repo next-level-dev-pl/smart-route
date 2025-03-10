@@ -3,6 +3,9 @@ package pl.nextleveldev.smart_route.infrastructure.um;
 import java.util.List;
 import pl.nextleveldev.smart_route.infrastructure.um.UmWarsawClient.UmWarsawBusStopGenericResponse;
 import pl.nextleveldev.smart_route.infrastructure.um.api.UmBusLineResponse;
+import pl.nextleveldev.smart_route.infrastructure.um.api.UmTimetableResponse;
+
+import static pl.nextleveldev.smart_route.infrastructure.um.UmWarsawClient.*;
 
 class UmWarsawResponseMapper {
 
@@ -13,7 +16,7 @@ class UmWarsawResponseMapper {
                     response.result().stream()
                             .flatMap(resultValues -> resultValues.values().stream())
                             .filter(value -> "linia".equalsIgnoreCase(value.key()))
-                            .map(UmWarsawClient.Value::value)
+                            .map(Value::value)
                             .toList();
 
             return new UmBusLineResponse(stopId, stopNr, lines);
@@ -26,5 +29,9 @@ class UmWarsawResponseMapper {
                             + ". Error: "
                             + e.getMessage());
         }
+    }
+
+    static UmTimetableResponse mapTimetableResponse(String stopId, String stopNr, String line, UmWarsawTimetableGenericResponse genericResponse) {
+
     }
 }
