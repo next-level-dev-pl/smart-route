@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestClient;
 import pl.nextleveldev.smart_route.infrastructure.um.api.UmStopInfoResponse;
-import pl.nextleveldev.smart_route.infrastructure.um.api.UmTimetableResponse;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -15,7 +14,8 @@ public class UmWarsawClient {
     private final RestClient umWarsawClient;
     private final UmWarsawProperties properties;
 
-    public UmWarsawTimetableGenericResponse getTimetableFor(String stopId, String stopNr, String line) {
+    public UmWarsawTimetableGenericResponse getTimetableFor(
+            String stopId, String stopNr, String line) {
         return umWarsawClient
                 .get()
                 .uri(

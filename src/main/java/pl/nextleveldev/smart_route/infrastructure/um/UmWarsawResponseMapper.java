@@ -1,19 +1,17 @@
 package pl.nextleveldev.smart_route.infrastructure.um;
 
-import java.time.LocalDate;
+import static pl.nextleveldev.smart_route.infrastructure.um.UmWarsawClient.*;
+import static pl.nextleveldev.smart_route.infrastructure.um.api.UmTimetableResponse.*;
+
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import pl.nextleveldev.smart_route.infrastructure.um.UmWarsawClient.UmWarsawBusStopGenericResponse;
 import pl.nextleveldev.smart_route.infrastructure.um.api.UmBusLineResponse;
 import pl.nextleveldev.smart_route.infrastructure.um.api.UmTimetableResponse;
-
-import static pl.nextleveldev.smart_route.infrastructure.um.UmWarsawClient.*;
-import static pl.nextleveldev.smart_route.infrastructure.um.api.UmTimetableResponse.*;
 
 class UmWarsawResponseMapper {
 
@@ -39,9 +37,14 @@ class UmWarsawResponseMapper {
         }
     }
 
-    static UmTimetableResponse mapTimetableResponse(String stopId, String stopNr, String line, UmWarsawTimetableGenericResponse genericResponse) {
+    static UmTimetableResponse mapTimetableResponse(
+            String stopId,
+            String stopNr,
+            String line,
+            UmWarsawTimetableGenericResponse genericResponse) {
         List<Map<String, String>> parsedJson = new ArrayList<>();
-        genericResponse.result().stream()
+        genericResponse
+                .result()
                 .forEach(
                         resultValues -> {
                             Map<String, String> map = new HashMap<>();
@@ -58,44 +61,42 @@ class UmWarsawResponseMapper {
                 parsedJsonElement -> {
                     String symbolOne =
                             parsedJsonElement.get("symbol_1") != null
-//                            !parsedJsonElement.get("symbol_1").equals("null")
                                     ? parsedJsonElement.get("symbol_1")
                                     : null;
 
                     String symbolTwo =
                             parsedJsonElement.get("symbol_2") != null
-//                            !parsedJsonElement.get("symbol_2").equals("null")
                                     ? parsedJsonElement.get("symbol_2")
                                     : null;
 
                     Integer brigade =
                             parsedJsonElement.get("brygada") != null
-//                            !parsedJsonElement.get("brygada").equals("null")
                                     ? Integer.parseInt(parsedJsonElement.get("brygada"))
                                     : null;
 
                     String direction =
                             parsedJsonElement.get("kierunek") != null
-//                            !parsedJsonElement.get("kierunek").equals("null")
                                     ? parsedJsonElement.get("kierunek")
                                     : null;
 
                     String route =
                             parsedJsonElement.get("trasa") != null
-//                            !parsedJsonElement.get("trasa").equals("null")
                                     ? parsedJsonElement.get("trasa")
                                     : null;
 
-                    LocalTime time = parsedJsonElement.get("czas") != null
-                            ? LocalTime.parse(
-                            parsedJsonElement.get("czas").startsWith("24:")
-                                    ? "00:" + parsedJsonElement.get("czas").substring(3)
-                                    : parsedJsonElement.get("czas"),
-                            formatter)
-                            : null;
+                    LocalTime time =
+                            parsedJsonElement.get("czas") != null
+                                    ? LocalTime.parse(
+                                            parsedJsonElement.get("czas").startsWith("24:")
+                                                    ? "00:"
+                                                            + parsedJsonElement
+                                                                    .get("czas")
+                                                                    .substring(3)
+                                                    : parsedJsonElement.get("czas"),
+                                            formatter)
+                                    : null;
                     results.add(new Result(symbolOne, symbolTwo, brigade, direction, route, time));
-                }
-        );
+                });
 
         return new UmTimetableResponse(stopId, stopNr, line, results);
     }
