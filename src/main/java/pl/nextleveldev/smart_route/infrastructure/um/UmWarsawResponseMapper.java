@@ -42,7 +42,6 @@ class UmWarsawResponseMapper {
     static UmTimetableResponse mapTimetableResponse(String stopId, String stopNr, String line, UmWarsawTimetableGenericResponse genericResponse) {
         List<Map<String, String>> parsedJson = new ArrayList<>();
         genericResponse.result().stream()
-                .map(ResultValues::values)
                 .forEach(
                         resultValues -> {
                             Map<String, String> map = new HashMap<>();
@@ -58,35 +57,42 @@ class UmWarsawResponseMapper {
         parsedJson.forEach(
                 parsedJsonElement -> {
                     String symbolOne =
-                            !parsedJsonElement.get("symbol_1").equals("null")
+                            parsedJsonElement.get("symbol_1") != null
+//                            !parsedJsonElement.get("symbol_1").equals("null")
                                     ? parsedJsonElement.get("symbol_1")
                                     : null;
 
                     String symbolTwo =
-                            !parsedJsonElement.get("symbol_2").equals("null")
+                            parsedJsonElement.get("symbol_2") != null
+//                            !parsedJsonElement.get("symbol_2").equals("null")
                                     ? parsedJsonElement.get("symbol_2")
                                     : null;
 
                     Integer brigade =
-                            !parsedJsonElement.get("brygada").equals("null")
+                            parsedJsonElement.get("brygada") != null
+//                            !parsedJsonElement.get("brygada").equals("null")
                                     ? Integer.parseInt(parsedJsonElement.get("brygada"))
                                     : null;
 
                     String direction =
-                            !parsedJsonElement.get("kierunek").equals("null")
+                            parsedJsonElement.get("kierunek") != null
+//                            !parsedJsonElement.get("kierunek").equals("null")
                                     ? parsedJsonElement.get("kierunek")
                                     : null;
 
                     String route =
-                            !parsedJsonElement.get("trasa").equals("null")
-                                    ? parsedJsonElement.get("trase")
+                            parsedJsonElement.get("trasa") != null
+//                            !parsedJsonElement.get("trasa").equals("null")
+                                    ? parsedJsonElement.get("trasa")
                                     : null;
 
-                    LocalTime time =
-                            !parsedJsonElement.get("czas").equals("null")
-                                    ? LocalTime.parse(
-                                    parsedJsonElement.get("czas"), formatter)
-                                    : null;
+                    LocalTime time = parsedJsonElement.get("czas") != null
+                            ? LocalTime.parse(
+                            parsedJsonElement.get("czas").startsWith("24:")
+                                    ? "00:" + parsedJsonElement.get("czas").substring(3)
+                                    : parsedJsonElement.get("czas"),
+                            formatter)
+                            : null;
                     results.add(new Result(symbolOne, symbolTwo, brigade, direction, route, time));
                 }
         );

@@ -70,7 +70,7 @@ public class UmWarsawClient {
 
     public record UmWarsawBusStopGenericResponse(List<ResultValues> result) {}
 
-    public record UmWarsawTimetableGenericResponse(List<ResultValues> result) {}
+    public record UmWarsawTimetableGenericResponse(List<List<Value>> result) {}
 
     record ResultValues(List<Value> values) {}
 
