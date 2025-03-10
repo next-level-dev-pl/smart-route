@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestClient;
-import pl.nextleveldev.smart_route.infrastructure.um.api.UmStopInfoResponse;
 import pl.nextleveldev.smart_route.infrastructure.um.api.UmTimetableResponse;
 
 @Slf4j
@@ -68,11 +67,9 @@ public class UmWarsawClient {
                 .body(UmWarsawStopInfoGenericResponse.class);
     }
 
-    public record UmWarsawBusStopGenericResponse(List<ResultValues> result) {
-    }
+    public record UmWarsawBusStopGenericResponse(List<ResultValues> result) {}
 
-    public record UmWarsawStopInfoGenericResponse(List<ResultValues> result) {
-    }
+    public record UmWarsawStopInfoGenericResponse(List<ResultValues> result) {}
 
     record ResultValues(List<Value> values) {}
 
