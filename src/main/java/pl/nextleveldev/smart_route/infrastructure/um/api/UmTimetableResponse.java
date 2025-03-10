@@ -1,8 +1,6 @@
 package pl.nextleveldev.smart_route.infrastructure.um.api;
 
-import java.util.List;
+import java.time.LocalTime;
 
-public record UmTimetableResponse(List<List<KeyValue>> result) {
-
-    public record KeyValue(String key, String value) {}
+public record UmTimetableResponse(String symbolOne, String symbolTwo, Integer brigade, String direction, String route, LocalTime time){
 }
