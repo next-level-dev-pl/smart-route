@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.client.RestClientException;
 import pl.nextleveldev.smart_route.infrastructure.um.api.UmTimetableResponse;
 
 @Slf4j
@@ -52,19 +53,24 @@ public class UmWarsawClient {
     }
 
     public UmWarsawStopInfoGenericResponse getStopInfo() {
-        return umWarsawClient
-                .get()
-                .uri(
-                        urlBuilder ->
-                                urlBuilder
-                                        .scheme("https")
-                                        .path(properties.store().resourcePath())
-                                        .queryParam("id", properties.store().stopInfoId())
-                                        .queryParam("apikey", properties.apiKey())
-                                        .build())
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .body(UmWarsawStopInfoGenericResponse.class);
+        try {
+            return umWarsawClient
+                    .get()
+                    .uri(
+                            urlBuilder ->
+                                    urlBuilder
+                                            .scheme("https")
+                                            .path(properties.store().resourcePath())
+                                            .queryParam("id", properties.store().stopInfoId())
+                                            .queryParam("apikey", properties.apiKey())
+                                            .build())
+                    .accept(MediaType.APPLICATION_JSON)
+                    .retrieve()
+                    .body(UmWarsawStopInfoGenericResponse.class);
+        } catch (RestClientException e) {
+            throw new StopInfoResponseException(
+                    "Failed to receive response for stops info. " + e.getMessage());
+        }
     }
 
     public record UmWarsawBusStopGenericResponse(List<ResultValues> result) {}

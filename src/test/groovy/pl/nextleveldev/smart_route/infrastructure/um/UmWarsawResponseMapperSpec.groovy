@@ -60,6 +60,18 @@ class UmWarsawResponseMapperSpec extends Specification {
                                         new Value("kierunek", "al.Zieleniecka"),
                                         new Value("obowiazuje_od", "2024-12-14 00:00:00.0")
                                 ]
+                        ),
+                        new ResultValues(
+                                [
+                                        new Value("zespol", "R-01"),
+                                        new Value("slupek", "01"),
+                                        new Value("nazwa_zespolu", "Kijowska"),
+                                        new Value("id_ulicy", "null"),
+                                        new Value("szer_geo", "52.248455"),
+                                        new Value("dlug_geo", "21.044827"),
+                                        new Value("kierunek", "al.Zieleniecka"),
+                                        new Value("obowiazuje_od", "2024-12-14 00:00:00.0")
+                                ]
                         )
                 ]
         )
@@ -71,6 +83,43 @@ class UmWarsawResponseMapperSpec extends Specification {
         result.getFirst().stopNr() == "01"
         result.getFirst().stopIdName() == "Kijowska"
         result.getFirst().streetId() == 2201
+        result.getFirst().location() == location
+        result.getFirst().direction() == "al.Zieleniecka"
+        result.getFirst().validFrom() == date
+    }
+
+    def "map stop info with null values"() {
+        given:
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+        var date = LocalDateTime.parse("2024-12-14 00:00:00.0", formatter)
+        GeometryFactory geometryFactory = new GeometryFactory();
+        var location = geometryFactory.createPoint(new Coordinate(21.044827D, 52.248455D));
+        location.setSRID(4326);
+
+        def genericResponse = new UmWarsawStopInfoGenericResponse(
+                [
+                        new ResultValues(
+                                [
+                                        new Value("zespol", "R-01"),
+                                        new Value("slupek", "01"),
+                                        new Value("nazwa_zespolu", "Kijowska"),
+                                        new Value("id_ulicy", "null"),
+                                        new Value("szer_geo", "52.248455"),
+                                        new Value("dlug_geo", "21.044827"),
+                                        new Value("kierunek", "al.Zieleniecka"),
+                                        new Value("obowiazuje_od", "2024-12-14 00:00:00.0")
+                                ]
+                        )
+                ]
+        )
+        when:
+        def result = UmWarsawResponseMapper.mapStopInfoResponse(genericResponse)
+
+        then:
+        result.getFirst().stopId() == "R-01"
+        result.getFirst().stopNr() == "01"
+        result.getFirst().stopIdName() == "Kijowska"
+        result.getFirst().streetId() == null
         result.getFirst().location() == location
         result.getFirst().direction() == "al.Zieleniecka"
         result.getFirst().validFrom() == date
