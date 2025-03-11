@@ -30,7 +30,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springframework.boot:spring-boot-docker-compose'
 
     // Database dependencies
@@ -43,6 +42,9 @@ dependencies {
     // Geospatial libraries
     implementation 'org.locationtech.jts:jts-core:1.19.0'
 
+    // Hibernate
+    implementation 'org.hibernate:hibernate-spatial:6.4.0.Final'
+
     // Lombok
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
@@ -53,7 +55,7 @@ dependencies {
     testImplementation 'org.spockframework:spock-spring:2.4-M1-groovy-4.0'
 
     // Test containers
-    testImplementation 'org.testcontainers:testcontainers:1.20.5'
+    testImplementation 'org.testcontainers:testcontainers:1.20.5' // The version must be raised to 1.26.0 or higher
     testImplementation 'org.testcontainers:junit-jupiter:1.20.5'
     testImplementation 'org.testcontainers:postgresql:1.20.5'
 

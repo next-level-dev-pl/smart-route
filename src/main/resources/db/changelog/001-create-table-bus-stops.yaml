@@ -16,7 +16,7 @@ databaseChangeLog:
                                         # Below original name values received from api.um.warszawa
               - column:
                   name: stop_id         # zespol
-                  type: integer
+                  type: varchar(4)
                   constraints:
                     nullable: false
               - column:
@@ -31,11 +31,11 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: street_id       # id_ulicy
-                  type: integer
+                  type: varchar(4)
                   constraints:
                     nullable: false
               - column:
-                  name: location        # szer_geo; dlug_geo as Postgis type for lat/lon
+                  name: location        # szer_geo; dlug_geo as PostGIS type for lat/lon
                   type: geography(POINT, 4326)
                   constraints:
                     nullable: false
