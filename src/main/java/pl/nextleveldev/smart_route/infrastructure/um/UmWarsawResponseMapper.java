@@ -43,21 +43,21 @@ class UmWarsawResponseMapper {
             String line,
             UmWarsawTimetableGenericResponse genericResponse) {
         try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+            List<Result> results = new ArrayList<>();
             List<Map<String, String>> parsedJson = new ArrayList<>();
             genericResponse
                     .result()
                     .forEach(
-                            resultValues -> {
-                                Map<String, String> map = new HashMap<>();
-                                resultValues.forEach(
+                            values -> {
+                                Map<String, String> eachResult = new HashMap<>();
+                                values.forEach(
                                         value -> {
-                                            map.put(value.key(), value.value());
+                                            eachResult.put(value.key(), value.value());
                                         });
-                                parsedJson.add(map);
+                                parsedJson.add(eachResult);
                             });
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-            List<Result> results = new ArrayList<>();
             parsedJson.forEach(
                     parsedJsonElement -> {
                         String symbolOne =
@@ -88,28 +88,29 @@ class UmWarsawResponseMapper {
                         LocalTime time =
                                 parsedJsonElement.get("czas") != null
                                         ? LocalTime.parse(
-                                        parsedJsonElement.get("czas").startsWith("24:")
-                                                ? "00:"
-                                                + parsedJsonElement
-                                                .get("czas")
-                                                .substring(3)
-                                                : parsedJsonElement.get("czas"),
-                                        formatter)
+                                                parsedJsonElement.get("czas").startsWith("24:")
+                                                        ? "00:"
+                                                                + parsedJsonElement
+                                                                        .get("czas")
+                                                                        .substring(3)
+                                                        : parsedJsonElement.get("czas"),
+                                                formatter)
                                         : null;
-                        results.add(new Result(symbolOne, symbolTwo, brigade, direction, route, time));
+                        results.add(
+                                new Result(symbolOne, symbolTwo, brigade, direction, route, time));
                     });
 
             return new UmTimetableResponse(stopId, stopNr, line, results);
         } catch (Exception e) {
             throw new TimetableResponseException(
                     "Failed to receive response for timetable for stop Id:"
-                    + stopId
-                    + " and stop number: "
-                    + stopNr
-                    + " and line: "
-                    + line
-                    + ". Error: "
-                    + e.getMessage());
+                            + stopId
+                            + " and stop number: "
+                            + stopNr
+                            + " and line: "
+                            + line
+                            + ". Error: "
+                            + e.getMessage());
         }
     }
 }
