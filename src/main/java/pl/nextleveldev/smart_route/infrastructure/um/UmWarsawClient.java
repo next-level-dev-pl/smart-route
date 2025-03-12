@@ -7,7 +7,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
 import pl.nextleveldev.smart_route.infrastructure.um.api.UmStopInfoResponse;
-import pl.nextleveldev.smart_route.infrastructure.um.api.UmTimetableResponse;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -16,26 +15,41 @@ public class UmWarsawClient {
     private final RestClient umWarsawClient;
     private final UmWarsawProperties properties;
 
-    public UmTimetableResponse getTimetableFor(String stopId, String stopNr, String line) {
-        return umWarsawClient
-                .get()
-                .uri(
-                        urlBuilder ->
-                                urlBuilder
-                                        .scheme("https")
-                                        .path(properties.timetable().resourcePath())
-                                        .queryParam("id", properties.timetable().timetableId())
-                                        .queryParam("busstopId", stopId)
-                                        .queryParam("busstopNr", stopNr)
-                                        .queryParam("line", line)
-                                        .queryParam("apikey", properties.apiKey())
-                                        .build())
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .body(UmTimetableResponse.class);
+    public UmWarsawTimetableGenericResponse getTimetableFor(
+            String stopId, String stopNr, String line) {
+        try {
+            return umWarsawClient
+                    .get()
+                    .uri(
+                            urlBuilder ->
+                                    urlBuilder
+                                            .scheme("https")
+                                            .path(properties.timetable().resourcePath())
+                                            .queryParam("id", properties.timetable().timetableId())
+                                            .queryParam("busstopId", stopId)
+                                            .queryParam("busstopNr", stopNr)
+                                            .queryParam("line", line)
+                                            .queryParam("apikey", properties.apiKey())
+                                            .build())
+                    .accept(MediaType.APPLICATION_JSON)
+                    .retrieve()
+                    .body(UmWarsawTimetableGenericResponse.class);
+        } catch (RestClientException e) {
+            throw new TimetableResponseException(
+                    "Failed to receive response for timetable for stop Id:"
+                            + stopId
+                            + " and stop number: "
+                            + stopNr
+                            + " and line: "
+                            + line
+                            + ". Error: "
+                            + e.getMessage()
+                            + ". Cause: "
+                            + e.getCause());
+        }
     }
 
-    public UmWarsawGenericResponse getBusLineFor(String stopId, String stopNr) {
+    public UmWarsawBusStopGenericResponse getBusLineFor(String stopId, String stopNr) {
         try {
             return umWarsawClient
                     .get()
@@ -51,7 +65,7 @@ public class UmWarsawClient {
                                             .build())
                     .accept(MediaType.APPLICATION_JSON)
                     .retrieve()
-                    .body(UmWarsawGenericResponse.class);
+                    .body(UmWarsawBusStopGenericResponse.class);
 
         } catch (RestClientException e) {
             throw new BusLineResponseException(
@@ -60,7 +74,9 @@ public class UmWarsawClient {
                             + "and stop number:"
                             + stopNr
                             + ". Error: "
-                            + e.getMessage());
+                            + e.getMessage()
+                            + ". Cause: "
+                            + e.getCause());
         }
     }
 
@@ -80,9 +96,11 @@ public class UmWarsawClient {
                 .body(UmStopInfoResponse.class);
     }
 
-    public record UmWarsawGenericResponse(List<ResultValues> result) {
-        record ResultValues(List<Value> values) {}
+    public record UmWarsawBusStopGenericResponse(List<ResultValues> result) {}
 
-        record Value(String key, String value) {}
-    }
+    public record UmWarsawTimetableGenericResponse(List<List<Value>> result) {}
+
+    record ResultValues(List<Value> values) {}
+
+    record Value(String key, String value) {}
 }
