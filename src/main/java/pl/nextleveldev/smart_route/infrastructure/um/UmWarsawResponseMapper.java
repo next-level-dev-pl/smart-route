@@ -33,7 +33,9 @@ class UmWarsawResponseMapper {
                             + "and stop number:"
                             + stopNr
                             + ". Error: "
-                            + e.getMessage());
+                            + e.getMessage()
+                            + ". Cause: "
+                            + e.getCause());
         }
     }
 

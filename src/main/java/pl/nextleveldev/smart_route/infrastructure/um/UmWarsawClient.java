@@ -49,7 +49,7 @@ public class UmWarsawClient {
         }
     }
 
-    public UmWarsawGenericResponse getBusLineFor(String stopId, String stopNr) {
+    public UmWarsawBusStopGenericResponse getBusLineFor(String stopId, String stopNr) {
         try {
             return umWarsawClient
                     .get()
@@ -65,7 +65,7 @@ public class UmWarsawClient {
                                             .build())
                     .accept(MediaType.APPLICATION_JSON)
                     .retrieve()
-                    .body(UmWarsawGenericResponse.class);
+                    .body(UmWarsawBusStopGenericResponse.class);
 
         } catch (RestClientException e) {
             throw new BusLineResponseException(
@@ -74,7 +74,9 @@ public class UmWarsawClient {
                             + "and stop number:"
                             + stopNr
                             + ". Error: "
-                            + e.getMessage());
+                            + e.getMessage()
+                            + ". Cause: "
+                            + e.getCause());
         }
     }
 
