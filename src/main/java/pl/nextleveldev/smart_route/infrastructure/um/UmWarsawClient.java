@@ -43,7 +43,9 @@ public class UmWarsawClient {
                             + " and line: "
                             + line
                             + ". Error: "
-                            + e.getMessage());
+                            + e.getMessage()
+                            + ". Cause: "
+                            + e.getCause());
         }
     }
 

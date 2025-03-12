@@ -103,14 +103,16 @@ class UmWarsawResponseMapper {
             return new UmTimetableResponse(stopId, stopNr, line, results);
         } catch (Exception e) {
             throw new TimetableResponseException(
-                    "Failed to receive response for timetable for stop Id:"
+                    "Failed to map response for timetable for stop Id:"
                             + stopId
                             + " and stop number: "
                             + stopNr
                             + " and line: "
                             + line
                             + ". Error: "
-                            + e.getMessage());
+                            + e.getMessage()
+                            + ". Cause: "
+                            + e.getCause());
         }
     }
 }
