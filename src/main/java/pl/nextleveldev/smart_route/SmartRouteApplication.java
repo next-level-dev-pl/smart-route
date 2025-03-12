@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public classlogSmartRouteApplication {
+public class SmartRouteApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(SmartRouteApplication.class, args);
