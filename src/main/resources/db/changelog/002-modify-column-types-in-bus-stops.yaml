@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2-modify-column-types-in-bus-stops
+      author: Dawid Bielecki <dawciobiel>
+      changes:
+        - modifyDataType:
+            tableName: bus_stops
+            columnName: stop_id
+            newDataType: varchar(4)
+        - modifyDataType:
+            tableName: bus_stops
+            columnName: street_id
+            newDataType: varchar(4)
