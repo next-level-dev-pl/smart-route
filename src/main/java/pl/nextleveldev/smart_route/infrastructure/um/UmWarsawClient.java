@@ -1,13 +1,12 @@
 package pl.nextleveldev.smart_route.infrastructure.um;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
 import pl.nextleveldev.smart_route.infrastructure.um.api.UmTimetableResponse;
-
-import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
