@@ -47,22 +47,33 @@ public class UmWarsawClient {
         }
     }
 
-    public UmWarsawBusStopGenericResponse getBusLineFor(String stopId, String stopNr) {
-        return umWarsawClient
-                .get()
-                .uri(
-                        urlBuilder ->
-                                urlBuilder
-                                        .scheme("https")
-                                        .path(properties.timetable().resourcePath())
-                                        .queryParam("id", properties.timetable().busLineId())
-                                        .queryParam("busstopId", stopId)
-                                        .queryParam("busstopNr", stopNr)
-                                        .queryParam("apikey", properties.apiKey())
-                                        .build())
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .body(UmWarsawBusStopGenericResponse.class);
+    public UmWarsawGenericResponse getBusLineFor(String stopId, String stopNr) {
+        try {
+            return umWarsawClient
+                    .get()
+                    .uri(
+                            urlBuilder ->
+                                    urlBuilder
+                                            .scheme("https")
+                                            .path(properties.timetable().resourcePath())
+                                            .queryParam("id", properties.timetable().busLineId())
+                                            .queryParam("busstopId", stopId)
+                                            .queryParam("busstopNr", stopNr)
+                                            .queryParam("apikey", properties.apiKey())
+                                            .build())
+                    .accept(MediaType.APPLICATION_JSON)
+                    .retrieve()
+                    .body(UmWarsawGenericResponse.class);
+
+        } catch (RestClientException e) {
+            throw new BusLineResponseException(
+                    "Failed to receive response for stop Id:"
+                            + stopId
+                            + "and stop number:"
+                            + stopNr
+                            + ". Error: "
+                            + e.getMessage());
+        }
     }
 
     public UmStopInfoResponse getStopInfo() {
