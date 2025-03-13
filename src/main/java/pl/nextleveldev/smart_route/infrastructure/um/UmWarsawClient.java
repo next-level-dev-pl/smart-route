@@ -1,13 +1,13 @@
 package pl.nextleveldev.smart_route.infrastructure.um;
 
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
-import pl.nextleveldev.smart_route.infrastructure.um.api.UmStopInfoResponse;
-import pl.nextleveldev.smart_route.infrastructure.um.api.UmTimetableResponse;
+import pl.nextleveldev.smart_route.infrastructure.um.api.BusLineResponseException;
+import pl.nextleveldev.smart_route.infrastructure.um.api.UmBusLineResponse;
+import pl.nextleveldev.smart_route.infrastructure.um.api.UmWarsawGenericResponse;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -16,7 +16,7 @@ public class UmWarsawClient {
     private final RestClient umWarsawClient;
     private final UmWarsawProperties properties;
 
-    public UmTimetableResponse getTimetableFor(String stopId, String stopNr, String line) {
+    public UmWarsawGenericResponse getTimetableFor(String stopId, String stopNr, String line) {
         return umWarsawClient
                 .get()
                 .uri(
@@ -32,12 +32,12 @@ public class UmWarsawClient {
                                         .build())
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .body(UmTimetableResponse.class);
+                .body(UmWarsawGenericResponse.class);
     }
 
-    public UmWarsawGenericResponse getBusLineFor(String stopId, String stopNr) {
+    public UmBusLineResponse getBusLineFor(String stopId, String stopNr) {
         try {
-            return umWarsawClient
+            UmWarsawGenericResponse response = umWarsawClient
                     .get()
                     .uri(
                             urlBuilder ->
@@ -52,19 +52,18 @@ public class UmWarsawClient {
                     .accept(MediaType.APPLICATION_JSON)
                     .retrieve()
                     .body(UmWarsawGenericResponse.class);
-
+            return UmWarsawResponseMapper.mapBusLineResponse(stopId, stopNr, response);
         } catch (RestClientException e) {
             throw new BusLineResponseException(
                     "Failed to receive response for stop Id:"
                             + stopId
                             + "and stop number:"
-                            + stopNr
-                            + ". Error: "
-                            + e.getMessage());
+                            + stopNr,
+                    e);
         }
     }
 
-    public UmStopInfoResponse getStopInfo() {
+    public UmWarsawGenericResponse getStopInfo() {
         return umWarsawClient
                 .get()
                 .uri(
@@ -77,12 +76,6 @@ public class UmWarsawClient {
                                         .build())
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .body(UmStopInfoResponse.class);
-    }
-
-    public record UmWarsawGenericResponse(List<ResultValues> result) {
-        record ResultValues(List<Value> values) {}
-
-        record Value(String key, String value) {}
+                .body(UmWarsawGenericResponse.class);
     }
 }
