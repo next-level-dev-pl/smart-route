@@ -22,7 +22,7 @@ abstract class BaseIntegrationSpec extends Specification {
     public static final String TESTCONTAINER_DB_PASSWORD = "testPassword";
 
     @Container
-    public static final PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>(DockerImageName.parse("postgis/postgis:16-3.4")
+    public static final postgresSQLContainer = new PostgreSQLContainer<>(DockerImageName.parse("postgis/postgis:16-3.4")
             .asCompatibleSubstituteFor("postgres"))
             .withDatabaseName(TESTCONTAINER_DB_NAME)
             .withUsername(TESTCONTAINER_DB_USERNAME)
@@ -30,14 +30,14 @@ abstract class BaseIntegrationSpec extends Specification {
             .withReuse(true)
 
     static {
-        postgreSQLContainer.start()
+        postgresSQLContainer.start()
     }
 
     @DynamicPropertySource
     static def "setTestContainerProperties"(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", postgreSQLContainer::getJdbcUrl)
-        registry.add("spring.datasource.username", postgreSQLContainer::getUsername)
-        registry.add("spring.datasource.password", postgreSQLContainer::getPassword)
+        registry.add("spring.datasource.url", postgresSQLContainer::getJdbcUrl)
+        registry.add("spring.datasource.username", postgresSQLContainer::getUsername)
+        registry.add("spring.datasource.password", postgresSQLContainer::getPassword)
     }
 
     @Autowired
