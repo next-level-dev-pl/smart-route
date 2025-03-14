@@ -3,8 +3,8 @@ package pl.nextleveldev.smart_route.infrastructure.um
 import pl.nextleveldev.smart_route.infrastructure.um.api.UmWarsawGenericResponse
 import spock.lang.Specification
 
-import static pl.nextleveldev.smart_route.infrastructure.um.api.UmWarsawGenericResponse.ResultValues
-import static pl.nextleveldev.smart_route.infrastructure.um.api.UmWarsawGenericResponse.ResultValues.Value
+import static pl.nextleveldev.smart_route.infrastructure.um.api.UmWarsawGenericResponse.ResultValue
+import static pl.nextleveldev.smart_route.infrastructure.um.api.UmWarsawGenericResponse.ResultValue.Value
 
 class UmWarsawResponseMapperSpec extends Specification {
 
@@ -12,13 +12,13 @@ class UmWarsawResponseMapperSpec extends Specification {
         given:
         def response = new UmWarsawGenericResponse(
                 [
-                        new ResultValues(
+                        new ResultValue(
                                 [
                                         new Value("linia", "250"),
                                         new Value("unknown", "404"),
                                 ]
                         ),
-                        new ResultValues(
+                        new ResultValue(
                                 [
                                         new Value("linia", "520"),
                                 ]

@@ -11,10 +11,10 @@ class UmWarsawResponseMapper {
             String stopId, String stopNr, UmWarsawGenericResponse response) {
         try {
             List<String> lines =
-                    response.result().stream()
-                            .flatMap(resultValues -> resultValues.values().stream())
+                    response.results().stream()
+                            .flatMap(resultValue -> resultValue.values().stream())
                             .filter(value -> "linia".equalsIgnoreCase(value.key()))
-                            .map(UmWarsawGenericResponse.ResultValues.Value::value)
+                            .map(UmWarsawGenericResponse.ResultValue.Value::value)
                             .toList();
 
             return new UmBusLineResponse(stopId, stopNr, lines);
