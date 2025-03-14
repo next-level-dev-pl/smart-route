@@ -1,10 +1,9 @@
 package pl.nextleveldev.smart_route.infrastructure.um;
 
+import java.util.List;
 import pl.nextleveldev.smart_route.infrastructure.um.api.BusLineResponseException;
 import pl.nextleveldev.smart_route.infrastructure.um.api.UmBusLineResponse;
 import pl.nextleveldev.smart_route.infrastructure.um.api.UmWarsawGenericResponse;
-
-import java.util.List;
 
 class UmWarsawResponseMapper {
 
@@ -21,10 +20,7 @@ class UmWarsawResponseMapper {
             return new UmBusLineResponse(stopId, stopNr, lines);
         } catch (Exception e) {
             throw new BusLineResponseException(
-                    "Failed to map response for stop Id:"
-                            + stopId
-                            + "and stop number:"
-                            + stopNr,
+                    "Failed to map response for stop Id:" + stopId + "and stop number:" + stopNr,
                     e);
         }
     }

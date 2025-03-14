@@ -37,21 +37,24 @@ public class UmWarsawClient {
 
     public UmBusLineResponse getBusLineFor(String stopId, String stopNr) {
         try {
-            UmWarsawGenericResponse response = umWarsawClient
-                    .get()
-                    .uri(
-                            urlBuilder ->
-                                    urlBuilder
-                                            .scheme("https")
-                                            .path(properties.timetable().resourcePath())
-                                            .queryParam("id", properties.timetable().busLineId())
-                                            .queryParam("busstopId", stopId)
-                                            .queryParam("busstopNr", stopNr)
-                                            .queryParam("apikey", properties.apiKey())
-                                            .build())
-                    .accept(MediaType.APPLICATION_JSON)
-                    .retrieve()
-                    .body(UmWarsawGenericResponse.class);
+            UmWarsawGenericResponse response =
+                    umWarsawClient
+                            .get()
+                            .uri(
+                                    urlBuilder ->
+                                            urlBuilder
+                                                    .scheme("https")
+                                                    .path(properties.timetable().resourcePath())
+                                                    .queryParam(
+                                                            "id",
+                                                            properties.timetable().busLineId())
+                                                    .queryParam("busstopId", stopId)
+                                                    .queryParam("busstopNr", stopNr)
+                                                    .queryParam("apikey", properties.apiKey())
+                                                    .build())
+                            .accept(MediaType.APPLICATION_JSON)
+                            .retrieve()
+                            .body(UmWarsawGenericResponse.class);
             return UmWarsawResponseMapper.mapBusLineResponse(stopId, stopNr, response);
         } catch (RestClientException e) {
             throw new BusLineResponseException(
