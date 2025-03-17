@@ -15,7 +15,8 @@ public class UmWarsawClient {
     private final RestClient umWarsawClient;
     private final UmWarsawProperties properties;
 
-    public UmWarsawRawResponses.Timetable getTimetableFor(String stopId, String stopNr, String line) {
+    public UmWarsawRawResponses.Timetable getTimetableFor(
+            String stopId, String stopNr, String line) {
         return umWarsawClient
                 .get()
                 .uri(

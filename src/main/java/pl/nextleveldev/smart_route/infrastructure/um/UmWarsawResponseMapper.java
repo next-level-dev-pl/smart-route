@@ -1,9 +1,8 @@
 package pl.nextleveldev.smart_route.infrastructure.um;
 
+import java.util.List;
 import pl.nextleveldev.smart_route.infrastructure.um.api.BusLineResponseException;
 import pl.nextleveldev.smart_route.infrastructure.um.api.UmBusLineResponse;
-
-import java.util.List;
 
 class UmWarsawResponseMapper {
 
