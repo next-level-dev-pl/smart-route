@@ -1,16 +1,15 @@
 package pl.nextleveldev.smart_route.infrastructure.um
 
-import pl.nextleveldev.smart_route.infrastructure.um.api.UmWarsawGenericResponse
 import spock.lang.Specification
 
-import static pl.nextleveldev.smart_route.infrastructure.um.api.UmWarsawGenericResponse.ResultValue
-import static pl.nextleveldev.smart_route.infrastructure.um.api.UmWarsawGenericResponse.ResultValue.Value
+import static pl.nextleveldev.smart_route.infrastructure.um.UmWarsawRawResponses.BusLine.ResultValue
+import static pl.nextleveldev.smart_route.infrastructure.um.UmWarsawRawResponses.BusLine.ResultValue.Value
 
 class UmWarsawResponseMapperSpec extends Specification {
 
     def "map lines of buses for bus stop"() {
         given:
-        def response = new UmWarsawGenericResponse(
+        def response = new UmWarsawRawResponses.BusLine(
                 [
                         new ResultValue(
                                 [

@@ -7,7 +7,6 @@ import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
 import pl.nextleveldev.smart_route.infrastructure.um.api.BusLineResponseException;
 import pl.nextleveldev.smart_route.infrastructure.um.api.UmBusLineResponse;
-import pl.nextleveldev.smart_route.infrastructure.um.api.UmWarsawGenericResponse;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -16,7 +15,7 @@ public class UmWarsawClient {
     private final RestClient umWarsawClient;
     private final UmWarsawProperties properties;
 
-    public UmWarsawGenericResponse getTimetableFor(String stopId, String stopNr, String line) {
+    public UmWarsawRawResponses.Timetable getTimetableFor(String stopId, String stopNr, String line) {
         return umWarsawClient
                 .get()
                 .uri(
@@ -32,12 +31,12 @@ public class UmWarsawClient {
                                         .build())
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .body(UmWarsawGenericResponse.class);
+                .body(UmWarsawRawResponses.Timetable.class);
     }
 
     public UmBusLineResponse getBusLineFor(String stopId, String stopNr) {
         try {
-            UmWarsawGenericResponse response =
+            UmWarsawRawResponses.BusLine response =
                     umWarsawClient
                             .get()
                             .uri(
@@ -54,7 +53,7 @@ public class UmWarsawClient {
                                                     .build())
                             .accept(MediaType.APPLICATION_JSON)
                             .retrieve()
-                            .body(UmWarsawGenericResponse.class);
+                            .body(UmWarsawRawResponses.BusLine.class);
             return UmWarsawResponseMapper.mapBusLineResponse(stopId, stopNr, response);
         } catch (RestClientException e) {
             throw new BusLineResponseException(
@@ -66,7 +65,7 @@ public class UmWarsawClient {
         }
     }
 
-    public UmWarsawGenericResponse getStopInfo() {
+    public UmWarsawRawResponses.StopInfo getStopInfo() {
         return umWarsawClient
                 .get()
                 .uri(
@@ -79,6 +78,6 @@ public class UmWarsawClient {
                                         .build())
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .body(UmWarsawGenericResponse.class);
+                .body(UmWarsawRawResponses.StopInfo.class);
     }
 }
