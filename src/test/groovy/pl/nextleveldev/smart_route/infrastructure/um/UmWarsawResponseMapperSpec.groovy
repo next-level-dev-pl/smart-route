@@ -2,29 +2,26 @@ package pl.nextleveldev.smart_route.infrastructure.um
 
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
-import pl.nextleveldev.smart_route.infrastructure.um.api.UmStopInfoResponse
 import spock.lang.Specification
 
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-import static pl.nextleveldev.smart_route.infrastructure.um.UmWarsawClient.*
-
 class UmWarsawResponseMapperSpec extends Specification {
 
     def "map lines of buses for bus stop"() {
         given:
-        def response = new UmWarsawBusStopGenericResponse(
+        def response = new UmWarsawRawResponses.BusLine(
                 [
-                        new ResultValues(
+                        new UmWarsawRawResponses.BusLine.ResultValue(
                                 [
-                                        new Value("linia", "250"),
-                                        new Value("unknown", "250"),
+                                        new UmWarsawRawResponses.BusLine.ResultValue.Value("linia", "250"),
+                                        new UmWarsawRawResponses.BusLine.ResultValue.Value("unknown", "404"),
                                 ]
                         ),
-                        new ResultValues(
+                        new UmWarsawRawResponses.BusLine.ResultValue(
                                 [
-                                        new Value("linia", "520"),
+                                        new UmWarsawRawResponses.BusLine.ResultValue.Value("linia", "520"),
                                 ]
                         )
                 ]
@@ -47,30 +44,30 @@ class UmWarsawResponseMapperSpec extends Specification {
         var location = geometryFactory.createPoint(new Coordinate(21.044827D, 52.248455D));
         location.setSRID(4326);
 
-        def genericResponse = new UmWarsawStopInfoGenericResponse(
+        def genericResponse = new UmWarsawRawResponses.StopInfo(
                 [
-                        new ResultValues(
+                        new UmWarsawRawResponses.StopInfo.ResultValue(
                                 [
-                                        new Value("zespol", "1001"),
-                                        new Value("slupek", "01"),
-                                        new Value("nazwa_zespolu", "Kijowska"),
-                                        new Value("id_ulicy", "2201"),
-                                        new Value("szer_geo", "52.248455"),
-                                        new Value("dlug_geo", "21.044827"),
-                                        new Value("kierunek", "al.Zieleniecka"),
-                                        new Value("obowiazuje_od", "2024-12-14 00:00:00.0")
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("zespol", "1001"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("slupek", "01"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("nazwa_zespolu", "Kijowska"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("id_ulicy", "2201"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("szer_geo", "52.248455"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("dlug_geo", "21.044827"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("kierunek", "al.Zieleniecka"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("obowiazuje_od", "2024-12-14 00:00:00.0")
                                 ]
                         ),
-                        new ResultValues(
+                        new UmWarsawRawResponses.StopInfo.ResultValue(
                                 [
-                                        new Value("zespol", "R-01"),
-                                        new Value("slupek", "01"),
-                                        new Value("nazwa_zespolu", "Kijowska"),
-                                        new Value("id_ulicy", "null"),
-                                        new Value("szer_geo", "52.248455"),
-                                        new Value("dlug_geo", "21.044827"),
-                                        new Value("kierunek", "al.Zieleniecka"),
-                                        new Value("obowiazuje_od", "2024-12-14 00:00:00.0")
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("zespol", "R-01"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("slupek", "01"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("nazwa_zespolu", "Kijowska"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("id_ulicy", "null"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("szer_geo", "52.248455"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("dlug_geo", "21.044827"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("kierunek", "al.Zieleniecka"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("obowiazuje_od", "2024-12-14 00:00:00.0")
                                 ]
                         )
                 ]
@@ -96,18 +93,18 @@ class UmWarsawResponseMapperSpec extends Specification {
         var location = geometryFactory.createPoint(new Coordinate(21.044827D, 52.248455D));
         location.setSRID(4326);
 
-        def genericResponse = new UmWarsawStopInfoGenericResponse(
+        def genericResponse = new UmWarsawRawResponses.StopInfo(
                 [
-                        new ResultValues(
+                        new UmWarsawRawResponses.StopInfo.ResultValue(
                                 [
-                                        new Value("zespol", "R-01"),
-                                        new Value("slupek", "01"),
-                                        new Value("nazwa_zespolu", "Kijowska"),
-                                        new Value("id_ulicy", "null"),
-                                        new Value("szer_geo", "52.248455"),
-                                        new Value("dlug_geo", "21.044827"),
-                                        new Value("kierunek", "al.Zieleniecka"),
-                                        new Value("obowiazuje_od", "2024-12-14 00:00:00.0")
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("zespol", "R-01"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("slupek", "01"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("nazwa_zespolu", "Kijowska"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("id_ulicy", "null"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("szer_geo", "52.248455"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("dlug_geo", "21.044827"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("kierunek", "al.Zieleniecka"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("obowiazuje_od", "2024-12-14 00:00:00.0")
                                 ]
                         )
                 ]

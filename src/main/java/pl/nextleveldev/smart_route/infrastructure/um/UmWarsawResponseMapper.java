@@ -1,6 +1,11 @@
 package pl.nextleveldev.smart_route.infrastructure.um;
 
-import static pl.nextleveldev.smart_route.infrastructure.um.UmWarsawClient.*;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.Point;
+import pl.nextleveldev.smart_route.infrastructure.um.api.BusLineResponseException;
+import pl.nextleveldev.smart_route.infrastructure.um.api.UmBusLineResponse;
+import pl.nextleveldev.smart_route.infrastructure.um.api.UmStopInfoResponse;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -8,45 +13,35 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.locationtech.jts.geom.Coordinate;
-import org.locationtech.jts.geom.GeometryFactory;
-import org.locationtech.jts.geom.Point;
-import pl.nextleveldev.smart_route.infrastructure.um.UmWarsawClient.UmWarsawBusStopGenericResponse;
-import pl.nextleveldev.smart_route.infrastructure.um.api.UmBusLineResponse;
-import pl.nextleveldev.smart_route.infrastructure.um.api.UmStopInfoResponse;
 
 class UmWarsawResponseMapper {
 
     static UmBusLineResponse mapBusLineResponse(
-            String stopId, String stopNr, UmWarsawBusStopGenericResponse response) {
+            String stopId, String stopNr, UmWarsawRawResponses.BusLine response) {
         try {
             List<String> lines =
-                    response.result().stream()
-                            .flatMap(resultValues -> resultValues.values().stream())
+                    response.results().stream()
+                            .flatMap(resultValue -> resultValue.values().stream())
                             .filter(value -> "linia".equalsIgnoreCase(value.key()))
-                            .map(Value::value)
+                            .map(UmWarsawRawResponses.BusLine.ResultValue.Value::value)
                             .toList();
 
             return new UmBusLineResponse(stopId, stopNr, lines);
         } catch (Exception e) {
             throw new BusLineResponseException(
-                    "Failed to map response for stop Id:"
-                            + stopId
-                            + "and stop number:"
-                            + stopNr
-                            + ". Error: "
-                            + e.getMessage());
+                    "Failed to map response for stop Id:" + stopId + "and stop number:" + stopNr,
+                    e);
         }
     }
 
     static List<UmStopInfoResponse> mapStopInfoResponse(
-            UmWarsawStopInfoGenericResponse genericResponse) {
+            UmWarsawRawResponses.StopInfo genericResponse) {
         var mappedResponse = new ArrayList<UmStopInfoResponse>();
 
         try {
             List<Map<String, String>> parsedJson = new ArrayList<>();
-            genericResponse.result().stream()
-                    .map(ResultValues::values)
+            genericResponse.results().stream()
+                    .map(UmWarsawRawResponses.StopInfo.ResultValue::values)
                     .forEach(
                             resultValues -> {
                                 Map<String, String> map = new HashMap<>();
@@ -87,7 +82,7 @@ class UmWarsawResponseMapper {
                         LocalDateTime validFrom =
                                 !parsedJsonElement.get("obowiazuje_od").equals("null")
                                         ? LocalDateTime.parse(
-                                                parsedJsonElement.get("obowiazuje_od"), formatter)
+                                        parsedJsonElement.get("obowiazuje_od"), formatter)
                                         : null;
 
                         Point location =
