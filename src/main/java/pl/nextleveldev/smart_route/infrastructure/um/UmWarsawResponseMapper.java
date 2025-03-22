@@ -1,5 +1,11 @@
 package pl.nextleveldev.smart_route.infrastructure.um;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
@@ -7,13 +13,6 @@ import pl.nextleveldev.smart_route.infrastructure.um.api.BusLineResponseExceptio
 import pl.nextleveldev.smart_route.infrastructure.um.api.StopInfoResponseException;
 import pl.nextleveldev.smart_route.infrastructure.um.api.UmBusLineResponse;
 import pl.nextleveldev.smart_route.infrastructure.um.api.UmStopInfoResponse;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 class UmWarsawResponseMapper {
 
@@ -83,7 +82,7 @@ class UmWarsawResponseMapper {
                         LocalDateTime validFrom =
                                 !parsedJsonElement.get("obowiazuje_od").equals("null")
                                         ? LocalDateTime.parse(
-                                        parsedJsonElement.get("obowiazuje_od"), formatter)
+                                                parsedJsonElement.get("obowiazuje_od"), formatter)
                                         : null;
 
                         Point location =
