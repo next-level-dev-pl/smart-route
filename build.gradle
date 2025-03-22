@@ -32,9 +32,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-docker-compose'
 
-    // Database dependencies
-    implementation 'org.postgresql:postgresql:42.7.5'
-    implementation 'org.liquibase:liquibase-core:4.31.1'
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.7.5'
+    implementation 'org.locationtech.jts:jts-core:1.19.0'
+    implementation group: 'org.liquibase', name: 'liquibase-core', version: '4.31.1'
 
     // HTTP client
     implementation 'org.apache.httpcomponents.client5:httpclient5:5.4.2'
