@@ -88,7 +88,7 @@ public class UmWarsawClient {
             return UmWarsawResponseMapper.mapStopInfoResponse(response);
         } catch (RestClientException e) {
             throw new BusLineResponseException(
-                    "Failed to map response for stops info. " + e.getMessage(), e.getCause());
+                    "Failed to receive response for stops info. " + e.getMessage(), e.getCause());
         }
     }
 }

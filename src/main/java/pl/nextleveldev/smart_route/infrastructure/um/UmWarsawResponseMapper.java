@@ -4,6 +4,7 @@ import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
 import pl.nextleveldev.smart_route.infrastructure.um.api.BusLineResponseException;
+import pl.nextleveldev.smart_route.infrastructure.um.api.StopInfoResponseException;
 import pl.nextleveldev.smart_route.infrastructure.um.api.UmBusLineResponse;
 import pl.nextleveldev.smart_route.infrastructure.um.api.UmStopInfoResponse;
 
