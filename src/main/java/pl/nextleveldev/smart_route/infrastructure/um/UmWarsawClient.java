@@ -1,5 +1,6 @@
 package pl.nextleveldev.smart_route.infrastructure.um;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -7,6 +8,7 @@ import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
 import pl.nextleveldev.smart_route.infrastructure.um.api.BusLineResponseException;
 import pl.nextleveldev.smart_route.infrastructure.um.api.UmBusLineResponse;
+import pl.nextleveldev.smart_route.infrastructure.um.api.UmStopInfoResponse;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -66,19 +68,27 @@ public class UmWarsawClient {
         }
     }
 
-    public UmWarsawRawResponses.StopInfo getStopInfo() {
-        return umWarsawClient
-                .get()
-                .uri(
-                        urlBuilder ->
-                                urlBuilder
-                                        .scheme("https")
-                                        .path(properties.store().resourcePath())
-                                        .queryParam("id", properties.store().stopInfoId())
-                                        .queryParam("apikey", properties.apiKey())
-                                        .build())
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .body(UmWarsawRawResponses.StopInfo.class);
+    public List<UmStopInfoResponse> getStopInfo() {
+        try {
+            UmWarsawRawResponses.StopInfo response =
+                    umWarsawClient
+                            .get()
+                            .uri(
+                                    urlBuilder ->
+                                            urlBuilder
+                                                    .scheme("https")
+                                                    .path(properties.store().resourcePath())
+                                                    .queryParam(
+                                                            "id", properties.store().stopInfoId())
+                                                    .queryParam("apikey", properties.apiKey())
+                                                    .build())
+                            .accept(MediaType.APPLICATION_JSON)
+                            .retrieve()
+                            .body(UmWarsawRawResponses.StopInfo.class);
+            return UmWarsawResponseMapper.mapStopInfoResponse(response);
+        } catch (RestClientException e) {
+            throw new BusLineResponseException(
+                    "Failed to receive response for stops info. " + e.getMessage(), e.getCause());
+        }
     }
 }
