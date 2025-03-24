@@ -1,9 +1,38 @@
 package pl.nextleveldev.smart_route.infrastructure.um.api;
 
-import java.util.List;
+import java.time.LocalDateTime;
+import org.locationtech.jts.geom.Point;
 
-public record UmStopInfoResponse(List<ResultValues> result) {
-    public record ResultValues(List<Value> values) {}
+public record UmStopInfoResponse(
+        String stopId,
+        String stopNr,
+        String stopIdName,
+        Integer streetId,
+        Point location,
+        String direction,
+        LocalDateTime validFrom) {
 
-    public record Value(String key, String value) {}
+    @Override
+    public String toString() {
+        return "UmStopInfoResponse{"
+                + "stopId='"
+                + stopId
+                + '\''
+                + ", stopNr='"
+                + stopNr
+                + '\''
+                + ", stopIdName='"
+                + stopIdName
+                + '\''
+                + ", streetId="
+                + streetId
+                + ", location="
+                + location
+                + ", direction='"
+                + direction
+                + '\''
+                + ", validFrom="
+                + validFrom
+                + '}';
+    }
 }

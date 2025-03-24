@@ -1,27 +1,31 @@
 package pl.nextleveldev.smart_route.infrastructure.um
 
+import org.locationtech.jts.geom.Coordinate
+import org.locationtech.jts.geom.GeometryFactory
 import pl.nextleveldev.smart_route.infrastructure.um.api.UmTimetableResponse
 import spock.lang.Specification
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import static pl.nextleveldev.smart_route.infrastructure.um.UmWarsawClient.*
 
 class UmWarsawResponseMapperSpec extends Specification {
 
     def "map lines of buses for bus stop"() {
         given:
-        def response = new UmWarsawBusStopGenericResponse(
+        def response = new UmWarsawRawResponses.BusLine(
                 [
-                        new ResultValues(
+                        new UmWarsawRawResponses.BusLine.ResultValue(
                                 [
-                                        new Value("linia", "250"),
-                                        new Value("unknown", "250"),
+                                        new UmWarsawRawResponses.BusLine.ResultValue.Value("linia", "250"),
+                                        new UmWarsawRawResponses.BusLine.ResultValue.Value("unknown", "404"),
                                 ]
                         ),
-                        new ResultValues(
+                        new UmWarsawRawResponses.BusLine.ResultValue(
                                 [
-                                        new Value("linia", "520"),
+                                        new UmWarsawRawResponses.BusLine.ResultValue.Value("linia", "520"),
                                 ]
                         )
                 ]
@@ -36,6 +40,92 @@ class UmWarsawResponseMapperSpec extends Specification {
         result.lines() ==~ ["250", "520"]
     }
 
+    def "map stop info"() {
+        given:
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+        var date = LocalDateTime.parse("2024-12-14 00:00:00.0", formatter)
+        GeometryFactory geometryFactory = new GeometryFactory();
+        var location = geometryFactory.createPoint(new Coordinate(21.044827D, 52.248455D));
+        location.setSRID(4326);
+
+        def genericResponse = new UmWarsawRawResponses.StopInfo(
+                [
+                        new UmWarsawRawResponses.StopInfo.ResultValue(
+                                [
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("zespol", "1001"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("slupek", "01"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("nazwa_zespolu", "Kijowska"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("id_ulicy", "2201"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("szer_geo", "52.248455"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("dlug_geo", "21.044827"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("kierunek", "al.Zieleniecka"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("obowiazuje_od", "2024-12-14 00:00:00.0")
+                                ]
+                        ),
+                        new UmWarsawRawResponses.StopInfo.ResultValue(
+                                [
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("zespol", "R-01"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("slupek", "01"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("nazwa_zespolu", "Kijowska"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("id_ulicy", "null"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("szer_geo", "52.248455"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("dlug_geo", "21.044827"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("kierunek", "al.Zieleniecka"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("obowiazuje_od", "2024-12-14 00:00:00.0")
+                                ]
+                        )
+                ]
+        )
+        when:
+        def result = UmWarsawResponseMapper.mapStopInfoResponse(genericResponse)
+
+        then:
+        result.getFirst().stopId() == "1001"
+        result.getFirst().stopNr() == "01"
+        result.getFirst().stopIdName() == "Kijowska"
+        result.getFirst().streetId() == 2201
+        result.getFirst().location() == location
+        result.getFirst().direction() == "al.Zieleniecka"
+        result.getFirst().validFrom() == date
+    }
+
+    def "map stop info with null values"() {
+        given:
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+        var date = LocalDateTime.parse("2024-12-14 00:00:00.0", formatter)
+        GeometryFactory geometryFactory = new GeometryFactory();
+        var location = geometryFactory.createPoint(new Coordinate(21.044827D, 52.248455D));
+        location.setSRID(4326);
+
+        def genericResponse = new UmWarsawRawResponses.StopInfo(
+                [
+                        new UmWarsawRawResponses.StopInfo.ResultValue(
+                                [
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("zespol", "R-01"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("slupek", "01"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("nazwa_zespolu", "Kijowska"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("id_ulicy", "null"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("szer_geo", "52.248455"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("dlug_geo", "21.044827"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("kierunek", "al.Zieleniecka"),
+                                        new UmWarsawRawResponses.StopInfo.ResultValue.Value("obowiazuje_od", "2024-12-14 00:00:00.0")
+                                ]
+                        )
+                ]
+        )
+        when:
+        def result = UmWarsawResponseMapper.mapStopInfoResponse(genericResponse)
+
+        then:
+        result.getFirst().stopId() == "R-01"
+        result.getFirst().stopNr() == "01"
+        result.getFirst().stopIdName() == "Kijowska"
+        result.getFirst().streetId() == null
+        result.getFirst().location() == location
+        result.getFirst().direction() == "al.Zieleniecka"
+        result.getFirst().validFrom() == date
+    }
+
     def "map timetable response"() {
         given:
         String stopId = "7009"
@@ -43,23 +133,23 @@ class UmWarsawResponseMapperSpec extends Specification {
         String line = "520"
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss")
 
-        def genericResponse = new UmWarsawTimetableGenericResponse(
+        def genericResponse = new UmWarsawRawResponses.Timetable(
                 [
                         [
-                                new Value("symbol_1", "null"),
-                                new Value("symbol_2", "null"),
-                                new Value("brygada", "2"),
-                                new Value("kierunek", "Dw. Centralny"),
-                                new Value("trasa", "TP-DWC"),
-                                new Value("czas", "08:17:00")
+                                new UmWarsawRawResponses.Timetable.Value("symbol_1", "null"),
+                                new UmWarsawRawResponses.Timetable.Value("symbol_2", "null"),
+                                new UmWarsawRawResponses.Timetable.Value("brygada", "2"),
+                                new UmWarsawRawResponses.Timetable.Value("kierunek", "Dw. Centralny"),
+                                new UmWarsawRawResponses.Timetable.Value("trasa", "TP-DWC"),
+                                new UmWarsawRawResponses.Timetable.Value("czas", "08:17:00")
                         ],
                         [
-                                new Value("symbol_1", "null"),
-                                new Value("symbol_2", "null"),
-                                new Value("brygada", "09"),
-                                new Value("kierunek", "Dw. Centralny"),
-                                new Value("trasa", "TP-DWC"),
-                                new Value("czas", "24:45:00")
+                                new UmWarsawRawResponses.Timetable.Value("symbol_1", "null"),
+                                new UmWarsawRawResponses.Timetable.Value("symbol_2", "null"),
+                                new UmWarsawRawResponses.Timetable.Value("brygada", "09"),
+                                new UmWarsawRawResponses.Timetable.Value("kierunek", "Dw. Centralny"),
+                                new UmWarsawRawResponses.Timetable.Value("trasa", "TP-DWC"),
+                                new UmWarsawRawResponses.Timetable.Value("czas", "24:45:00")
                         ]
                 ]
         )

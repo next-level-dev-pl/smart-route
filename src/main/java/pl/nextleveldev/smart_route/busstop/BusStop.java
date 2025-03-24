@@ -1,4 +1,4 @@
-package pl.nextleveldev.smart_route.busstop.entity;
+package pl.nextleveldev.smart_route.busstop;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
