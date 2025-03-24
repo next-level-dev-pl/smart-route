@@ -1,9 +1,6 @@
 package pl.nextleveldev.smart_route.infrastructure.um;
 
-import org.locationtech.jts.geom.Coordinate;
-import org.locationtech.jts.geom.GeometryFactory;
-import org.locationtech.jts.geom.Point;
-import pl.nextleveldev.smart_route.infrastructure.um.api.*;
+import static pl.nextleveldev.smart_route.infrastructure.um.api.UmTimetableResponse.Result;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -12,8 +9,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static pl.nextleveldev.smart_route.infrastructure.um.api.UmTimetableResponse.Result;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.Point;
+import pl.nextleveldev.smart_route.infrastructure.um.api.*;
 
 class UmWarsawResponseMapper {
 
@@ -83,7 +82,7 @@ class UmWarsawResponseMapper {
                         LocalDateTime validFrom =
                                 !parsedJsonElement.get("obowiazuje_od").equals("null")
                                         ? LocalDateTime.parse(
-                                        parsedJsonElement.get("obowiazuje_od"), formatter)
+                                                parsedJsonElement.get("obowiazuje_od"), formatter)
                                         : null;
 
                         Point location =
@@ -160,13 +159,13 @@ class UmWarsawResponseMapper {
                         LocalTime time =
                                 parsedJsonElement.get("czas") != null
                                         ? LocalTime.parse(
-                                        parsedJsonElement.get("czas").startsWith("24:")
-                                                ? "00:"
-                                                + parsedJsonElement
-                                                .get("czas")
-                                                .substring(3)
-                                                : parsedJsonElement.get("czas"),
-                                        formatter)
+                                                parsedJsonElement.get("czas").startsWith("24:")
+                                                        ? "00:"
+                                                                + parsedJsonElement
+                                                                        .get("czas")
+                                                                        .substring(3)
+                                                        : parsedJsonElement.get("czas"),
+                                                formatter)
                                         : null;
                         results.add(
                                 new Result(symbolOne, symbolTwo, brigade, direction, route, time));

@@ -15,26 +15,27 @@ public class UmWarsawClient {
     private final RestClient umWarsawClient;
     private final UmWarsawProperties properties;
 
-    public UmTimetableResponse getTimetableFor(
-            String stopId, String stopNr, String line) {
+    public UmTimetableResponse getTimetableFor(String stopId, String stopNr, String line) {
         try {
             UmWarsawRawResponses.Timetable response =
-            umWarsawClient
-                    .get()
-                    .uri(
-                            urlBuilder ->
-                                    urlBuilder
-                                            .scheme("https")
-                                            .path(properties.timetable().resourcePath())
-                                            .queryParam("id", properties.timetable().timetableId())
-                                            .queryParam("busstopId", stopId)
-                                            .queryParam("busstopNr", stopNr)
-                                            .queryParam("line", line)
-                                            .queryParam("apikey", properties.apiKey())
-                                            .build())
-                    .accept(MediaType.APPLICATION_JSON)
-                    .retrieve()
-                    .body(UmWarsawRawResponses.Timetable.class);
+                    umWarsawClient
+                            .get()
+                            .uri(
+                                    urlBuilder ->
+                                            urlBuilder
+                                                    .scheme("https")
+                                                    .path(properties.timetable().resourcePath())
+                                                    .queryParam(
+                                                            "id",
+                                                            properties.timetable().timetableId())
+                                                    .queryParam("busstopId", stopId)
+                                                    .queryParam("busstopNr", stopNr)
+                                                    .queryParam("line", line)
+                                                    .queryParam("apikey", properties.apiKey())
+                                                    .build())
+                            .accept(MediaType.APPLICATION_JSON)
+                            .retrieve()
+                            .body(UmWarsawRawResponses.Timetable.class);
             return UmWarsawResponseMapper.mapTimetableResponse(stopId, stopNr, line, response);
         } catch (RestClientException e) {
             throw new TimetableResponseException(
