@@ -5,7 +5,7 @@ import java.util.List;
 
 class UmWarsawRawResponses {
 
-    record Timetable(List<List<Value>> result) {
+    record Timetable(@JsonProperty("result") List<List<Value>> result) {
         record Value(String key, String value) {}
     }
 
