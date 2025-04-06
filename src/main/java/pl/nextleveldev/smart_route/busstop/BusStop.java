@@ -6,8 +6,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.time.LocalDateTime;
-import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -18,6 +16,9 @@ import lombok.ToString;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import org.locationtech.jts.geom.Point;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(name = "bus_stops")
@@ -58,4 +59,14 @@ public class BusStop {
 
     @Column(name = "valid_from", nullable = false) // field 'obowiazuje_od' in UM API response
     private LocalDateTime validFrom;
+
+    public BusStop(String stopId, String stopNr, String stopIdName, String streetId, Point location, String direction, LocalDateTime validFrom) {
+        this.stopId = stopId;
+        this.stopNr = stopNr;
+        this.stopIdName = stopIdName;
+        this.streetId = streetId;
+        this.location = location;
+        this.direction = direction;
+        this.validFrom = validFrom;
+    }
 }
