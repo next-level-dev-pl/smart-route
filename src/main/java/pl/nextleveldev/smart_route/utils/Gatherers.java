@@ -33,7 +33,6 @@ public class Gatherers {
                     }
                     return acc1;
                 },
-                Collection::stream
-        );
+                Collection::stream);
     }
 }
