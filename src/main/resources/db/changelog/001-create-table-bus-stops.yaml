@@ -13,25 +13,39 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
                   defaultValueComputed: gen_random_uuid()
-                  # Below original name values received from api.um.warszawa
+                                        # Below original name values received from api.um.warszawa
               - column:
                   name: stop_id         # zespol
                   type: integer
+                  constraints:
+                    nullable: false
               - column:
                   name: stop_nr         # slupek
                   type: varchar(255)
+                  constraints:
+                    nullable: false
               - column:
                   name: stop_id_name    # nazwa_zespolu
                   type: text
+                  constraints:
+                    nullable: false
               - column:
                   name: street_id       # id_ulicy
                   type: integer
+                  constraints:
+                    nullable: false
               - column:
                   name: location        # szer_geo; dlug_geo as Postgis type for lat/lon
                   type: geography(POINT, 4326)
+                  constraints:
+                    nullable: false
               - column:
                   name: direction       # kierunek
                   type: text
+                  constraints:
+                    nullable: false
               - column:
                   name: valid_from      # obowiazuje_od
                   type: timestamp
+                  constraints:
+                    nullable: false

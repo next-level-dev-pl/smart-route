@@ -34,7 +34,3 @@ um:
     store:
       resource-path: api/action/dbstore_get
       stop-info-id: ab75c33d-3a26-4342-b36a-6e5fef0a3ac3
-
-bus-stops:
-  importer:
-    cron: 0 0 2 * * *
