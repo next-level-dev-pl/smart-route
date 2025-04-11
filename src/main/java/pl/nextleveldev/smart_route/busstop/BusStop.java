@@ -14,7 +14,7 @@ import lombok.ToString;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import org.locationtech.jts.geom.Point;
-import pl.nextleveldev.smart_route.busline.entity.BusLine;
+import pl.nextleveldev.smart_route.busline.BusLine;
 
 @Entity
 @Table(name = "bus_stops")

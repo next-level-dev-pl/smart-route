@@ -1,4 +1,4 @@
-package pl.nextleveldev.smart_route.busline.entity;
+package pl.nextleveldev.smart_route.busline;
 
 import jakarta.persistence.*;
 import java.util.UUID;
@@ -11,7 +11,7 @@ import pl.nextleveldev.smart_route.busstop.BusStop;
 @Getter
 @Setter
 @NoArgsConstructor
-public class BusLine {
+class BusLine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,7 +23,7 @@ public class BusLine {
     @JoinColumn(name = "bus_stop_id")
     private BusStop stop;
 
-    public BusLine(String lineIdentifier, BusStop stop) {
+    BusLine(String lineIdentifier, BusStop stop) {
         this.lineIdentifier = lineIdentifier;
         this.stop = stop;
     }

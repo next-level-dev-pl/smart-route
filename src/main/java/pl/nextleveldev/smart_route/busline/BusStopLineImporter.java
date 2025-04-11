@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionTemplate;
-import pl.nextleveldev.smart_route.busline.entity.BusLine;
 import pl.nextleveldev.smart_route.busstop.BusStop;
 import pl.nextleveldev.smart_route.busstop.BusStopRepository;
 import pl.nextleveldev.smart_route.infrastructure.um.UmWarsawClient;
