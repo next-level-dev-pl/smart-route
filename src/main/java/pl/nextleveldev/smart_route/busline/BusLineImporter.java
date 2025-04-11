@@ -23,7 +23,7 @@ public class BusLineImporter {
     private final BusLineRepository busLineRepository;
     private final TransactionTemplate transactionTemplate;
 
-    @Scheduled(cron = "${bus-stops.updater.cron}")
+    @Scheduled(cron = "${bus-lines.importer.cron}")
     public void importBusLines() {
         log.info("Updating bus stop lines...");
 
