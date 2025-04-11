@@ -17,7 +17,7 @@ import java.util.concurrent.Executors;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-class BusStopLineUpdateService {
+class BusStopLineImporter {
 
     private final UmWarsawClient umWarsawClient;
     private final BusStopRepository busStopRepository;
