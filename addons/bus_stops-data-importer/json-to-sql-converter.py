@@ -14,7 +14,7 @@ version: 1.0.0-alpha
 
 Usage:
 1. Run the importer:
-   python3 bus-stops-json-to-sql-converter.py
+   python3 json-to-sql-converter.py
 
 """
 
@@ -93,11 +93,11 @@ def main():
         output_file = sys.argv[2]
     else:
         # Ask user for filenames if not provided as arguments
-        input_file = input("Enter input JSON filename (e.g., bus-stops.json): ").strip()
+        input_file = input("Enter input JSON filename (e.g., bus_stops.json): ").strip()
         if not input_file:
             input_file = "bus-stops.json"
             
-        output_file = input("Enter output SQL filename (e.g., bus-stops.sql): ").strip()
+        output_file = input("Enter output SQL filename (e.g., bus_stops.sql): ").strip()
         if not output_file:
             # Create output filename based on input filename
             base_name = os.path.splitext(input_file)[0]

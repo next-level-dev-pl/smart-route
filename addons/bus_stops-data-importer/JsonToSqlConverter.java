@@ -45,13 +45,13 @@ public class JsonToSqlConverter {
             inputFile = args[0];
             outputFile = args[1];
         } else {
-            System.out.print("Enter input JSON filename (e.g., bus-stops.json): ");
+            System.out.print("Enter input JSON filename (e.g., bus_stops.json): ");
             inputFile = scanner.nextLine().trim();
             if (inputFile.isEmpty()) {
                 inputFile = "bus-stops.json";
             }
             
-            System.out.print("Enter output SQL filename (e.g., bus-stops.sql): ");
+            System.out.print("Enter output SQL filename (e.g., bus_stops.sql): ");
             outputFile = scanner.nextLine().trim();
             if (outputFile.isEmpty()) {
                 String baseName = inputFile.contains(".") ? 
