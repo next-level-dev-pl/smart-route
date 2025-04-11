@@ -1,5 +1,9 @@
 package pl.nextleveldev.smart_route.busline;
 
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -10,11 +14,6 @@ import pl.nextleveldev.smart_route.busstop.BusStop;
 import pl.nextleveldev.smart_route.busstop.BusStopRepository;
 import pl.nextleveldev.smart_route.infrastructure.um.UmWarsawClient;
 
-import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -23,7 +22,6 @@ class BusStopLineUpdateService {
     private final UmWarsawClient umWarsawClient;
     private final BusStopRepository busStopRepository;
     private final BusLineRepository busLineRepository;
-
 
     @Scheduled(cron = "${bus-stops.updater.cron}")
     public void updateBusStopLines() {
@@ -34,13 +32,14 @@ class BusStopLineUpdateService {
         ExecutorService executor = Executors.newFixedThreadPool(10);
 
         for (BusStop busStop : all) {
-            executor.submit(() -> {
-                try {
-                    eachBusStopUpdate(busStop);
-                } catch (Exception e) {
-                    log.error("Error while updating stop " + busStop.getStopId(), e);
-                }
-            });
+            executor.submit(
+                    () -> {
+                        try {
+                            eachBusStopUpdate(busStop);
+                        } catch (Exception e) {
+                            log.error("Error while updating stop " + busStop.getStopId(), e);
+                        }
+                    });
         }
 
         executor.shutdown();
@@ -62,12 +61,14 @@ class BusStopLineUpdateService {
 
         var response = umWarsawClient.getBusLineFor(busStop.getStopId(), busStop.getStopNr());
 
-        response.lines().forEach(line -> {
-            var busLine = new BusLine();
-            busLine.setLineIdentifier(line);
-            busLine.setStop(busStop);
-            busLineRepository.save(busLine);
-        });
+        response.lines()
+                .forEach(
+                        line -> {
+                            var busLine = new BusLine();
+                            busLine.setLineIdentifier(line);
+                            busLine.setStop(busStop);
+                            busLineRepository.save(busLine);
+                        });
 
         log.info("Bus stop " + busStop.getStopId() + " updated.");
     }

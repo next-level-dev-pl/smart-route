@@ -1,11 +1,10 @@
 package pl.nextleveldev.smart_route.busline.entity;
 
 import jakarta.persistence.*;
+import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 import pl.nextleveldev.smart_route.busstop.BusStop;
-
-import java.util.UUID;
 
 @Entity
 @Getter
