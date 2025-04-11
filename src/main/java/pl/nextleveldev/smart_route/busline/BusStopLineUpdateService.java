@@ -55,9 +55,7 @@ class BusStopLineUpdateService {
         response.lines()
                 .forEach(
                         line -> {
-                            var busLine = new BusLine();
-                            busLine.setLineIdentifier(line);
-                            busLine.setStop(busStop);
+                            var busLine = new BusLine(line, busStop);
                             busLineRepository.save(busLine);
                         });
 
