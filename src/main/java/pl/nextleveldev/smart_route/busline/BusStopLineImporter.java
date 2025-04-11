@@ -14,9 +14,9 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
-@Slf4j
 class BusStopLineImporter {
 
     private final UmWarsawClient umWarsawClient;
