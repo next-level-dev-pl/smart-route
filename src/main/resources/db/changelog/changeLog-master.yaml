@@ -9,6 +9,7 @@ databaseChangeLog:
 
   - include:
       file: db/changelog/001-create-table-bus-stops.yaml
-
   - include:
       file: db/changelog/002-modify-column-types-in-bus-stops.yaml
+  - include:
+      file: db/changelog/003-create-table-bus-line.yaml
