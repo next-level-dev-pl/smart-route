@@ -16,7 +16,7 @@ import java.util.concurrent.Executors;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-class BusLineImporter {
+public class BusLineImporter {
 
     private final UmWarsawClient umWarsawClient;
     private final BusStopRepository busStopRepository;
@@ -24,7 +24,7 @@ class BusLineImporter {
     private final TransactionTemplate transactionTemplate;
 
     @Scheduled(cron = "${bus-stops.updater.cron}")
-    public void updateBusStopLines() {
+    public void importBusLines() {
         log.info("Updating bus stop lines...");
 
         List<BusStop> all = busStopRepository.findAll();
