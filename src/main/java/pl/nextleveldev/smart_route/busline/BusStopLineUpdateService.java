@@ -13,7 +13,6 @@ import pl.nextleveldev.smart_route.infrastructure.um.UmWarsawClient;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
@@ -31,32 +30,20 @@ class BusStopLineUpdateService {
 
         List<BusStop> all = busStopRepository.findAll();
 
-        ExecutorService executor = Executors.newFixedThreadPool(10);
-
-        for (BusStop busStop : all) {
-            executor.submit(
-                    () -> {
-                        try {
-                            transactionTemplate.execute(_ -> {
-                                eachBusStopUpdate(busStop);
-                                return null;
-                            });
-                        } catch (Exception e) {
-                            log.error("Error while updating stop {}", busStop.getStopId(), e);
-                        }
-                    });
-        }
-
-        executor.shutdown();
-        try {
-            if (!executor.awaitTermination(30, TimeUnit.MINUTES)) {
-                executor.shutdownNow();
-                log.warn("Executor timed out");
+        try (ExecutorService executor = Executors.newFixedThreadPool(10)) {
+            for (BusStop busStop : all) {
+                executor.submit(
+                        () -> {
+                            try {
+                                transactionTemplate.execute(_ -> {
+                                    eachBusStopUpdate(busStop);
+                                    return null;
+                                });
+                            } catch (Exception e) {
+                                log.error("Error while updating stop {}", busStop.getStopId(), e);
+                            }
+                        });
             }
-        } catch (InterruptedException e) {
-            executor.shutdownNow();
-            Thread.currentThread().interrupt();
-            log.error("Executor interrupted", e);
         }
     }
 
