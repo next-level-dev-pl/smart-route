@@ -37,7 +37,7 @@ class BusStopLineUpdateService {
                         try {
                             eachBusStopUpdate(busStop);
                         } catch (Exception e) {
-                            log.error("Error while updating stop " + busStop.getStopId(), e);
+                            log.error("Error while updating stop {}", busStop.getStopId(), e);
                         }
                     });
         }
@@ -57,7 +57,7 @@ class BusStopLineUpdateService {
 
     @Transactional
     public void eachBusStopUpdate(BusStop busStop) {
-        log.info("Updating bus stop " + busStop.getStopId() + " and " + busStop.getStopNr());
+        log.info("Updating bus stop {} and {}", busStop.getStopId(), busStop.getStopNr());
 
         var response = umWarsawClient.getBusLineFor(busStop.getStopId(), busStop.getStopNr());
 
@@ -70,6 +70,6 @@ class BusStopLineUpdateService {
                             busLineRepository.save(busLine);
                         });
 
-        log.info("Bus stop " + busStop.getStopId() + " updated.");
+        log.info("Bus stop {} updated.", busStop.getStopId());
     }
 }
