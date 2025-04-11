@@ -58,6 +58,7 @@ class BusStopLineUpdateService {
     @Transactional
     public void eachBusStopUpdate(BusStop busStop) {
         log.info("Updating bus stop " + busStop.getStopId() + " and " + busStop.getStopNr());
+        busLineRepository.deleteAll(busStop.getLines());
 
         var response = umWarsawClient.getBusLineFor(busStop.getStopId(), busStop.getStopNr());
 
