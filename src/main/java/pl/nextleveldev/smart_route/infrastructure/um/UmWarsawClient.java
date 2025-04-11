@@ -39,7 +39,7 @@ public class UmWarsawClient {
             return UmWarsawResponseMapper.mapTimetableResponse(stopId, stopNr, line, response);
         } catch (RestClientException e) {
             throw new TimetableResponseException(
-                    "Failed to receive response for timetable for stop Id:"
+                    "Failed to receive response for timetable for stop Id: "
                             + stopId
                             + " and stop number: "
                             + stopNr
@@ -72,7 +72,7 @@ public class UmWarsawClient {
             return UmWarsawResponseMapper.mapBusLineResponse(stopId, stopNr, response);
         } catch (RestClientException e) {
             throw new BusLineResponseException(
-                    "Failed to receive response for stop Id:"
+                    "Failed to receive response for stop Id: "
                             + stopId
                             + "and stop number:"
                             + stopNr,
