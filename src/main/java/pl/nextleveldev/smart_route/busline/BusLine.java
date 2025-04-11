@@ -11,7 +11,7 @@ import pl.nextleveldev.smart_route.busstop.BusStop;
 @Getter
 @Setter
 @NoArgsConstructor
-class BusLine {
+public class BusLine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
