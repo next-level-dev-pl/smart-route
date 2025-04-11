@@ -1,18 +1,19 @@
 package pl.nextleveldev.smart_route.busline;
 
-import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionTemplate;
 import pl.nextleveldev.smart_route.busline.entity.BusLine;
 import pl.nextleveldev.smart_route.busstop.BusStop;
 import pl.nextleveldev.smart_route.busstop.BusStopRepository;
 import pl.nextleveldev.smart_route.infrastructure.um.UmWarsawClient;
+
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +23,7 @@ class BusStopLineUpdateService {
     private final UmWarsawClient umWarsawClient;
     private final BusStopRepository busStopRepository;
     private final BusLineRepository busLineRepository;
+    private final TransactionTemplate transactionTemplate;
 
     @Scheduled(cron = "${bus-stops.updater.cron}")
     public void updateBusStopLines() {
@@ -35,7 +37,10 @@ class BusStopLineUpdateService {
             executor.submit(
                     () -> {
                         try {
-                            eachBusStopUpdate(busStop);
+                            transactionTemplate.execute(_ -> {
+                                eachBusStopUpdate(busStop);
+                                return null;
+                            });
                         } catch (Exception e) {
                             log.error("Error while updating stop {}", busStop.getStopId(), e);
                         }
@@ -55,8 +60,7 @@ class BusStopLineUpdateService {
         }
     }
 
-    @Transactional
-    public void eachBusStopUpdate(BusStop busStop) {
+    private void eachBusStopUpdate(BusStop busStop) {
         log.info("Updating bus stop {} and {}", busStop.getStopId(), busStop.getStopNr());
 
         var response = umWarsawClient.getBusLineFor(busStop.getStopId(), busStop.getStopNr());
