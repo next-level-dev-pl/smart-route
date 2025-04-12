@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: 3-create-table-bus-line
+      id: 3-create-table-line
       author: jkuznik
       changes:
         - createTable:
-            tableName: bus_line
+            tableName: line
             columns:
               - column:
                   name: id
@@ -16,14 +16,3 @@ databaseChangeLog:
               - column:
                   name: line_identifier
                   type: varchar(16)
-              - column:
-                  name: bus_stop_id
-                  type: uuid
-                  constraints:
-                    nullable: false
-        - addForeignKeyConstraint:
-            baseTableName: bus_line
-            baseColumnNames: bus_stop_id
-            referencedTableName: bus_stops
-            referencedColumnNames: id
-            constraintName: fk_bus_line_bus_stop
