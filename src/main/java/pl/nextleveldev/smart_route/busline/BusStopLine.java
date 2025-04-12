@@ -1,11 +1,9 @@
-package pl.nextleveldev.smart_route.model.joinTable;
+package pl.nextleveldev.smart_route.busline;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import pl.nextleveldev.smart_route.busstop.BusStop;
-import pl.nextleveldev.smart_route.busstop.Line;
-import pl.nextleveldev.smart_route.model.compositePK.BusStopLineId;
 
 @Entity
 @Table(name = "bus_stop_line")
@@ -18,7 +16,7 @@ public class BusStopLine {
     @ManyToOne
     @MapsId("lineId")
     @JoinColumn(name = "line_id")
-    private Line line;
+    private BusLine busLine;
 
     @ManyToOne
     @MapsId("busStopId")
@@ -27,9 +25,9 @@ public class BusStopLine {
 
     public BusStopLine() {}
 
-    public BusStopLine(Line line, BusStop busStop) {
-        this.line = line;
+    public BusStopLine(BusLine busLine, BusStop busStop) {
+        this.busLine = busLine;
         this.busStop = busStop;
-        this.id = new BusStopLineId(line.getId(), busStop.getId());
+        this.id = new BusStopLineId(busLine.getId(), busStop.getId());
     }
 }

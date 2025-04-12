@@ -1,4 +1,4 @@
-package pl.nextleveldev.smart_route.busstop;
+package pl.nextleveldev.smart_route.busline;
 
 import jakarta.persistence.*;
 import java.util.HashSet;
@@ -7,11 +7,12 @@ import java.util.Set;
 import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
+import pl.nextleveldev.smart_route.busstop.BusStop;
 
 @Entity
 @Getter
 @Setter
-public class Line {
+public class BusLine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,12 +27,10 @@ public class Line {
             inverseJoinColumns = @JoinColumn(name = "bus_stop_id"))
     private Set<BusStop> busStops = new HashSet<>();
 
-    ;
-
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Line line)) return false;
-        return Objects.equals(getLineIdentifier(), line.getLineIdentifier());
+        if (!(o instanceof BusLine busLine)) return false;
+        return Objects.equals(getLineIdentifier(), busLine.getLineIdentifier());
     }
 
     @Override

@@ -18,6 +18,7 @@ import lombok.ToString;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import org.locationtech.jts.geom.Point;
+import pl.nextleveldev.smart_route.busline.BusLine;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -65,7 +66,7 @@ public class BusStop {
     private LocalDateTime validFrom;
 
     @ManyToMany(mappedBy = "busStops", cascade = CascadeType.PERSIST)
-    private Set<Line> lines = new HashSet<>();
+    private Set<BusLine> busLines = new HashSet<>();
 
     public BusStop(
             String stopId,
