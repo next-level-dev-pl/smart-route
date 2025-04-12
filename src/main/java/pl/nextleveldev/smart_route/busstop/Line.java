@@ -1,7 +1,6 @@
 package pl.nextleveldev.smart_route.busstop;
 
 import jakarta.persistence.*;
-
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -24,9 +23,10 @@ public class Line {
     @JoinTable(
             name = "bus_stop_line",
             joinColumns = @JoinColumn(name = "line_id"),
-            inverseJoinColumns = @JoinColumn(name = "bus_stop_id")
-    )
-    private Set<BusStop> busStops = new HashSet<>();;
+            inverseJoinColumns = @JoinColumn(name = "bus_stop_id"))
+    private Set<BusStop> busStops = new HashSet<>();
+
+    ;
 
     @Override
     public boolean equals(Object o) {

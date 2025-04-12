@@ -2,12 +2,11 @@ package pl.nextleveldev.smart_route.model.compositePK;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
+import lombok.Getter;
+import lombok.Setter;
 
 @Embeddable
 @Getter

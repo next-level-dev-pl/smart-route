@@ -13,8 +13,7 @@ import pl.nextleveldev.smart_route.model.compositePK.BusStopLineId;
 @Setter
 public class BusStopLine {
 
-    @EmbeddedId
-    private BusStopLineId id;
+    @EmbeddedId private BusStopLineId id;
 
     @ManyToOne
     @MapsId("lineId")

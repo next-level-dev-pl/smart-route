@@ -57,7 +57,9 @@ public class BusStop {
     private LocalDateTime validFrom;
 
     @ManyToMany(mappedBy = "busStops", cascade = CascadeType.PERSIST)
-    private Set<Line> lines = new HashSet<>();;
+    private Set<Line> lines = new HashSet<>();
+
+    ;
 
     public BusStop(
             String stopId,

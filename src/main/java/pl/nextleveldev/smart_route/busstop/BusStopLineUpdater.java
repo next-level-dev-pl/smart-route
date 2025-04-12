@@ -1,6 +1,12 @@
 package pl.nextleveldev.smart_route.busstop;
 
 import jakarta.persistence.EntityManager;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -8,13 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestClientException;
 import pl.nextleveldev.smart_route.infrastructure.um.UmWarsawClient;
-
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Service
@@ -32,9 +31,10 @@ class BusStopLineUpdater {
         log.info("Updating bus stop lines...");
 
         List<BusStop> all = busStopRepository.findAll();
-        all.forEach(busStop -> {
-            busLineRepository.deleteAll(busStop.getLines());
-        });
+        all.forEach(
+                busStop -> {
+                    busLineRepository.deleteAll(busStop.getLines());
+                });
 
         ExecutorService executor = Executors.newFixedThreadPool(10);
 
@@ -69,15 +69,20 @@ class BusStopLineUpdater {
             var response = umWarsawClient.getBusLineFor(busStop.getStopId(), busStop.getStopNr());
             Set<Line> lines = ConcurrentHashMap.newKeySet();
 
-            response.lines().forEach(lineId -> {
-                Line existingLine = busLineRepository.findByLineIdentifier(lineId)
-                        .orElseGet(() -> {
-                            Line newLine = new Line();
-                            newLine.setLineIdentifier(lineId);
-                            return busLineRepository.save(newLine);
-                        });
-                lines.add(existingLine);
-            });
+            response.lines()
+                    .forEach(
+                            lineId -> {
+                                Line existingLine =
+                                        busLineRepository
+                                                .findByLineIdentifier(lineId)
+                                                .orElseGet(
+                                                        () -> {
+                                                            Line newLine = new Line();
+                                                            newLine.setLineIdentifier(lineId);
+                                                            return busLineRepository.save(newLine);
+                                                        });
+                                lines.add(existingLine);
+                            });
 
             busStop.setLines(lines);
             busStopRepository.save(busStop);
@@ -88,4 +93,3 @@ class BusStopLineUpdater {
         log.info("Bus stop {} updated.", busStop.getStopId());
     }
 }
-
