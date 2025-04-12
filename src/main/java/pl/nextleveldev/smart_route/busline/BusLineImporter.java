@@ -1,5 +1,10 @@
 package pl.nextleveldev.smart_route.busline;
 
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -9,12 +14,6 @@ import org.springframework.web.client.RestClientException;
 import pl.nextleveldev.smart_route.busstop.BusStop;
 import pl.nextleveldev.smart_route.busstop.BusStopRepository;
 import pl.nextleveldev.smart_route.infrastructure.um.UmWarsawClient;
-
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 @Slf4j
 @Service
@@ -38,10 +37,11 @@ public class BusLineImporter {
                 executor.submit(
                         () -> {
                             try {
-                                transactionTemplate.execute(_ -> {
-                                    eachBusStopUpdate(busStop);
-                                    return null;
-                                });
+                                transactionTemplate.execute(
+                                        _ -> {
+                                            eachBusStopUpdate(busStop);
+                                            return null;
+                                        });
                             } catch (Exception e) {
                                 log.error("Error while updating stop {}", busStop.getStopId(), e);
                             }
@@ -66,7 +66,8 @@ public class BusLineImporter {
                                                         () -> {
                                                             BusLine newBusLine = new BusLine();
                                                             newBusLine.setLineIdentifier(lineId);
-                                                            return busLineRepository.save(newBusLine);
+                                                            return busLineRepository.save(
+                                                                    newBusLine);
                                                         });
                                 busLines.add(existingBusLine);
                             });
