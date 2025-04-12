@@ -38,5 +38,6 @@ um:
 bus-stops:
   importer:
     cron: 0 0 2 * * *
-  updater:
+bus-lines:
+  importer:
     cron: 0 5 2 * * *

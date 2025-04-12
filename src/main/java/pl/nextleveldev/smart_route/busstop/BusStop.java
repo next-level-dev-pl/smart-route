@@ -1,6 +1,13 @@
 package pl.nextleveldev.smart_route.busstop;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,6 +22,7 @@ import lombok.ToString;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import org.locationtech.jts.geom.Point;
+import pl.nextleveldev.smart_route.busline.BusLine;
 
 @Entity
 @Table(name = "bus_stops")
@@ -57,9 +65,7 @@ public class BusStop {
     private LocalDateTime validFrom;
 
     @ManyToMany(mappedBy = "busStops", cascade = CascadeType.PERSIST)
-    private Set<Line> lines = new HashSet<>();
-
-    ;
+    private Set<BusLine> busLines = new HashSet<>();
 
     public BusStop(
             String stopId,

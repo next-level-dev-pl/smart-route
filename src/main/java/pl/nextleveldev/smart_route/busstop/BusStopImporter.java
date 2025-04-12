@@ -13,7 +13,7 @@ import pl.nextleveldev.smart_route.utils.Gatherers;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-class BusStopImporter {
+public class BusStopImporter {
 
     private final UmWarsawClient umWarsawClient;
     private final BusStopRepository busStopRepository;
