@@ -31,10 +31,7 @@ public class BusLineImporter {
         log.info("Updating bus stop lines...");
 
         List<BusStop> all = busStopRepository.findAll();
-        all.forEach(
-                busStop -> {
-                    busLineRepository.deleteAll(busStop.getBusLines());
-                });
+        all.forEach(busStop -> busLineRepository.deleteAll(busStop.getBusLines()));
 
         try (ExecutorService executor = Executors.newFixedThreadPool(10)) {
             for (BusStop busStop : all) {
