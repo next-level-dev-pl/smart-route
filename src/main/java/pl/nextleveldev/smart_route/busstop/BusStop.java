@@ -2,6 +2,7 @@ package pl.nextleveldev.smart_route.busstop;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
@@ -14,7 +15,6 @@ import lombok.ToString;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import org.locationtech.jts.geom.Point;
-import pl.nextleveldev.smart_route.busline.entity.BusLine;
 
 @Entity
 @Table(name = "bus_stops")
@@ -56,8 +56,8 @@ public class BusStop {
     @Column(name = "valid_from") // field 'obowiazuje_od' in UM API response
     private LocalDateTime validFrom;
 
-    @OneToMany(mappedBy = "stop")
-    private Set<BusLine> lines;
+    @ManyToMany(mappedBy = "busStops", cascade = CascadeType.PERSIST)
+    private Set<Line> lines = new HashSet<>();;
 
     public BusStop(
             String stopId,

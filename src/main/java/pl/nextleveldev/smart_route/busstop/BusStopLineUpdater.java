@@ -1,33 +1,40 @@
-package pl.nextleveldev.smart_route.busline;
+package pl.nextleveldev.smart_route.busstop;
 
-import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.nextleveldev.smart_route.busline.entity.BusLine;
-import pl.nextleveldev.smart_route.busstop.BusStop;
-import pl.nextleveldev.smart_route.busstop.BusStopRepository;
+import org.springframework.web.client.RestClientException;
 import pl.nextleveldev.smart_route.infrastructure.um.UmWarsawClient;
 
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
+@Slf4j
 @Service
 @RequiredArgsConstructor
-@Slf4j
-class BusStopLineUpdateService {
+class BusStopLineUpdater {
 
     private final UmWarsawClient umWarsawClient;
     private final BusStopRepository busStopRepository;
     private final BusLineRepository busLineRepository;
+    private final EntityManager entityManager;
 
+    @Transactional
     @Scheduled(cron = "${bus-stops.updater.cron}")
     public void updateBusStopLines() {
         log.info("Updating bus stop lines...");
 
         List<BusStop> all = busStopRepository.findAll();
+        all.forEach(busStop -> {
+            busLineRepository.deleteAll(busStop.getLines());
+        });
 
         ExecutorService executor = Executors.newFixedThreadPool(10);
 
@@ -57,19 +64,28 @@ class BusStopLineUpdateService {
 
     @Transactional
     public void eachBusStopUpdate(BusStop busStop) {
-        log.info("Updating bus stop " + busStop.getStopId() + " and " + busStop.getStopNr());
+        log.info("Updating bus stop: {}-{}", busStop.getStopId(), busStop.getStopNr());
+        try {
+            var response = umWarsawClient.getBusLineFor(busStop.getStopId(), busStop.getStopNr());
+            Set<Line> lines = ConcurrentHashMap.newKeySet();
 
-        var response = umWarsawClient.getBusLineFor(busStop.getStopId(), busStop.getStopNr());
-
-        response.lines()
-                .forEach(
-                        line -> {
-                            var busLine = new BusLine();
-                            busLine.setLineIdentifier(line);
-                            busLine.setStop(busStop);
-                            busLineRepository.save(busLine);
+            response.lines().forEach(lineId -> {
+                Line existingLine = busLineRepository.findByLineIdentifier(lineId)
+                        .orElseGet(() -> {
+                            Line newLine = new Line();
+                            newLine.setLineIdentifier(lineId);
+                            return busLineRepository.save(newLine);
                         });
+                lines.add(existingLine);
+            });
 
-        log.info("Bus stop " + busStop.getStopId() + " updated.");
+            busStop.setLines(lines);
+            busStopRepository.save(busStop);
+
+        } catch (RestClientException e) {
+            log.error("Error updating stop: {}-{}", busStop.getStopId(), busStop.getStopNr(), e);
+        }
+        log.info("Bus stop {} updated.", busStop.getStopId());
     }
 }
+

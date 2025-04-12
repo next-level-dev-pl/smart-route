@@ -13,3 +13,5 @@ databaseChangeLog:
       file: db/changelog/002-modify-column-types-in-bus-stops.yaml
   - include:
       file: db/changelog/003-create-table-bus-line.yaml
+  - include:
+      file: db/changelog/004-create-join-table-bus-stop-lines.yaml
