@@ -61,8 +61,6 @@ class LineImporter {
     public void eachBusStopUpdate(BusStop busStop) {
         log.info("Updating bus stop: {}-{}", busStop.getStopId(), busStop.getStopNr());
 
-        busStopLineRepository.deleteAllByBusStop(busStop);
-
         try {
             var response = umWarsawClient.getBusLineFor(busStop.getStopId(), busStop.getStopNr());
 
