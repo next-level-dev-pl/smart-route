@@ -5,6 +5,8 @@ import java.util.UUID;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import pl.nextleveldev.smart_route.busstop.joinTable.BusStopLineId;
+import pl.nextleveldev.smart_route.busstop.joinTable.BusStopLine;
 
 @Repository
 interface BusStopRepository extends JpaRepository<BusStop, Long> {
@@ -14,7 +16,12 @@ interface BusStopRepository extends JpaRepository<BusStop, Long> {
 }
 
 @Repository
-interface BusLineRepository extends JpaRepository<Line, UUID> {
+interface LineRepository extends JpaRepository<Line, UUID> {
 
-    Optional<Line> findByLineIdentifier(String lineIdentifier);
+    Optional<Line> findByLineIdentifier(String lineId);
+}
+
+@Repository
+interface BusStopLineRepository extends JpaRepository<BusStopLine, BusStopLineId> {
+    void deleteAllByBusStop(BusStop busStop);
 }

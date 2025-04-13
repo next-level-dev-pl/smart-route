@@ -1,4 +1,4 @@
-package pl.nextleveldev.smart_route.model.compositePK;
+package pl.nextleveldev.smart_route.busstop.joinTable;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

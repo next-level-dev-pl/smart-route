@@ -5,12 +5,17 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
-import lombok.Getter;
-import lombok.Setter;
+
+import lombok.*;
+import pl.nextleveldev.smart_route.busstop.joinTable.BusStopLine;
 
 @Entity
+@Table(name = "line")
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Line {
 
     @Id
@@ -19,14 +24,9 @@ public class Line {
 
     private String lineIdentifier;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(
-            name = "bus_stop_line",
-            joinColumns = @JoinColumn(name = "line_id"),
-            inverseJoinColumns = @JoinColumn(name = "bus_stop_id"))
-    private Set<BusStop> busStops = new HashSet<>();
-
-    ;
+    @Builder.Default
+    @OneToMany(mappedBy = "line", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private Set<BusStopLine> busStops = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {

@@ -29,6 +29,8 @@ databaseChangeLog:
             referencedColumnNames: id
             constraintName: fk_bus_stop_line_line
             onDelete: CASCADE
+            deferrable: false
+            initiallyDeferred: false
 
         - addForeignKeyConstraint:
             baseTableName: bus_stop_line
@@ -37,3 +39,5 @@ databaseChangeLog:
             referencedColumnNames: id
             constraintName: fk_bus_stop_line_bus_stop
             onDelete: CASCADE
+            deferrable: false
+            initiallyDeferred: false

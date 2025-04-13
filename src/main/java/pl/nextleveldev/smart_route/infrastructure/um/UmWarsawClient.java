@@ -74,7 +74,7 @@ public class UmWarsawClient {
             throw new BusLineResponseException(
                     "Failed to receive response for stop Id: "
                             + stopId
-                            + "and stop number:"
+                            + " and stop number:"
                             + stopNr,
                     e);
         }
