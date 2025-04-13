@@ -1,13 +1,5 @@
 package pl.nextleveldev.smart_route.busstop;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
-import pl.nextleveldev.smart_route.busstop.joinTable.BusStopLine;
-import pl.nextleveldev.smart_route.infrastructure.um.UmWarsawClient;
-import pl.nextleveldev.smart_route.infrastructure.um.api.BusLineResponseException;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -15,6 +7,13 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
+import pl.nextleveldev.smart_route.busstop.joinTable.BusStopLine;
+import pl.nextleveldev.smart_route.infrastructure.um.UmWarsawClient;
+import pl.nextleveldev.smart_route.infrastructure.um.api.BusLineResponseException;
 
 @Slf4j
 @Service
@@ -67,24 +66,32 @@ class LineImporter {
         try {
             var response = umWarsawClient.getBusLineFor(busStop.getStopId(), busStop.getStopNr());
 
-            response.lines().forEach(line -> {
-                synchronized (processedLines) {
-                    if (!processedLines.contains(line)) {
-                        Optional<Line> byLineIdentifier = lineRepository.findByLineIdentifier(line);
+            response.lines()
+                    .forEach(
+                            line -> {
+                                synchronized (processedLines) {
+                                    if (!processedLines.contains(line)) {
+                                        Optional<Line> byLineIdentifier =
+                                                lineRepository.findByLineIdentifier(line);
 
-                        if (byLineIdentifier.isPresent()) {
-                            busStopLineRepository.save(new BusStopLine(byLineIdentifier.get(), busStop));
-                        } else {
-                            var newLine = lineRepository.save(Line.builder()
-                                    .lineIdentifier(line)
-                                    .build());
-                            busStopLineRepository.save(new BusStopLine(newLine, busStop));
-                        }
+                                        if (byLineIdentifier.isPresent()) {
+                                            busStopLineRepository.save(
+                                                    new BusStopLine(
+                                                            byLineIdentifier.get(), busStop));
+                                        } else {
+                                            var newLine =
+                                                    lineRepository.save(
+                                                            Line.builder()
+                                                                    .lineIdentifier(line)
+                                                                    .build());
+                                            busStopLineRepository.save(
+                                                    new BusStopLine(newLine, busStop));
+                                        }
 
-                        processedLines.add(line);
-                    }
-                }
-            });
+                                        processedLines.add(line);
+                                    }
+                                }
+                            });
         } catch (BusLineResponseException e) {
             log.error("Error updating stop: {}-{}", busStop.getStopId(), busStop.getStopNr());
         }

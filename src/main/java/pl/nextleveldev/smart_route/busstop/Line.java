@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
-
 import lombok.*;
 import pl.nextleveldev.smart_route.busstop.joinTable.BusStopLine;
 
@@ -25,7 +24,11 @@ public class Line {
     private String lineIdentifier;
 
     @Builder.Default
-    @OneToMany(mappedBy = "line", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(
+            mappedBy = "line",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.EAGER)
     private Set<BusStopLine> busStops = new HashSet<>();
 
     @Override

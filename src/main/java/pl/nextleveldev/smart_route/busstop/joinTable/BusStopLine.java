@@ -1,12 +1,11 @@
 package pl.nextleveldev.smart_route.busstop.joinTable;
 
 import jakarta.persistence.*;
+import java.util.Objects;
 import lombok.Getter;
 import lombok.Setter;
 import pl.nextleveldev.smart_route.busstop.BusStop;
 import pl.nextleveldev.smart_route.busstop.Line;
-
-import java.util.Objects;
 
 @Entity
 @Table(name = "bus_stop_line")
@@ -37,7 +36,8 @@ public class BusStopLine {
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof BusStopLine that)) return false;
-        return Objects.equals(getLine(), that.getLine()) && Objects.equals(getBusStop(), that.getBusStop());
+        return Objects.equals(getLine(), that.getLine())
+                && Objects.equals(getBusStop(), that.getBusStop());
     }
 
     @Override

@@ -5,8 +5,8 @@ import java.util.UUID;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import pl.nextleveldev.smart_route.busstop.joinTable.BusStopLineId;
 import pl.nextleveldev.smart_route.busstop.joinTable.BusStopLine;
+import pl.nextleveldev.smart_route.busstop.joinTable.BusStopLineId;
 
 @Repository
 interface BusStopRepository extends JpaRepository<BusStop, Long> {

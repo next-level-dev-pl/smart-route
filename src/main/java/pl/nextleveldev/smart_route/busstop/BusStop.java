@@ -8,7 +8,6 @@ import java.util.Set;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -57,7 +56,11 @@ public class BusStop {
     private LocalDateTime validFrom;
 
     @Builder.Default
-    @OneToMany(mappedBy = "busStop", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(
+            mappedBy = "busStop",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.EAGER)
     private Set<BusStopLine> lines = new HashSet<>();
 
     public BusStop(
@@ -80,7 +83,8 @@ public class BusStop {
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof BusStop busStop)) return false;
-        return Objects.equals(getStopId(), busStop.getStopId()) && Objects.equals(getStopNr(), busStop.getStopNr());
+        return Objects.equals(getStopId(), busStop.getStopId())
+                && Objects.equals(getStopNr(), busStop.getStopNr());
     }
 
     @Override
