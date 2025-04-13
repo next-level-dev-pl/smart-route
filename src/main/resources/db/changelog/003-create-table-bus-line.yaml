@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3-create-table-line
+      author: jkuznik
+      changes:
+        - createTable:
+            tableName: line
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                  defaultValueComputed: gen_random_uuid()
+              - column:
+                  name: line_identifier
+                  type: varchar(16)

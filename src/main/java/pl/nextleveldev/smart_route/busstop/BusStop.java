@@ -1,16 +1,13 @@
 package pl.nextleveldev.smart_route.busstop;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,14 +15,13 @@ import lombok.ToString;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import org.locationtech.jts.geom.Point;
+import pl.nextleveldev.smart_route.busstop.joinTable.BusStopLine;
 
 @Entity
 @Table(name = "bus_stops")
 @Builder
 @Getter
 @Setter
-@EqualsAndHashCode // Worse performance due to the presence of the `location` type
-// 'SqlTypes.GEOMETRY' field. However, it is necessary.
 @ToString(exclude = "location")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -59,6 +55,14 @@ public class BusStop {
     @Column(name = "valid_from") // field 'obowiazuje_od' in UM API response
     private LocalDateTime validFrom;
 
+    @Builder.Default
+    @OneToMany(
+            mappedBy = "busStop",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.EAGER)
+    private Set<BusStopLine> lines = new HashSet<>();
+
     public BusStop(
             String stopId,
             String stopNr,
@@ -74,5 +78,17 @@ public class BusStop {
         this.location = location;
         this.direction = direction;
         this.validFrom = validFrom;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof BusStop busStop)) return false;
+        return Objects.equals(getStopId(), busStop.getStopId())
+                && Objects.equals(getStopNr(), busStop.getStopNr());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getStopId(), getStopNr());
     }
 }

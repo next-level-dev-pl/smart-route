@@ -1,0 +1,43 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4-create-bus-stop-line-join-table
+      author: jkuznik
+      changes:
+        - createTable:
+            tableName: bus_stop_line
+            columns:
+              - column:
+                  name: line_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: bus_stop_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+
+        - addPrimaryKey:
+            tableName: bus_stop_line
+            columnNames: line_id, bus_stop_id
+            constraintName: pk_bus_stop_line
+
+        - addForeignKeyConstraint:
+            baseTableName: bus_stop_line
+            baseColumnNames: line_id
+            referencedTableName: line
+            referencedColumnNames: id
+            constraintName: fk_bus_stop_line_line
+            onDelete: CASCADE
+            deferrable: false
+            initiallyDeferred: false
+
+        - addForeignKeyConstraint:
+            baseTableName: bus_stop_line
+            baseColumnNames: bus_stop_id
+            referencedTableName: bus_stops
+            referencedColumnNames: id
+            constraintName: fk_bus_stop_line_bus_stop
+            onDelete: CASCADE
+            deferrable: false
+            initiallyDeferred: false
